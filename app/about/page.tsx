@@ -1,13 +1,13 @@
 import NavBar from "@/components/NavBar";
 
-export default function Home() {
+export default function About() {
 	return (
 		<div>
 			<main>
 				<NavBar />
-				<h1>Welkom</h1>
+				<h1>Over mij</h1>
 				<h2>
-					Dit is de portofolio website van <span>Dewi</span>.
+					In dit gedeelte vertel ik meer over <span>mij</span>.
 				</h2>
 			</main>
 		</div>

@@ -5,10 +5,7 @@ export default function Home() {
 		<div>
 			<main>
 				<NavBar />
-				<h1>Welkom</h1>
-				<h2>
-					Dit is de portofolio website van <span>Dewi</span>.
-				</h2>
+				<h1>Contact</h1>
 			</main>
 		</div>
 	);
