@@ -154,6 +154,7 @@ A personal portfolio website to showcase my work, skills, and professional backg
   - A list of your skills, categorized by type (e.g., **Frontend**, **Backend**, **Tools**).
 - **Skill Meter:**
   - Use the `SkillMeter.tsx` component to visually represent your proficiency in each skill (e.g., a progress bar for JavaScript: 90%).
+  - explore visx for dataviz components
 - **Call-to-Action:**
   - Encourage visitors to learn more about your experience (e.g., "Interested in how I’ve applied these skills? Check out my projects!").
 

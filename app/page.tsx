@@ -1,15 +1,10 @@
-import NavBar from "@/components/NavBar";
-
 export default function Home() {
 	return (
 		<div>
-			<main>
-				<NavBar />
-				<h1>Welkom</h1>
-				<h2>
-					Dit is de portofolio website van <span>Dewi</span>.
-				</h2>
-			</main>
+			<h1>Welkom</h1>
+			<h2>
+				Dit is de portofolio website van <span>Dewi</span>.
+			</h2>
 		</div>
 	);
 }
