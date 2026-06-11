@@ -1,12 +1,7 @@
-import NavBar from "@/components/NavBar";
-
-export default function Home() {
+export default function Contact() {
 	return (
 		<div>
-			<main>
-				<NavBar />
-				<h1>Contact</h1>
-			</main>
+			<h1>Contact</h1>
 		</div>
 	);
 }

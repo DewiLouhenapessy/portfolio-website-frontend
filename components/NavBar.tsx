@@ -15,7 +15,7 @@ const NavItem = ({ text, href }: NavItemProps) => {
 
 const NavBar = () => {
 	return (
-		<nav className="bg-gradient-to-br from-custom-blue to-custom-pink rounded-2xl text-justify mb-1 flex justify-around flex-wrap items-center">
+		<nav className="bg-linear-to-br from-custom-blue to-custom-pink rounded-2xl text-justify mb-1 flex justify-around flex-wrap items-center">
 			<NavItem href="/" text="Home" />
 			<NavItem href="/about" text="About Me" />
 			<NavItem href="/projects" text="Projects" />
