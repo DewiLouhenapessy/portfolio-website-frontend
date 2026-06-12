@@ -1,6 +1,6 @@
 const Footer = () => {
 	return (
-		<footer className="bg-linear-to-br from-custom-blue to-custom-pink rounded-2xl text-justify flex justify-around bottom-0">
+		<footer className="bg-gradient-theme rounded-t-xl dark:rounded-t-xs text-justify flex justify-around gap-4 px-4 py-3 bottom-0 mt-8">
 			<a href="https://www.linkedin.com/in/dewi-louhenapessy-8b0894146/">
 				LinkedIn
 			</a>
