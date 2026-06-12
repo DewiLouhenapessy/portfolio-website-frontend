@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
@@ -40,9 +41,11 @@ export default function RootLayout({
 			)}
 		>
 			<body className="min-h-full flex flex-col">
-				<NavBar />
-				{children}
-				<Footer />
+				<ThemeProvider>
+					<NavBar />
+					{children}
+					<Footer />
+				</ThemeProvider>
 			</body>
 		</html>
 	);
