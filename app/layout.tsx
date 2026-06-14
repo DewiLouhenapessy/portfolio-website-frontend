@@ -40,10 +40,10 @@ export default function RootLayout({
 				inter.variable,
 			)}
 		>
-			<body className="min-h-full flex flex-col">
+			<body className="min-h-full flex flex-col justify-between">
 				<ThemeProvider>
 					<NavBar />
-					{children}
+					<div className="p-4">{children}</div>
 					<Footer />
 				</ThemeProvider>
 			</body>
