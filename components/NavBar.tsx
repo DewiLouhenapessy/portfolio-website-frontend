@@ -14,7 +14,7 @@ interface NavItemProps {
 const NavItem = ({ text, href, onClick }: NavItemProps) => {
 	return (
 		<Link
-			className="text-2xl md:text-base hover:underline"
+			className="text-2xl text-foreground md:text-base hover:text-accent transition-colors"
 			href={href}
 			onClick={onClick}
 		>
@@ -32,11 +32,6 @@ const navItems = [
 	{ href: "/contact", text: "Contact" },
 ];
 
-// nog herschrijven:
-// - uitlijning navitems vanaf md klopt niet meer
-// - in mobile themetoggle buiten menu plaatsen
-// - misschien twee aparte html maken en return ternary statement die twee functies kan returnen
-
 const NavBar = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -46,25 +41,31 @@ const NavBar = () => {
 	return (
 		<nav className="bg-gradient-theme rounded-b-xl dark:rounded-b-xs mb-8 px-4 py-3">
 			<div className="flex items-center justify-between gap-4">
-				<div className="hidden gap-4 md:flex items-center justify-between">
-					{navItems.map((item) => (
-						<NavItem key={item.href} href={item.href} text={item.text} />
-					))}
+				<div className="gap-4">
+					<Link className="text-2xl font-semibold md:text-3xl" href="/">
+						DL
+					</Link>
+				</div>
+				<div className="md:flex justify-between gap-4">
+					<div className="hidden items-center justify-between gap-8 md:flex">
+						{navItems.map((item) => (
+							<NavItem key={item.href} href={item.href} text={item.text} />
+						))}
+					</div>
+
+					<button
+						className="inline-flex items-center justify-center rounded-lg border border-border bg-background/10 p-2 text-foreground transition hover:bg-background/20 mr-2 md:hidden"
+						onClick={toggleMobile}
+						aria-expanded={mobileOpen}
+						aria-label={mobileOpen ? "Close menu" : "Open menu"}
+					>
+						{mobileOpen ? <X size={20} /> : <Menu size={20} />}
+					</button>
 					<ThemeToggle />
 				</div>
-
-				<button
-					className="inline-flex items-center justify-center rounded-lg border border-white/15 bg-white/10 p-2 text-white transition hover:bg-white/20 md:hidden"
-					onClick={toggleMobile}
-					aria-expanded={mobileOpen}
-					aria-label={mobileOpen ? "Close menu" : "Open menu"}
-				>
-					{mobileOpen ? <X size={20} /> : <Menu size={20} />}
-				</button>
 			</div>
-
-			{/* {mobileOpen ? (
-				<div className="mt-4 flex flex-col gap-3 rounded-2xl border border-white/10 bg-background/95 p-4 shadow-lg backdrop-blur-md md:hidden">
+			{mobileOpen ? (
+				<div className="mt-4 flex flex-col items-end gap-3 rounded-2xl border border-white/10 bg-background/95 p-4 shadow-lg backdrop-blur-md md:hidden">
 					{navItems.map((item) => (
 						<NavItem
 							key={item.href}
@@ -73,9 +74,8 @@ const NavBar = () => {
 							onClick={closeMobile}
 						/>
 					))}
-					<ThemeToggle />
 				</div>
-			) : null} */}
+			) : null}
 		</nav>
 	);
 };
