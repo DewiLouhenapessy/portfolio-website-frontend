@@ -10,7 +10,7 @@ const Footer = () => {
 	const FooterItem = ({ text, href, onClick }: FooterItemProps) => {
 		return (
 			<Link
-				className="text-l text-foreground hover:text-accent transition-colors"
+				className="text-l text-foreground transition hover:-translate-x-0.5"
 				href={href}
 				onClick={onClick}
 			>
