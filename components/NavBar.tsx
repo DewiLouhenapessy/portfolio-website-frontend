@@ -14,7 +14,7 @@ interface NavItemProps {
 const NavItem = ({ text, href, onClick }: NavItemProps) => {
 	return (
 		<Link
-			className="text-xl text-foreground md:text-2xlhover:text-accent transition-colors"
+			className="text-xl text-foreground transition hover:-translate-x-1"
 			href={href}
 			onClick={onClick}
 		>

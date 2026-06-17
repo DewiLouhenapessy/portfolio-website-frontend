@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import {
+	Geist,
+	Geist_Mono,
+	Inter,
+	Silkscreen,
+	Fira_Code,
+} from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -7,6 +13,18 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+
+const silkscreen = Silkscreen({
+	subsets: ["latin"],
+	weight: ["400", "700"],
+	variable: "--font-silkscreen",
+});
+
+const firaCode = Fira_Code({
+	subsets: ["latin"],
+	weight: ["400", "700"],
+	variable: "--font-fira-code",
+});
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -36,6 +54,8 @@ export default function RootLayout({
 				"antialiased",
 				geistSans.variable,
 				geistMono.variable,
+				silkscreen.variable,
+				firaCode.variable,
 				"font-sans",
 				inter.variable,
 			)}
