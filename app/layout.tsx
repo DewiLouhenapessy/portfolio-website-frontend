@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {
 	Geist,
 	Geist_Mono,
-	Inter,
+	Nunito,
 	Silkscreen,
 	Fira_Code,
 } from "next/font/google";
@@ -12,7 +12,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const nunito = Nunito({ subsets: ["latin"], variable: "--font-sans" });
 
 const silkscreen = Silkscreen({
 	subsets: ["latin"],
@@ -57,13 +57,17 @@ export default function RootLayout({
 				silkscreen.variable,
 				firaCode.variable,
 				"font-sans",
-				inter.variable,
+				nunito.variable,
 			)}
 		>
-			<body className="min-h-full flex flex-col justify-between">
+			<body className="min-h-screen flex flex-col">
 				<ThemeProvider>
 					<NavBar />
-					<div className="p-4">{children}</div>
+					<main className="flex-1 px-4 py-8">
+						<div className="mx-auto max-w-6xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg shadow-black/5">
+							{children}
+						</div>
+					</main>
 					<Footer />
 				</ThemeProvider>
 			</body>
