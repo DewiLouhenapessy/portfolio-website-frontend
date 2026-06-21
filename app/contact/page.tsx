@@ -1,7 +1,16 @@
+"use client";
+
+import { useLanguage } from "@/components/LanguageProvider";
+import { pageContent } from "@/lib/i18n";
+
 export default function Contact() {
+	const { locale } = useLanguage();
+	const content = pageContent.contact;
+
 	return (
 		<div>
-			<h1>Contact</h1>
+			<h1>{content.heading[locale]}</h1>
+			<p>{content.details[locale]}</p>
 		</div>
 	);
 }

@@ -4,12 +4,27 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
+import { useLanguage } from "./LanguageProvider";
+import { navLabels } from "@/lib/i18n";
 
 interface NavItemProps {
 	text: string;
 	href: string;
 	onClick?: () => void;
 }
+interface NavLink {
+	href: string;
+	label: keyof typeof navLabels;
+}
+const navItems: NavLink[] = [
+	{ href: "/", label: "home" },
+	{ href: "/about", label: "about" },
+	{ href: "/projects", label: "projects" },
+	{ href: "/skills", label: "skills" },
+	{ href: "/quiz", label: "quiz" },
+	{ href: "/contact", label: "contact" },
+];
 
 const NavItem = ({ text, href, onClick }: NavItemProps) => {
 	return (
@@ -23,17 +38,9 @@ const NavItem = ({ text, href, onClick }: NavItemProps) => {
 	);
 };
 
-const navItems = [
-	{ href: "/", text: "Home" },
-	{ href: "/about", text: "About Me" },
-	{ href: "/projects", text: "Projects" },
-	{ href: "/skills", text: "Skills" },
-	{ href: "/quiz", text: "Quiz" },
-	{ href: "/contact", text: "Contact" },
-];
-
 const NavBar = () => {
 	const [mobileOpen, setMobileOpen] = useState(false);
+	const { locale } = useLanguage();
 
 	const toggleMobile = () => setMobileOpen((state) => !state);
 	const closeMobile = () => setMobileOpen(false);
@@ -49,7 +56,11 @@ const NavBar = () => {
 				<div className="md:flex justify-between gap-4">
 					<div className="hidden items-center justify-between gap-8 md:flex">
 						{navItems.map((item) => (
-							<NavItem key={item.href} href={item.href} text={item.text} />
+							<NavItem
+								key={item.href}
+								href={item.href}
+								text={navLabels[item.label][locale]}
+							/>
 						))}
 					</div>
 
@@ -61,6 +72,7 @@ const NavBar = () => {
 					>
 						{mobileOpen ? <X size={20} /> : <Menu size={20} />}
 					</button>
+					<LanguageToggle />
 					<ThemeToggle />
 				</div>
 			</div>
@@ -70,7 +82,7 @@ const NavBar = () => {
 						<NavItem
 							key={item.href}
 							href={item.href}
-							text={item.text}
+							text={navLabels[item.label][locale]}
 							onClick={closeMobile}
 						/>
 					))}

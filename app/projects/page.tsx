@@ -1,7 +1,16 @@
+"use client";
+
+import { useLanguage } from "@/components/LanguageProvider";
+import { pageContent } from "@/lib/i18n";
+
 export default function Projects() {
+	const { locale } = useLanguage();
+	const content = pageContent.projects;
+
 	return (
 		<div>
-			<h1>Projects</h1>
+			<h1>{content.heading[locale]}</h1>
+			<p>{content.description[locale]}</p>
 		</div>
 	);
 }

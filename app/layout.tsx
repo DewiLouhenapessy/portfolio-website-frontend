@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import {
 	Geist,
 	Geist_Mono,
@@ -9,6 +10,7 @@ import {
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
@@ -41,14 +43,18 @@ export const metadata: Metadata = {
 	description: "About Dewi Louhenapessy",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
+	const headersList = await headers();
+	const host = headersList.get("host") ?? "";
+	const htmlLang = host.endsWith(".com") ? "en" : "nl";
+
 	return (
 		<html
-			lang="en"
+			lang={htmlLang}
 			className={cn(
 				"h-full",
 				"antialiased",
@@ -61,15 +67,15 @@ export default function RootLayout({
 			)}
 		>
 			<body className="min-h-screen flex flex-col">
-				<ThemeProvider>
-					<NavBar />
-					<main className="flex-1 px-4 py-8">
-						<div className="mx-auto max-w-6xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-lg shadow-black/5">
-							{children}
-						</div>
-					</main>
-					<Footer />
-				</ThemeProvider>
+				<LanguageProvider>
+					<ThemeProvider>
+						<NavBar />
+						<main className="flex-1 px-8 py-4">
+							<div className="px-4">{children}</div>
+						</main>
+						<Footer />
+					</ThemeProvider>
+				</LanguageProvider>
 			</body>
 		</html>
 	);

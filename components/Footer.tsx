@@ -1,6 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import { useLanguage } from "./LanguageProvider";
+import { footerLabels } from "@/lib/i18n";
 
 const Footer = () => {
+	const { locale } = useLanguage();
+
 	interface FooterItemProps {
 		text: string;
 		href: string;
@@ -19,19 +25,26 @@ const Footer = () => {
 		);
 	};
 
-	const footerItems = [
+	const footerItems: Array<{
+		href: string;
+		label: keyof typeof footerLabels;
+	}> = [
 		{
 			href: "https://www.linkedin.com/in/dewi-louhenapessy-8b0894146/",
-			text: "LinkedIn",
+			label: "linkedin",
 		},
-		{ href: "https://github.com/DewiLouhenapessy", text: "Github" },
-		{ href: "mailto:dewilouhenapessy@gmail.com", text: "Email" },
+		{ href: "https://github.com/DewiLouhenapessy", label: "github" },
+		{ href: "mailto:dewilouhenapessy@gmail.com", label: "email" },
 	];
 
 	return (
 		<footer className="bg-gradient-theme rounded-t-xl dark:rounded-t-xs text-justify flex flex-col items-center justify-around gap-3 px-4 py-3 bottom-0 mt-8 md:flex-row">
 			{footerItems.map((item) => (
-				<FooterItem key={item.href} href={item.href} text={item.text} />
+				<FooterItem
+					key={item.href}
+					href={item.href}
+					text={footerLabels[item.label][locale]}
+				/>
 			))}
 		</footer>
 	);
