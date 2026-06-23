@@ -6,6 +6,7 @@ import {
 	Nunito,
 	Silkscreen,
 	Fira_Code,
+	Raleway,
 } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,12 @@ import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-sans" });
+
+const raleway = Raleway({
+	subsets: ["latin"],
+	weight: ["400", "700"],
+	variable: "--font-raleway",
+});
 
 const silkscreen = Silkscreen({
 	subsets: ["latin"],
@@ -62,6 +69,7 @@ export default async function RootLayout({
 				geistMono.variable,
 				silkscreen.variable,
 				firaCode.variable,
+				raleway.variable,
 				"font-sans",
 				nunito.variable,
 			)}
