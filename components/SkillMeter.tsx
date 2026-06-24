@@ -9,6 +9,7 @@ import type { Skill } from "@/lib/skills";
 
 interface SkillMeterProps {
 	skills: Skill[];
+	graphType: "horizontal" | "vertical" | "radial";
 	categoryColor: string;
 	width?: number;
 	height?: number;
@@ -17,6 +18,7 @@ interface SkillMeterProps {
 export function SkillMeter({
 	skills,
 	categoryColor,
+	graphType,
 	width = 800,
 	height = 400,
 }: SkillMeterProps) {
