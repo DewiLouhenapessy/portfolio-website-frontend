@@ -13,7 +13,11 @@ export default function Skills() {
 	const { locale } = useLanguage();
 	const content = pageContent.skills;
 
-	const categories = ["technology", "language", "sport", "hobby"] as const;
+	const visualisations = [
+		{ category: "technology", graphType: "horizontal" },
+		{ category: "language", graphType: "vertical" },
+		{ category: "interests", graphType: "radial" },
+	] as const;
 
 	return (
 		<div className="space-y-12">
@@ -22,22 +26,20 @@ export default function Skills() {
 				<p className="text-muted-foreground">{content.description[locale]}</p>
 			</div>
 
-			{categories.map((category) => {
-				const skills = getSkillsByCategory(category);
-				const categoryLabel = categoryLabels[category][locale];
-				const categoryColor = categoryColors[category];
+			{visualisations.map((vis) => {
+				const skills = getSkillsByCategory(vis.category);
+				const categoryLabel = categoryLabels[vis.category][locale];
+				const categoryColor = categoryColors[vis.category];
+				const graphTypes = graphTypes[vis.graphType];
 
 				return (
-					<section key={category} className="space-y-4">
+					<section key={vis.category} className="space-y-4">
 						<div>
 							<h2 className="text-2xl font-bold">{categoryLabel}</h2>
-							<p className="text-sm text-muted-foreground">
-								{skills.length}{" "}
-								{locale === "nl" ? "vaardigheden" : "skills"}
-							</p>
 						</div>
 						<SkillMeter
 							skills={skills}
+							graphType={graphTypes}
 							categoryColor={categoryColor}
 							width={900}
 							height={Math.max(300, skills.length * 35 + 100)}

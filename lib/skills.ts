@@ -1,11 +1,11 @@
 export interface Skill {
 	name: string;
 	level: number; // 0-100
-	category: "technology" | "language" | "sport" | "hobby";
+	category: "technology" | "language" | "interests";
 }
 
 export const skillsData: Skill[] = [
-	// Technologies
+	// Technologies --> huidige bar graph
 	{ name: "JavaScript", level: 90, category: "technology" },
 	{ name: "TypeScript", level: 85, category: "technology" },
 	{ name: "React", level: 88, category: "technology" },
@@ -19,38 +19,42 @@ export const skillsData: Skill[] = [
 	{ name: "SQL", level: 78, category: "technology" },
 	{ name: "Git", level: 85, category: "technology" },
 
-	// Languages
+	// Languages --> bar graph met op de y as fluent (100), good (75), sufficient (50), basic (25)
 	{ name: "Nederlands", level: 100, category: "language" },
-	{ name: "Engels", level: 90, category: "language" },
-	{ name: "Duits", level: 70, category: "language" },
-	{ name: "Frans", level: 60, category: "language" },
+	{ name: "Engels", level: 95, category: "language" },
+	{ name: "Frans", level: 70, category: "language" },
+	{ name: "Italiaans", level: 65, category: "language" },
+	{ name: "Duits", level: 60, category: "language" },
+	{ name: "Indonesisch", level: 40, category: "language" },
+	{ name: "Spaans", level: 30, category: "language" },
+	{ name: "Portugees", level: 30, category: "language" },
 
-	// Sports
-	{ name: "Voetbal", level: 75, category: "sport" },
-	{ name: "Hardlopen", level: 80, category: "sport" },
-	{ name: "Zwemmen", level: 85, category: "sport" },
-	{ name: "Fitness", level: 82, category: "sport" },
-
-	// Hobbies
-	{ name: "Programmeren", level: 95, category: "hobby" },
-	{ name: "Gaming", level: 85, category: "hobby" },
-	{ name: "Lezen", level: 80, category: "hobby" },
-	{ name: "Fotografie", level: 75, category: "hobby" },
-	{ name: "Muziek", level: 70, category: "hobby" },
+	// Sports & Hobbies --> radial bar with zoom
+	{ name: "Yoga", level: 75, category: "interests" },
+	{ name: "Pilates", level: 80, category: "interests" },
+	{ name: "Wandelen", level: 85, category: "interests" },
+	{ name: "Fietsen", level: 82, category: "interests" },
+	{ name: "Boulderen", level: 82, category: "interests" },
+	{ name: "Hardlopen", level: 82, category: "interests" },
+	{ name: "Muziek luisteren", level: 95, category: "interests" },
+	{ name: "Muziek maken", level: 95, category: "interests" },
+	{ name: "Zingen", level: 95, category: "interests" },
+	{ name: "Programmeren", level: 85, category: "interests" },
+	{ name: "Naaien", level: 80, category: "interests" },
+	{ name: "Lezen", level: 75, category: "interests" },
+	{ name: "Comedy/Humor", level: 70, category: "interests" },
 ];
 
 export const categoryLabels = {
 	technology: { nl: "Technologieën", en: "Technologies" },
 	language: { nl: "Talen", en: "Languages" },
-	sport: { nl: "Sporten", en: "Sports" },
-	hobby: { nl: "Hobby's", en: "Hobbies" },
+	interests: { nl: "Sporten & Hobby's", en: "Sports & Hobbies" },
 };
 
 export const categoryColors = {
 	technology: "#3b82f6", // blue
 	language: "#10b981", // emerald
-	sport: "#f59e0b", // amber
-	hobby: "#8b5cf6", // violet
+	interests: "#f59e0b", // amber
 };
 
 export function getSkillsByCategory(category: Skill["category"]): Skill[] {
