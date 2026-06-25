@@ -1,6 +1,5 @@
 "use client";
 
-import { locales } from "@/lib/i18n";
 import { useLanguage } from "@/components/LanguageProvider";
 
 export function LanguageToggle() {
@@ -29,20 +28,18 @@ export function LanguageToggle() {
 
 	return (
 		<div className="flex items-center gap-2">
-			{locales.map((loc) => (
-				<button
-					key={loc}
-					onClick={() => switchLocale(loc)}
-					className={`rounded-full px-3 py-1 text-sm font-semibold transition ${
-						locale === loc
-							? "border border-border bg-background/20 text-foreground"
-							: "border border-border/40 bg-transparent text-muted"
-					}`}
-					aria-current={locale === loc ? "page" : undefined}
-				>
-					{loc.toUpperCase()}
-				</button>
-			))}
+			{(() => {
+				const other = locale === "en" ? "nl" : "en";
+				return (
+					<button
+						onClick={() => switchLocale(other)}
+						className="rounded-full px-3 py-1 text-sm font-semibold transition border border-border/40 bg-transparent text-muted"
+						aria-label={`Switch language to ${other.toUpperCase()}`}
+					>
+						{other.toUpperCase()}
+					</button>
+				);
+			})()}
 		</div>
 	);
 }
