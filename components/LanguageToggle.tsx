@@ -33,7 +33,7 @@ export function LanguageToggle() {
 				return (
 					<button
 						onClick={() => switchLocale(other)}
-						className="rounded-full px-3 py-1 text-sm font-semibold transition border border-border/40 bg-transparent text-muted"
+						className="rounded-lg p-2 text-sm transition-colors border border-border/50 md:border-none bg-background/10 hover:bg-background/20"
 						aria-label={`Switch language to ${other.toUpperCase()}`}
 					>
 						{other.toUpperCase()}

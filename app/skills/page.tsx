@@ -30,7 +30,7 @@ export default function Skills() {
 				const skills = getSkillsByCategory(vis.category);
 				const categoryLabel = categoryLabels[vis.category][locale];
 				const categoryColor = categoryColors[vis.category];
-				const graphTypes = graphTypes[vis.graphType];
+				// const graphTypes = graphTypes[vis.graphType];
 
 				return (
 					<section key={vis.category} className="space-y-4">
@@ -39,7 +39,7 @@ export default function Skills() {
 						</div>
 						<SkillMeter
 							skills={skills}
-							graphType={graphTypes}
+							// graphType={graphTypes}
 							categoryColor={categoryColor}
 							width={900}
 							height={Math.max(300, skills.length * 35 + 100)}

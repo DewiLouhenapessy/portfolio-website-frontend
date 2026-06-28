@@ -1,6 +1,8 @@
 "use client";
 
 import { useLanguage } from "@/components/LanguageProvider";
+import { AnimatedText } from "@/components/AnimatedText";
+import { TypewriterText } from "@/components/TypewriterText";
 import { pageContent } from "@/lib/i18n";
 
 export default function Home() {
@@ -9,8 +11,18 @@ export default function Home() {
 
 	return (
 		<div>
-			<h1>{content.title[locale]}</h1>
-			<h2>{content.subtitle[locale]}</h2>
+			<AnimatedText
+				as="h1"
+				text={content.title[locale]}
+				className="text-8xl mb-12"
+				delay={0}
+			/>
+			<TypewriterText
+				text={content.subtitle[locale]}
+				className="ml-4"
+				delay={0.5}
+				speed={0.1}
+			/>
 		</div>
 	);
 }
