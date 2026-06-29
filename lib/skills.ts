@@ -6,18 +6,18 @@ export interface Skill {
 
 export const skillsData: Skill[] = [
 	// Technologies --> huidige bar graph
-	{ name: "JavaScript", level: 90, category: "technology" },
-	{ name: "TypeScript", level: 85, category: "technology" },
-	{ name: "React", level: 88, category: "technology" },
-	{ name: "Vue", level: 80, category: "technology" },
+	{ name: "JavaScript", level: 70, category: "technology" },
+	{ name: "TypeScript", level: 80, category: "technology" },
+	{ name: "React", level: 90, category: "technology" },
+	{ name: "Vue", level: 75, category: "technology" },
 	{ name: "HTML", level: 95, category: "technology" },
-	{ name: "CSS", level: 92, category: "technology" },
-	{ name: "Tailwind", level: 90, category: "technology" },
-	{ name: "Next.js", level: 85, category: "technology" },
-	{ name: "PHP", level: 75, category: "technology" },
-	{ name: "Node.js", level: 80, category: "technology" },
-	{ name: "SQL", level: 78, category: "technology" },
-	{ name: "Git", level: 85, category: "technology" },
+	{ name: "CSS", level: 65, category: "technology" },
+	{ name: "Tailwind", level: 75, category: "technology" },
+	{ name: "Next.js", level: 60, category: "technology" },
+	{ name: "PHP", level: 90, category: "technology" },
+	{ name: "Node.js", level: 55, category: "technology" },
+	{ name: "SQL", level: 90, category: "technology" },
+	{ name: "Git", level: 50, category: "technology" },
 
 	// Languages --> bar graph met op de y as fluent (100), good (75), sufficient (50), basic (25)
 	{ name: "Nederlands", level: 100, category: "language" },
@@ -29,7 +29,7 @@ export const skillsData: Skill[] = [
 	{ name: "Spaans", level: 30, category: "language" },
 	{ name: "Portugees", level: 30, category: "language" },
 
-	// Sports & Hobbies --> radial bar with zoom
+	// Interests --> radial bar with zoom
 	{ name: "Yoga", level: 75, category: "interests" },
 	{ name: "Pilates", level: 80, category: "interests" },
 	{ name: "Wandelen", level: 85, category: "interests" },
@@ -48,13 +48,13 @@ export const skillsData: Skill[] = [
 export const categoryLabels = {
 	technology: { nl: "Technologieën", en: "Technologies" },
 	language: { nl: "Talen", en: "Languages" },
-	interests: { nl: "Sporten & Hobby's", en: "Sports & Hobbies" },
+	interests: { nl: "Interesses", en: "Interests" },
 };
 
 export const categoryColors = {
-	technology: "#3b82f6", // blue
-	language: "#10b981", // emerald
-	interests: "#f59e0b", // amber
+	technology: "var(--skill-technology)",
+	language: "var(--skill-language)",
+	interests: "var(--skill-interests)",
 };
 
 export function getSkillsByCategory(category: Skill["category"]): Skill[] {

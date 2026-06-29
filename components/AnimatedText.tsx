@@ -65,7 +65,7 @@ export const AnimatedText = forwardRef<HTMLElement, AnimatedTextProps>(
 				x: 0,
 				transition: {
 					duration: 0.5,
-					ease: "easeIn",
+					ease: "easeIn" as const,
 				},
 			},
 		};

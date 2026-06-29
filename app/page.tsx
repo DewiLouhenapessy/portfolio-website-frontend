@@ -16,12 +16,13 @@ export default function Home() {
 				text={content.title[locale]}
 				className="text-8xl mb-12"
 				delay={0}
+				duration={0.3}
 			/>
 			<TypewriterText
 				text={content.subtitle[locale]}
 				className="ml-4"
-				delay={0.5}
-				speed={0.1}
+				delay={2.4}
+				speed={0.05}
 			/>
 		</div>
 	);
