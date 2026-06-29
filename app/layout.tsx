@@ -69,9 +69,9 @@ export default async function RootLayout({
 				geistMono.variable,
 				silkscreen.variable,
 				firaCode.variable,
+				nunito.variable,
 				raleway.variable,
 				"font-sans",
-				nunito.variable,
 			)}
 		>
 			<body className="min-h-screen flex flex-col">
