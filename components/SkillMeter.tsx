@@ -2,16 +2,17 @@
 
 import { useMemo } from "react";
 import { Group } from "@visx/group";
-import { AxisBottom } from "@visx/axis";
+import { AxisBottom, AxisLeft } from "@visx/axis";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { useTheme } from "@/components/ThemeProvider";
 import type { Skill } from "@/lib/skills";
 
-type SkillGraphType = "horizontal" | "radar" | "radial-bar";
+type SkillGraphType = "vertical" | "radar" | "radial-bar";
 
 interface SkillMeterProps {
 	skills: Skill[];
 	graphType?: SkillGraphType;
+	sortType?: "original" | "alphabetical";
 	categoryColor: string;
 	width?: number;
 	height?: number;
@@ -27,12 +28,13 @@ function polarToCartesian(angle: number, radius: number) {
 export function SkillMeter({
 	skills,
 	categoryColor,
-	graphType = "horizontal",
+	graphType = "vertical",
+	sortType = "original",
 	width = 800,
 	height = 400,
 }: SkillMeterProps) {
 	const { theme } = useTheme();
-	const margin = { top: 20, right: 30, bottom: 30, left: 150 };
+	const margin = { top: 30, right: 30, bottom: 30, left: 150 };
 	const innerWidth = width - margin.left - margin.right;
 	const innerHeight = height - margin.top - margin.bottom;
 
@@ -43,23 +45,23 @@ export function SkillMeter({
 	// Scales
 	const xScale = useMemo(
 		() =>
-			scaleLinear<number>({
-				domain: [0, 100],
+			scaleBand<string>({
+				domain: skills.map((s) => s.name),
 				range: [0, xMax],
 				round: true,
+				padding: 0.2,
 			}),
-		[xMax],
+		[skills, xMax],
 	);
 
 	const yScale = useMemo(
 		() =>
-			scaleBand<string>({
-				domain: skills.map((s) => s.name),
+			scaleLinear<number>({
+				domain: [0, 100],
 				range: [0, yMax],
 				round: true,
-				padding: 0.2,
 			}),
-		[skills, yMax],
+		[yMax],
 	);
 
 	const radius = Math.min(xMax, yMax) / 2;
@@ -81,19 +83,29 @@ export function SkillMeter({
 		[skills, radiusScale],
 	);
 
+	// Sort skills based on sortType and graphType
+	const sortedSkills = useMemo(() => {
+		const shouldSort =
+			graphType === "radial-bar" && sortType === "alphabetical";
+		if (shouldSort) {
+			return [...skills].sort((a, b) => a.name.localeCompare(b.name));
+		}
+		return skills;
+	}, [skills, graphType, sortType]);
+
 	return (
 		<div className="w-full overflow-x-auto rounded-lg border border-border bg-card p-4">
-			<svg width={width} height={height} className="mx-auto">
-				{graphType === "horizontal" ? (
+			<svg width={width} height={height * 2} className="mx-auto">
+				{graphType === "vertical" ? (
 					<Group left={margin.left} top={margin.top}>
 						{/* Grid lines */}
 						{[0, 25, 50, 75, 100].map((value) => (
 							<line
 								key={`grid-${value}`}
-								x1={xScale(value)}
-								x2={xScale(value)}
-								y1={0}
-								y2={yMax}
+								x1={0}
+								x2={xMax}
+								y1={yScale(value)}
+								y2={yScale(value)}
 								stroke="currentColor"
 								strokeOpacity={0.1}
 								strokeDasharray="4"
@@ -102,19 +114,19 @@ export function SkillMeter({
 
 						{/* Bars */}
 						{skills.map((skill) => {
-							const barHeight = yScale.bandwidth();
-							const barY = yScale(skill.name);
-							const barWidth = xScale(skill.level);
+							const barHeight = yScale(skill.level);
+							const barX = xScale(skill.name);
+							const barWidth = xScale.bandwidth();
 
-							if (barY === undefined) return null;
+							if (barX === undefined) return null;
 
 							return (
 								<g key={`skill-${skill.name}`}>
 									{/* Bar background */}
 									<rect
-										x={0}
-										y={barY}
-										width={xMax}
+										x={barX}
+										y={yMax - barHeight}
+										width={barWidth}
 										height={barHeight}
 										fill="currentColor"
 										fillOpacity={0.05}
@@ -122,40 +134,29 @@ export function SkillMeter({
 									/>
 									{/* Bar fill */}
 									<rect
-										x={0}
-										y={barY}
+										x={barX}
+										y={yMax - barHeight}
 										width={barWidth}
 										height={barHeight}
 										rx={4}
 										className="transition-all duration-300 hover:opacity-80"
 										style={{ fill: categoryColor, fillOpacity }}
 									/>
-									{/* Level text */}
-									<text
-										x={barWidth + 8}
-										y={barY + barHeight / 2}
-										dy="0.25em"
-										fontSize={12}
-										fill="currentColor"
-										className="font-semibold"
-									>
-										{skill.level}%
-									</text>
 								</g>
 							);
 						})}
 
 						{/* Y-axis labels */}
 						{skills.map((skill) => {
-							const barY = yScale(skill.name);
-							if (barY === undefined) return null;
+							const barX = xScale(skill.name);
+							if (barX === undefined) return null;
 
 							return (
 								<text
 									key={`label-${skill.name}`}
-									x={-10}
-									y={barY + yScale.bandwidth() / 2}
-									dy="0.25em"
+									x={barX + xScale.bandwidth() / 2}
+									y={yMax + 25}
+									dx="0.5em"
 									textAnchor="end"
 									fontSize={13}
 									fill="currentColor"
@@ -167,9 +168,9 @@ export function SkillMeter({
 						})}
 
 						{/* X-axis */}
-						<AxisBottom
-							top={yMax}
-							scale={xScale}
+						<AxisLeft
+							top={0}
+							scale={yScale}
 							stroke="currentColor"
 							tickStroke="currentColor"
 							tickLabelProps={() => ({
@@ -189,42 +190,48 @@ export function SkillMeter({
 								strokeOpacity={0.1}
 							/>
 						))}
-						{skills.map((skill, index) => {
-							const angle = (2 * Math.PI * index) / skills.length;
-							const end = polarToCartesian(angle, radius);
-							const labelPoint = polarToCartesian(angle, radius + 18);
+						{(graphType === "radial-bar" ? sortedSkills : skills).map(
+							(skill, index) => {
+								const totalSkills =
+									graphType === "radial-bar"
+										? sortedSkills.length
+										: skills.length;
+								const angle = (2 * Math.PI * index) / totalSkills;
+								const end = polarToCartesian(angle, radius);
+								const labelPoint = polarToCartesian(angle, radius + 18);
 
-							return (
-								<g key={`axis-${skill.name}`}>
-									<line
-										x1={0}
-										y1={0}
-										x2={end.x}
-										y2={end.y}
-										stroke="currentColor"
-										strokeOpacity={0.15}
-										strokeWidth={1}
-										strokeDasharray="3"
-									/>
-									<text
-										x={labelPoint.x}
-										y={labelPoint.y}
-										fontSize={12}
-										fill="currentColor"
-										textAnchor={
-											Math.abs(labelPoint.x) < 5
-												? "middle"
-												: labelPoint.x > 0
-													? "start"
-													: "end"
-										}
-										alignmentBaseline="middle"
-									>
-										{skill.name}
-									</text>
-								</g>
-							);
-						})}
+								return (
+									<g key={`axis-${skill.name}`}>
+										<line
+											x1={0}
+											y1={0}
+											x2={end.x}
+											y2={end.y}
+											stroke="currentColor"
+											strokeOpacity={0.15}
+											strokeWidth={1}
+											strokeDasharray="3"
+										/>
+										<text
+											x={labelPoint.x}
+											y={labelPoint.y}
+											fontSize={12}
+											fill="currentColor"
+											textAnchor={
+												Math.abs(labelPoint.x) < 5
+													? "middle"
+													: labelPoint.x > 0
+														? "start"
+														: "end"
+											}
+											alignmentBaseline="middle"
+										>
+											{skill.name}
+										</text>
+									</g>
+								);
+							},
+						)}
 						{graphType === "radar" ? (
 							<path
 								d={`M ${radarPoints.map((point, index) => `${index === 0 ? "" : "L"} ${point.x} ${point.y}`).join(" ")} Z`}
@@ -235,22 +242,39 @@ export function SkillMeter({
 							/>
 						) : (
 							<>
-								{skills.map((skill, index) => {
-									const angle = (2 * Math.PI * index) / skills.length;
-									const startAngle = angle + (Math.PI / skills.length) * 0.1;
+								{sortedSkills.map((skill, index) => {
+									const angle = (2 * Math.PI * index) / sortedSkills.length;
+									const startAngle =
+										angle + (Math.PI / sortedSkills.length) * 0.1;
 									const endAngle =
-										(2 * Math.PI * (index + 1)) / skills.length -
-										(Math.PI / skills.length) * 0.1;
+										(2 * Math.PI * (index + 1)) / sortedSkills.length -
+										(Math.PI / sortedSkills.length) * 0.1;
 									const outerRadius = radiusScale(skill.level);
 									const start = polarToCartesian(startAngle, outerRadius);
 									const end = polarToCartesian(endAngle, outerRadius);
+									const midAngle = (startAngle + endAngle) / 2;
+									const labelRadius = radius * 0.6;
+									const labelPoint = polarToCartesian(midAngle, labelRadius);
+
 									return (
-										<path
-											key={`radial-bar-${skill.name}`}
-											d={`M 0 0 L ${start.x} ${start.y} A ${outerRadius} ${outerRadius} 0 0 1 ${end.x} ${end.y} Z`}
-											fill={categoryColor}
-											fillOpacity={fillOpacity}
-										/>
+										<g key={`radial-bar-${skill.name}`}>
+											<path
+												d={`M 0 0 L ${start.x} ${start.y} A ${outerRadius} ${outerRadius} 0 0 1 ${end.x} ${end.y} Z`}
+												fill={categoryColor}
+												fillOpacity={fillOpacity}
+											/>
+											<text
+												x={labelPoint.x}
+												y={labelPoint.y}
+												fontSize={11}
+												fill="currentColor"
+												fontWeight="bold"
+												textAnchor="middle"
+												alignmentBaseline="middle"
+											>
+												{index + 1}
+											</text>
+										</g>
 									);
 								})}
 							</>

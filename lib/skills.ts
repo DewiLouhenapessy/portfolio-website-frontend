@@ -18,16 +18,18 @@ export const skillsData: Skill[] = [
 	{ name: "Node.js", level: 55, category: "technology" },
 	{ name: "SQL", level: 90, category: "technology" },
 	{ name: "Git", level: 50, category: "technology" },
+	{ name: "GitHub", level: 50, category: "technology" },
+	{ name: "GitLab", level: 50, category: "technology" },
 
 	// Languages --> bar graph met op de y as fluent (100), good (75), sufficient (50), basic (25)
-	{ name: "Nederlands", level: 100, category: "language" },
-	{ name: "Engels", level: 95, category: "language" },
-	{ name: "Frans", level: 70, category: "language" },
-	{ name: "Italiaans", level: 65, category: "language" },
-	{ name: "Duits", level: 60, category: "language" },
-	{ name: "Indonesisch", level: 40, category: "language" },
-	{ name: "Spaans", level: 30, category: "language" },
-	{ name: "Portugees", level: 30, category: "language" },
+	{ name: "NL", level: 100, category: "language" },
+	{ name: "EN", level: 95, category: "language" },
+	{ name: "FR", level: 70, category: "language" },
+	{ name: "IT", level: 70, category: "language" },
+	{ name: "DE", level: 60, category: "language" },
+	{ name: "IND", level: 50, category: "language" },
+	{ name: "ES", level: 50, category: "language" },
+	{ name: "PO", level: 50, category: "language" },
 
 	// Interests --> radial bar with zoom
 	{ name: "Yoga", level: 75, category: "interests" },
