@@ -54,6 +54,7 @@ export default function Skills() {
 						<SkillMeter
 							skills={skills}
 							graphType={graphType}
+							sortType={sortType}
 							categoryColor={categoryColor}
 							width={900}
 							height={Math.max(300, skills.length * 35 + 100)}
