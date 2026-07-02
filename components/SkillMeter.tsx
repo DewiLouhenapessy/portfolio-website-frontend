@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { Group } from "@visx/group";
-import { AxisBottom, AxisLeft } from "@visx/axis";
+import { AxisLeft } from "@visx/axis";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { useTheme } from "@/components/ThemeProvider";
 import type { Skill } from "@/lib/skills";
