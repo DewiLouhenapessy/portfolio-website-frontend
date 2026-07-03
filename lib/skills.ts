@@ -24,12 +24,12 @@ export const skillsData: Skill[] = [
 	// Languages --> bar graph met op de y as fluent (100), good (75), sufficient (50), basic (25)
 	{ name: "NL", level: 100, category: "language" },
 	{ name: "EN", level: 95, category: "language" },
-	{ name: "FR", level: 70, category: "language" },
-	{ name: "IT", level: 70, category: "language" },
-	{ name: "DE", level: 60, category: "language" },
-	{ name: "IND", level: 50, category: "language" },
-	{ name: "ES", level: 50, category: "language" },
-	{ name: "PO", level: 50, category: "language" },
+	{ name: "FR", level: 65, category: "language" },
+	{ name: "IT", level: 65, category: "language" },
+	{ name: "DE", level: 50, category: "language" },
+	{ name: "ES", level: 35, category: "language" },
+	{ name: "PO", level: 35, category: "language" },
+	{ name: "ID", level: 35, category: "language" },
 
 	// Interests --> radial bar with zoom
 	{ name: "Yoga", level: 75, category: "interests" },
