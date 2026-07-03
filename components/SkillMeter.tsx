@@ -11,6 +11,7 @@ type SkillGraphType = "vertical" | "radar" | "radial-bar";
 
 interface SkillMeterProps {
 	skills: Skill[];
+	skillCategory: Skill["category"];
 	graphType?: SkillGraphType;
 	sortType?: "original" | "alphabetical";
 	categoryColor: string;
@@ -27,6 +28,7 @@ function polarToCartesian(angle: number, radius: number) {
 
 export function SkillMeter({
 	skills,
+	skillCategory,
 	categoryColor,
 	graphType = "vertical",
 	sortType = "original",
@@ -34,7 +36,7 @@ export function SkillMeter({
 	height = 400,
 }: SkillMeterProps) {
 	const { theme } = useTheme();
-	const margin = { top: 30, right: 30, bottom: 30, left: 150 };
+	const margin = { top: 30, right: 30, bottom: 30, left: 100 };
 	const innerWidth = width - margin.left - margin.right;
 	const innerHeight = height - margin.top - margin.bottom;
 
@@ -62,6 +64,17 @@ export function SkillMeter({
 				round: true,
 			}),
 		[yMax],
+	);
+
+	const langScale = useMemo(
+		() =>
+			scaleBand<string>({
+				domain: ["Fluent", "Good", "Sufficient", "Basic"],
+				range: [0, yMax],
+				round: true,
+				padding: 0.2,
+			}),
+		[["Fluent", "Good", "Sufficient", "Basic"], yMax],
 	);
 
 	const radius = Math.min(xMax, yMax) / 2;
@@ -95,7 +108,7 @@ export function SkillMeter({
 
 	return (
 		<div className="w-full overflow-x-auto rounded-lg border border-border bg-card p-4">
-			<svg width={width} height={height * 2} className="mx-auto">
+			<svg width={width} height={height} className="mx-auto overflow-visible">
 				{graphType === "vertical" ? (
 					<Group left={margin.left} top={margin.top}>
 						{/* Grid lines */}
@@ -126,7 +139,7 @@ export function SkillMeter({
 									<rect
 										x={barX}
 										y={yMax - barHeight}
-										width={barWidth}
+										width={barWidth * 0.8}
 										height={barHeight}
 										fill="currentColor"
 										fillOpacity={0.05}
@@ -136,7 +149,7 @@ export function SkillMeter({
 									<rect
 										x={barX}
 										y={yMax - barHeight}
-										width={barWidth}
+										width={barWidth * 0.8}
 										height={barHeight}
 										rx={4}
 										className="transition-all duration-300 hover:opacity-80"
@@ -154,10 +167,10 @@ export function SkillMeter({
 							return (
 								<text
 									key={`label-${skill.name}`}
-									x={barX + xScale.bandwidth() / 2}
+									x={barX + xScale.bandwidth() * 0.25}
 									y={yMax + 25}
 									dx="0.5em"
-									textAnchor="end"
+									textAnchor="start"
 									fontSize={13}
 									fill="currentColor"
 									className="font-medium"
@@ -168,16 +181,33 @@ export function SkillMeter({
 						})}
 
 						{/* X-axis */}
-						<AxisLeft
-							top={0}
-							scale={yScale}
-							stroke="currentColor"
-							tickStroke="currentColor"
-							tickLabelProps={() => ({
-								fontSize: 12,
-								textAnchor: "middle",
-							})}
-						/>
+						{skillCategory === "language" ? (
+							<AxisLeft
+								top={0}
+								scale={langScale}
+								hideAxisLine={true}
+								hideTicks={true}
+								tickLabelProps={() => ({
+									fontSize: 12,
+									textAnchor: "end",
+									fill: "currentColor",
+									dy: "-3em",
+									dx: "1.5em",
+								})}
+							/>
+						) : (
+							<AxisLeft
+								top={0}
+								scale={yScale}
+								stroke="currentColor"
+								tickStroke="currentColor"
+								tickLabelProps={() => ({
+									fontSize: 12,
+									textAnchor: "middle",
+									fill: "currentColor",
+								})}
+							/>
+						)}
 					</Group>
 				) : (
 					<Group left={margin.left + xMax / 2} top={margin.top + yMax / 2}>

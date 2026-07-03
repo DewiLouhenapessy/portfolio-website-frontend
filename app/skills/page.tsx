@@ -53,6 +53,7 @@ export default function Skills() {
 						</div>
 						<SkillMeter
 							skills={skills}
+							skillCategory={skills[0].category}
 							graphType={graphType}
 							sortType={sortType}
 							categoryColor={categoryColor}
