@@ -53,7 +53,7 @@ const NavBar = () => {
 						DL
 					</Link>
 				</div>
-				<div className="md:flex justify-between gap-4">
+				<div className="flex justify-between gap-4">
 					<div className="hidden items-center justify-between gap-8 md:flex">
 						{navItems.map((item) => (
 							<NavItem
@@ -63,17 +63,16 @@ const NavBar = () => {
 							/>
 						))}
 					</div>
-
+					<LanguageToggle />
+					<ThemeToggle />
 					<button
-						className="inline-flex items-center justify-center rounded-lg border border-border/50 bg-background/10 p-2 text-foreground transition hover:bg-background/20 mr-2 md:hidden"
+						className="inline-flex items-center justify-center rounded-lg border border-border/50 bg-background/10 p-2 text-foreground transition hover:bg-background/20 md:hidden"
 						onClick={toggleMobile}
 						aria-expanded={mobileOpen}
 						aria-label={mobileOpen ? "Close menu" : "Open menu"}
 					>
 						{mobileOpen ? <X size={20} /> : <Menu size={20} />}
 					</button>
-					<LanguageToggle />
-					<ThemeToggle />
 				</div>
 			</div>
 			{mobileOpen ? (

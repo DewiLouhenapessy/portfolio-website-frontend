@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useMemo } from "react";
 import { Group } from "@visx/group";
 import { AxisLeft } from "@visx/axis";
@@ -36,7 +37,7 @@ export function SkillMeter({
 	height = 400,
 }: SkillMeterProps) {
 	const { theme } = useTheme();
-	const margin = { top: 30, right: 30, bottom: 30, left: 100 };
+	const margin = { top: 30, right: 30, bottom: 30, left: 60 };
 	const innerWidth = width - margin.left - margin.right;
 	const innerHeight = height - margin.top - margin.bottom;
 
@@ -108,7 +109,11 @@ export function SkillMeter({
 
 	return (
 		<div className="w-full overflow-x-auto rounded-lg border border-border bg-card p-4">
-			<svg width={width} height={height} className="mx-auto overflow-visible">
+			<svg
+				width={width} // kijken of ik de linker marge kleiner kan maken in schermen kleiner dan md
+				height={height}
+				className="mx-auto overflow-visible scale-80 md:scale-100"
+			>
 				{graphType === "vertical" ? (
 					<Group left={margin.left} top={margin.top}>
 						{/* Grid lines */}
@@ -229,6 +234,9 @@ export function SkillMeter({
 								const angle = (2 * Math.PI * index) / totalSkills;
 								const end = polarToCartesian(angle, radius);
 								const labelPoint = polarToCartesian(angle, radius + 18);
+								// const [sortType, setSortType()] = useState<
+								// 	"original" | "alphabetical"
+								// >("original");
 
 								return (
 									<g key={`axis-${skill.name}`}>
@@ -258,6 +266,18 @@ export function SkillMeter({
 										>
 											{skill.name}
 										</text>
+										{/* <button
+											onClick={() =>
+												setSortType(
+													sortType === "original" ? "alphabetical" : "original",
+												)
+											}
+											className="mt-4 px-4 py-2 rounded-md border border-border bg-card hover:bg-muted transition-colors"
+										>
+											{sortType === "original"
+												? "Sorteren: Origineel"
+												: "Sorteren: Alfabetisch"}
+										</button> */}
 									</g>
 								);
 							},
