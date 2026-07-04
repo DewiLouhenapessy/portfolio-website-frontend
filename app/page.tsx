@@ -14,13 +14,13 @@ export default function Home() {
 			<AnimatedText
 				as="h1"
 				text={content.title[locale]}
-				className="text-8xl mb-12"
+				className="text-6xl mb-4 md:text-8xl md:mb-12"
 				delay={0}
 				duration={0.3}
 			/>
 			<TypewriterText
 				text={content.subtitle[locale]}
-				className="ml-4"
+				className="ml-2 md:ml-4"
 				delay={2.4}
 				speed={0.05}
 			/>
