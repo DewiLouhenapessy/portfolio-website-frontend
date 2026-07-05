@@ -18,6 +18,7 @@ interface SkillMeterProps {
 	categoryColor: string;
 	width?: number;
 	height?: number;
+	langLevelLabel?: string;
 }
 
 function polarToCartesian(angle: number, radius: number) {

@@ -6,6 +6,8 @@ import { SkillMeter } from "@/components/SkillMeter";
 import {
 	categoryLabels,
 	categoryColors,
+	langLevelLabels,
+	interestsLabels,
 	getSkillsByCategory,
 } from "@/lib/skills";
 
@@ -30,6 +32,7 @@ export default function Skills() {
 				const skills = getSkillsByCategory(vis.category);
 				const categoryLabel = categoryLabels[vis.category][locale];
 				const categoryColor = categoryColors[vis.category];
+				// const langLevelLabel = langLevelLabels[vis.name][locale]
 				const graphType = vis.graphType;
 
 				return (

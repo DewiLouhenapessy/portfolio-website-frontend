@@ -32,19 +32,19 @@ export const skillsData: Skill[] = [
 	{ name: "ID", level: 35, category: "language" },
 
 	// Interests --> radial bar with zoom
-	{ name: "Yoga", level: 75, category: "interests" },
-	{ name: "Pilates", level: 80, category: "interests" },
-	{ name: "Wandelen", level: 85, category: "interests" },
-	{ name: "Fietsen", level: 82, category: "interests" },
-	{ name: "Boulderen", level: 82, category: "interests" },
-	{ name: "Hardlopen", level: 82, category: "interests" },
-	{ name: "Muziek luisteren", level: 95, category: "interests" },
-	{ name: "Muziek maken", level: 95, category: "interests" },
-	{ name: "Zingen", level: 95, category: "interests" },
-	{ name: "Programmeren", level: 85, category: "interests" },
-	{ name: "Naaien", level: 80, category: "interests" },
-	{ name: "Lezen", level: 75, category: "interests" },
-	{ name: "Comedy/Humor", level: 70, category: "interests" },
+	{ name: "yoga", level: 12, category: "interests" },
+	{ name: "pilates", level: 7, category: "interests" },
+	{ name: "walk", level: 10, category: "interests" },
+	{ name: "cycle", level: 6, category: "interests" },
+	{ name: "boulder", level: 1, category: "interests" },
+	{ name: "run", level: 3, category: "interests" },
+	{ name: "listenMusic", level: 13, category: "interests" },
+	{ name: "makeMusic", level: 5, category: "interests" },
+	{ name: "sing", level: 9, category: "interests" },
+	{ name: "program", level: 11, category: "interests" },
+	{ name: "sew", level: 2, category: "interests" },
+	{ name: "read", level: 4, category: "interests" },
+	{ name: "humor", level: 8, category: "interests" },
 ];
 
 export const categoryLabels = {
@@ -59,6 +59,31 @@ export const categoryColors = {
 	interests: "var(--skill-interests)",
 };
 
+export const langLevelLabels = {
+	fluent: { nl: "Vloeiend", en: "Fluent" },
+	good: { nl: "Goed", en: "Good" },
+	sufficient: { nl: "Voldoende", en: "Sufficient" },
+	Basic: { nl: "Basis", en: "Basic" },
+};
+
+export const interestsLabels = {
+	yoga: { nl: "Yoga", en: "Yoga" },
+	pilates: { nl: "Pilates", en: "Pilates" },
+	walk: { nl: "Wandelen", en: "Walking/Hiking" },
+	cycle: { nl: "Fietsen", en: "Cycling" },
+	boulder: { nl: "Boulderen", en: "Bouldering" },
+	run: { nl: "Hardlopen", en: "Running" },
+	listenMusic: { nl: "Muziek luisteren", en: "Listening to music" },
+	makeMusic: { nl: "Muziek maken", en: "Making music" },
+	sing: { nl: "Zingen", en: "Singing" },
+	program: { nl: "Programmeren", en: "Programming" },
+	sew: { nl: "Naaien", en: "Sewing" },
+	read: { nl: "Lezen", en: "Reading" },
+	humor: { nl: "Comedy/humor", en: "Comedy/humor" },
+};
+
 export function getSkillsByCategory(category: Skill["category"]): Skill[] {
 	return skillsData.filter((skill) => skill.category === category);
 }
+
+// hier functie te maken om de name van category.interests te mappen
