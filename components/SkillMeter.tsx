@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Group } from "@visx/group";
 import { AxisLeft } from "@visx/axis";
 import { scaleBand, scaleLinear } from "@visx/scale";
@@ -38,6 +37,7 @@ export function SkillMeter({
 	height = 400,
 }: SkillMeterProps) {
 	const { theme } = useTheme();
+	// const [isMounted, setIsMounted] = useState(false);
 	const margin = { top: 30, right: 30, bottom: 30, left: 60 };
 	const innerWidth = width - margin.left - margin.right;
 	const innerHeight = height - margin.top - margin.bottom;
@@ -79,6 +79,10 @@ export function SkillMeter({
 		[["Fluent", "Good", "Sufficient", "Basic"], yMax],
 	);
 
+	// useEffect(() => {
+	// 	setIsMounted(true);
+	// }, []);
+
 	const radius = Math.min(xMax, yMax) / 2;
 	const radiusScale = useMemo(
 		() =>
@@ -107,6 +111,17 @@ export function SkillMeter({
 		}
 		return skills;
 	}, [skills, graphType, sortType]);
+
+	const isMounted = false;
+
+	if (!isMounted) {
+		return (
+			<div className="flex h-64 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20 text-sm text-muted-foreground">
+				<div className="spinner m-2"></div>
+				<h2 className="text-xl p-4">Loading chart...</h2>
+			</div>
+		);
+	}
 
 	return (
 		<div className="w-full overflow-x-auto rounded-lg border border-border bg-card p-4">

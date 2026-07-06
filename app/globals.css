@@ -181,4 +181,39 @@
 	h6 {
 		font-family: var(--heading-font), system-ui, sans-serif;
 	}
+
+	.spinner {
+		width: 60px;
+		aspect-ratio: 1;
+		--g: conic-gradient(from -90deg at 10px 10px, #fff 90deg, #0000 0);
+		background: var(--g), var(--g), var(--g);
+		background-size: 50% 50%;
+		animation: i8 1s infinite;
+	}
+	@keyframes i8 {
+		0% {
+			background-position:
+				0 0,
+				10px 10px,
+				20px 20px;
+		}
+		33% {
+			background-position:
+				-30px 0,
+				10px 10px,
+				20px 20px;
+		}
+		66% {
+			background-position:
+				-30px 0,
+				10px 40px,
+				20px 20px;
+		}
+		100% {
+			background-position:
+				-30px 0,
+				10px 40px,
+				50px 20px;
+		}
+	}
 }
