@@ -4,25 +4,48 @@ import React from "react";
  * Loader component met meerdere visuele varianten.
  *
  * Props:
- * - variant: "spinner" | "dots" | "bars" | "ring" | "pulse"  (default: "spinner")
+ * - variant: "spinner" | "dots" | "ring" | "pixelSpinner" | "gradientSpinner"  (default: "spinner")
  * - size:    "sm" | "md" | "lg"                              (default: "md")
  * - color:   Tailwind text-kleur class, bv. "text-blue-500"  (default: "text-blue-500")
  * - label:   optioneel tekstje onder de loader
  * - fullScreen: boolean, toont de loader als overlay over het hele scherm
  */
 
-const sizeMap = {
-	sm: { box: "w-4 h-4", bar: "w-1 h-3", dot: "w-1.5 h-1.5", text: "text-xs" },
-	md: { box: "w-8 h-8", bar: "w-1.5 h-6", dot: "w-2.5 h-2.5", text: "text-sm" },
+type Size = "sm" | "md" | "lg" | "xl";
+type LoaderVariant =
+	| "spinner"
+	| "dots"
+	| "ring"
+	| "pixelSpinner"
+	| "gradientSpinner";
+
+interface SizeMapEntry {
+	box: string;
+	dot: string;
+	text: string;
+}
+
+const sizeMap: Record<Size, SizeMapEntry> = {
+	sm: { box: "w-4 h-4", dot: "w-1.5 h-1.5", text: "text-xs" },
+	md: { box: "w-8 h-8", dot: "w-2.5 h-2.5", text: "text-sm" },
 	lg: {
 		box: "w-12 h-12",
-		bar: "w-2 h-8",
 		dot: "w-3.5 h-3.5",
 		text: "text-base",
 	},
+	xl: {
+		box: "w-16 h-16",
+		dot: "w-4 h-4",
+		text: "text-lg",
+	},
 };
 
-function Spinner({ size, color }) {
+interface VariantProps {
+	size?: Size;
+	color?: string;
+}
+
+function Spinner({ size = "md", color = "text-blue-500" }: VariantProps) {
 	return (
 		<div
 			className={`${sizeMap[size].box} rounded-full border-2 border-current border-t-transparent animate-spin ${color}`}
@@ -30,7 +53,7 @@ function Spinner({ size, color }) {
 	);
 }
 
-function Dots({ size, color }) {
+function Dots({ size = "md", color = "text-blue-500" }: VariantProps) {
 	return (
 		<div className="flex items-center gap-1.5">
 			{[0, 1, 2].map((i) => (
@@ -44,21 +67,7 @@ function Dots({ size, color }) {
 	);
 }
 
-function Bars({ size, color }) {
-	return (
-		<div className="flex items-end gap-1">
-			{[0, 1, 2, 3].map((i) => (
-				<div
-					key={i}
-					className={`${sizeMap[size].bar} rounded-sm bg-current ${color} animate-pulse`}
-					style={{ animationDelay: `${i * 0.12}s` }}
-				/>
-			))}
-		</div>
-	);
-}
-
-function Ring({ size, color }) {
+function Ring({ size = "md", color = "text-blue-500" }: VariantProps) {
 	return (
 		<div className={`relative ${sizeMap[size].box}`}>
 			<div
@@ -71,26 +80,29 @@ function Ring({ size, color }) {
 	);
 }
 
-function Pulse({ size, color }) {
-	return (
-		<div className="relative flex items-center justify-center">
-			<div
-				className={`absolute ${sizeMap[size].box} rounded-full bg-current opacity-30 animate-ping ${color}`}
-			/>
-			<div
-				className={`${sizeMap[size].box} rounded-full bg-current ${color}`}
-			/>
-		</div>
-	);
+function PixelSpinner() {
+	return <div className={`spinner`} />;
 }
 
-const variants = {
+function GradientSpinner({ size = "md" }: VariantProps) {
+	return <div className={` ${sizeMap[size].box} loader`} />;
+}
+
+const variants: Record<LoaderVariant, React.ComponentType<VariantProps>> = {
 	spinner: Spinner,
 	dots: Dots,
-	bars: Bars,
 	ring: Ring,
-	pulse: Pulse,
+	pixelSpinner: PixelSpinner,
+	gradientSpinner: GradientSpinner,
 };
+
+interface LoaderProps {
+	variant: LoaderVariant;
+	size?: Size;
+	color?: string;
+	label?: React.ReactNode;
+	fullScreen?: boolean;
+}
 
 export default function Loader({
 	variant = "spinner",
@@ -98,7 +110,7 @@ export default function Loader({
 	color = "text-blue-500",
 	label,
 	fullScreen = false,
-}) {
+}: LoaderProps) {
 	const VariantComponent = variants[variant] || Spinner;
 
 	const content = (
