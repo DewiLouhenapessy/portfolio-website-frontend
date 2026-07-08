@@ -284,4 +284,25 @@
 		border: solid white 10px;
 		border-radius: 50%;
 	}
+
+	.dark .loader {
+		background: linear-gradient(
+			var(--custom-red),
+			var(--custom-blue),
+			var(--custom-green)
+		);
+	}
+
+	.dark .loader span {
+		background: linear-gradient(
+			var(--custom-red),
+			var(--custom-blue),
+			var(--custom-green)
+		);
+	}
+
+	.dark .loader:after {
+		background: #121212;
+		border: solid #121212 10px;
+	}
 }
