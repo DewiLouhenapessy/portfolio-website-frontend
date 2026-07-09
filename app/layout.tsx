@@ -1,21 +1,12 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import {
-	Geist,
-	Geist_Mono,
-	Nunito,
-	Silkscreen,
-	Fira_Code,
-	Raleway,
-} from "next/font/google";
+import { Silkscreen, Fira_Code, Raleway } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
-
-const nunito = Nunito({ subsets: ["latin"], variable: "--font-sans" });
 
 const raleway = Raleway({
 	subsets: ["latin"],
@@ -33,16 +24,6 @@ const firaCode = Fira_Code({
 	subsets: ["latin"],
 	weight: ["400", "700"],
 	variable: "--font-fira-code",
-});
-
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -65,13 +46,10 @@ export default async function RootLayout({
 			className={cn(
 				"h-full",
 				"antialiased",
-				geistSans.variable,
-				geistMono.variable,
+				"font-corbel",
 				silkscreen.variable,
 				firaCode.variable,
-				nunito.variable,
 				raleway.variable,
-				"font-sans",
 			)}
 		>
 			<body className="min-h-screen flex flex-col">
