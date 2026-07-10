@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { pageContent } from "@/lib/i18n";
 import { SkillMeter } from "@/components/SkillMeter";
@@ -10,10 +11,10 @@ import {
 	interestsLabels,
 	getSkillsByCategory,
 } from "@/lib/skills";
-import Loader from "@/components/Loader";
 
 export default function Skills() {
 	const { locale } = useLanguage();
+	const [visibleSection, setVisibleSection] = useState(0);
 	const content = pageContent.skills;
 
 	const visualisations = [
@@ -29,26 +30,39 @@ export default function Skills() {
 				<p className="text-muted-foreground">{content.description[locale]}</p>
 			</div>
 
-			{visualisations.map((vis) => {
+			{visualisations.map((vis, index) => {
 				const skills = getSkillsByCategory(vis.category);
 				const categoryLabel = categoryLabels[vis.category][locale];
 				const categoryColor = categoryColors[vis.category];
 				// const langLevelLabel = langLevelLabels[vis.name][locale]
 				const graphType = vis.graphType;
+				const isVisible = index <= visibleSection;
 
 				return (
 					<section key={vis.category} className="space-y-4">
 						<div>
 							<h2 className="text-2xl font-bold">{categoryLabel}</h2>
 						</div>
-						<SkillMeter
-							skills={skills}
-							skillCategory={skills[0].category}
-							graphType={graphType}
-							categoryColor={categoryColor}
-							width={900}
-							height={Math.max(300, skills.length * 35 + 100)}
-						/>
+						{isVisible ? (
+							<SkillMeter
+								skills={skills}
+								skillCategory={skills[0].category}
+								graphType={graphType}
+								categoryColor={categoryColor}
+								width={900}
+								height={Math.max(300, skills.length * 35 + 100)}
+								onReady={() => {
+									if (index === visibleSection) {
+										setVisibleSection((prev) => prev + 1);
+									}
+								}}
+							/>
+						) : (
+							<div
+								className="rounded-lg border border-dashed border-border/60 bg-muted/20"
+								style={{ minHeight: Math.max(300, skills.length * 35 + 100) }}
+							/>
+						)}
 					</section>
 				);
 			})}
