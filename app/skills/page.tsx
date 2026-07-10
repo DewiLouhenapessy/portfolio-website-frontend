@@ -41,19 +41,14 @@ export default function Skills() {
 						<div>
 							<h2 className="text-2xl font-bold">{categoryLabel}</h2>
 						</div>
-						{/* <SkillMeter
+						<SkillMeter
 							skills={skills}
 							skillCategory={skills[0].category}
 							graphType={graphType}
 							categoryColor={categoryColor}
 							width={900}
 							height={Math.max(300, skills.length * 35 + 100)}
-						/> */}
-						<Loader variant="spinner" />
-						<Loader variant="dots" />
-						<Loader variant="ring" />
-						<Loader variant="pixelSpinner" size="lg" />
-						<Loader variant="gradientSpinner" size="xl" />
+						/>
 					</section>
 				);
 			})}

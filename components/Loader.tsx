@@ -12,12 +12,7 @@ import React from "react";
  */
 
 type Size = "sm" | "md" | "lg" | "xl";
-type LoaderVariant =
-	| "spinner"
-	| "dots"
-	| "ring"
-	| "pixelSpinner"
-	| "gradientSpinner";
+type LoaderVariant = "spinner" | "dots" | "ring" | "gradientSpinner";
 
 interface SizeMapEntry {
 	box: string;
@@ -80,10 +75,6 @@ function Ring({ size = "md", color = "text-blue-500" }: VariantProps) {
 	);
 }
 
-function PixelSpinner() {
-	return <div className={`spinner`} />;
-}
-
 function GradientSpinner({ size = "md" }: VariantProps) {
 	return <div className={` ${sizeMap[size].box} loader`} />;
 }
@@ -92,7 +83,6 @@ const variants: Record<LoaderVariant, React.ComponentType<VariantProps>> = {
 	spinner: Spinner,
 	dots: Dots,
 	ring: Ring,
-	pixelSpinner: PixelSpinner,
 	gradientSpinner: GradientSpinner,
 };
 

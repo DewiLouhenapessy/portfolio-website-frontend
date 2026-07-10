@@ -6,6 +6,7 @@ import { AxisLeft } from "@visx/axis";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { useTheme } from "@/components/ThemeProvider";
 import type { Skill } from "@/lib/skills";
+import Loader from "./Loader";
 
 type SkillGraphType = "vertical" | "radar" | "radial-bar";
 
@@ -117,8 +118,11 @@ export function SkillMeter({
 	if (!isMounted) {
 		return (
 			<div className="flex h-64 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20 text-sm text-muted-foreground">
-				<div className="spinner m-2"></div>
-				<h2 className="text-xl p-4">Loading chart...</h2>
+				<div className="flex ">
+					<Loader variant="gradientSpinner" size="xl" />
+					<h2 className="text-2xl p-4">Loading chart</h2>
+					<Loader variant="dots" />
+				</div>
 			</div>
 		);
 	}
