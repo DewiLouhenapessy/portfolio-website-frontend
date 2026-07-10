@@ -184,47 +184,6 @@
 		font-family: var(--heading-font), system-ui, sans-serif;
 	}
 
-	.spinner {
-		--size: 40px; /* enige regel die je hoeft aan te passen om te schalen */
-		width: var(--size);
-		aspect-ratio: 1;
-		--g: conic-gradient(
-			from -90deg at calc(var(--size) / 6) calc(var(--size) / 6),
-			#fff 90deg,
-			#0000 0
-		);
-		background: var(--g), var(--g), var(--g);
-		background-size: 50% 50%;
-		animation: i8 1s infinite;
-	}
-
-	@keyframes i8 {
-		0% {
-			background-position:
-				0 0,
-				calc(var(--size) / 6) calc(var(--size) / 6),
-				calc(var(--size) / 3) calc(var(--size) / 3);
-		}
-		33% {
-			background-position:
-				calc(var(--size) / -2) 0,
-				calc(var(--size) / 6) calc(var(--size) / 6),
-				calc(var(--size) / 3) calc(var(--size) / 3);
-		}
-		66% {
-			background-position:
-				calc(var(--size) / -2) 0,
-				calc(var(--size) / 6) calc(var(--size) * 2 / 3),
-				calc(var(--size) / 3) calc(var(--size) / 3);
-		}
-		100% {
-			background-position:
-				calc(var(--size) / -2) 0,
-				calc(var(--size) / 6) calc(var(--size) * 2 / 3),
-				calc(var(--size) * 5 / 6) calc(var(--size) / 3);
-		}
-	}
-
 	.loader {
 		position: relative;
 		width: 350px;
