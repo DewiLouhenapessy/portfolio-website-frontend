@@ -19,6 +19,7 @@ interface SkillMeterProps {
 	width?: number;
 	height?: number;
 	langLevelLabel?: string;
+	onReady?: () => void;
 }
 
 function polarToCartesian(angle: number, radius: number) {
@@ -36,9 +37,11 @@ export function SkillMeter({
 	sortType = "original",
 	width = 800,
 	height = 400,
+	onReady,
 }: SkillMeterProps) {
 	const { theme } = useTheme();
-	// const [isMounted, setIsMounted] = useState(false);
+	const [isMounted, setIsMounted] = useState(false);
+	const [hasSignaledReady, setHasSignaledReady] = useState(false);
 	const margin = { top: 30, right: 30, bottom: 30, left: 60 };
 	const innerWidth = width - margin.left - margin.right;
 	const innerHeight = height - margin.top - margin.bottom;
@@ -80,9 +83,26 @@ export function SkillMeter({
 		[["Fluent", "Good", "Sufficient", "Basic"], yMax],
 	);
 
-	// useEffect(() => {
-	// 	setIsMounted(true);
-	// }, []);
+	// delay rendering of chart to show off loader
+	useEffect(() => {
+		const timeout = window.setTimeout(() => {
+			setIsMounted(true);
+		}, 600);
+
+		return () => window.clearTimeout(timeout);
+	}, []);
+
+	// sequential loading
+	useEffect(() => {
+		if (!isMounted || hasSignaledReady) return;
+
+		const raf = window.requestAnimationFrame(() => {
+			onReady?.();
+			setHasSignaledReady(true);
+		});
+
+		return () => window.cancelAnimationFrame(raf);
+	}, [hasSignaledReady, isMounted, onReady]);
 
 	const radius = Math.min(xMax, yMax) / 2;
 	const radiusScale = useMemo(
@@ -113,15 +133,15 @@ export function SkillMeter({
 		return skills;
 	}, [skills, graphType, sortType]);
 
-	const isMounted = false;
-
 	if (!isMounted) {
 		return (
 			<div className="flex h-64 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20 text-sm text-muted-foreground">
 				<div className="flex ">
 					<Loader variant="gradientSpinner" size="xl" />
-					<h2 className="text-2xl p-4">Loading chart</h2>
-					<Loader variant="dots" />
+					<div className="flex items-end">
+						<h2 className="text-2xl p-4 pr-2">Loading chart</h2>
+						<Loader variant="dots" size="sm" color={categoryColor} />
+					</div>
 				</div>
 			</div>
 		);
