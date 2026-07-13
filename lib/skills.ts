@@ -32,18 +32,19 @@ export const skillsData: Skill[] = [
 	{ name: "ID", level: 35, category: "language" },
 
 	// Interests --> radial bar with zoom
-	{ name: "yoga", level: 12, category: "interests" },
+	{ name: "yoga", level: 13, category: "interests" },
 	{ name: "pilates", level: 7, category: "interests" },
-	{ name: "walk", level: 10, category: "interests" },
+	{ name: "walk", level: 11, category: "interests" },
 	{ name: "cycle", level: 6, category: "interests" },
 	{ name: "boulder", level: 1, category: "interests" },
 	{ name: "run", level: 3, category: "interests" },
-	{ name: "listenMusic", level: 13, category: "interests" },
+	{ name: "listenMusic", level: 14, category: "interests" },
 	{ name: "makeMusic", level: 5, category: "interests" },
-	{ name: "sing", level: 9, category: "interests" },
-	{ name: "program", level: 11, category: "interests" },
+	{ name: "sing", level: 10, category: "interests" },
+	{ name: "program", level: 12, category: "interests" },
 	{ name: "sew", level: 2, category: "interests" },
 	{ name: "read", level: 4, category: "interests" },
+	{ name: "travel", level: 9, category: "interests" },
 	{ name: "humor", level: 8, category: "interests" },
 ];
 
@@ -79,6 +80,7 @@ export const interestsLabels = {
 	program: { nl: "Programmeren", en: "Programming" },
 	sew: { nl: "Naaien", en: "Sewing" },
 	read: { nl: "Lezen", en: "Reading" },
+	travel: { nl: "Reizen", en: "Traveling" },
 	humor: { nl: "Comedy/humor", en: "Comedy/humor" },
 };
 
