@@ -1,0 +1,10 @@
+# Maintenance mode for Apache-compatible hosting.
+# Remove the # from the line below to activate the redirect immediately.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # RewriteCond %{REMOTE_ADDR} !^87\.210\.106\.126$
+  # RewriteCond %{REQUEST_URI} !^/maintenance\.html$
+  # RewriteRule ^(.*)$ /maintenance.html [R=302,L]
+</IfModule>

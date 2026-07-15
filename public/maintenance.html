@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="nl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Website in onderhoud</title>
+		<meta
+			name="description"
+			content="Deze website is tijdelijk offline voor onderhoud."
+		/>
+		<style>
+			:root {
+				color-scheme: dark;
+				font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+				background-color: #020617;
+				color: #f8fafc;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				margin: 0;
+				min-height: 100vh;
+				background:
+					radial-gradient(
+						circle at top,
+						rgba(34, 211, 238, 0.18),
+						transparent 34%
+					),
+					linear-gradient(135deg, #020617 0%, #0f172a 100%);
+				color: #f8fafc;
+			}
+
+			.page-shell {
+				min-height: 100vh;
+				display: grid;
+				place-items: center;
+				padding: 2rem 1.5rem;
+			}
+
+			.maintenance-card {
+				width: min(100%, 48rem);
+				padding: 2.5rem;
+				border: 1px solid rgba(148, 163, 184, 0.25);
+				border-radius: 1.5rem;
+				background: rgba(15, 23, 42, 0.95);
+				box-shadow: 0 24px 80px rgba(2, 8, 23, 0.45);
+				backdrop-filter: blur(12px);
+				text-align: center;
+			}
+
+			.eyebrow {
+				margin: 0 0 1rem;
+				font-size: 0.8rem;
+				font-weight: 700;
+				letter-spacing: 0.35em;
+				text-transform: uppercase;
+				color: oklch(0.85 0.22 264);
+			}
+
+			h1 {
+				margin: 0;
+				font-size: clamp(2rem, 4vw, 3rem);
+				font-weight: 600;
+				line-height: 1.15;
+				color: #ffffff;
+			}
+
+			.subtitle {
+				margin: 1rem 0 0;
+				font-size: 1rem;
+				line-height: 1.75;
+				color: #cbd5e1;
+			}
+
+			.info {
+				margin: 1rem 0 2rem;
+				color: #94a3b8;
+				font-size: 0.98rem;
+			}
+
+			.gif-wrapper {
+				display: flex;
+				justify-content: center;
+				margin: 1.5rem 0 1.75rem;
+			}
+
+			.maintenance-gif {
+				width: min(100%, 320px);
+				height: auto;
+				border-radius: 1rem;
+				box-shadow: 0 10px 30px rgba(2, 8, 23, 0.35);
+			}
+
+			.button {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0.9rem 1.4rem;
+				border-radius: 999px;
+				background: oklch(0.85 0.22 264);
+				color: #020617;
+				text-decoration: none;
+				font-weight: 700;
+				transition:
+					transform 180ms ease,
+					background-color 180ms ease;
+			}
+
+			.button:hover,
+			.button:focus-visible {
+				background: oklch(0.85 0.22 264);
+				transform: translateY(-1px);
+			}
+
+			@media (max-width: 640px) {
+				.maintenance-card {
+					padding: 2rem 1.25rem;
+				}
+
+				.subtitle {
+					font-size: 0.96rem;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<main class="page-shell">
+			<section class="maintenance-card" aria-labelledby="maintenance-title">
+				<p class="eyebrow">Onderhoud</p>
+				<h1 id="maintenance-title">Website in onderhoud</h1>
+				<p class="subtitle">
+					Deze website is tijdelijk offline. We zijn bezig met onderhoud en zijn
+					snel terug.
+				</p>
+				<p class="info">
+					Probeer het later opnieuw of neem contact op als je vragen hebt.
+				</p>
+
+				<div class="gif-wrapper">
+					<img
+						class="maintenance-gif"
+						src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif"
+						alt="Under construction GIF"
+					/>
+				</div>
+				<a href="mailto:info@dewilouhenapessy.nl" class="button"
+					>Neem contact op</a
+				>
+			</section>
+		</main>
+	</body>
+</html>
