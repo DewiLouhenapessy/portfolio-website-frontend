@@ -28,7 +28,7 @@ const firaCode = Fira_Code({
 
 export const metadata: Metadata = {
 	title: "Dewi Louhenapessy",
-	description: "About Dewi Louhenapessy",
+	description: "Portfolio website of Dewi Louhenapessy",
 };
 
 export default async function RootLayout({

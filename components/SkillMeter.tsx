@@ -16,6 +16,7 @@ interface SkillMeterProps {
 	graphType?: SkillGraphType;
 	sortType?: "original" | "alphabetical";
 	categoryColor: string;
+	categorySubLabel?: string;
 	width?: number;
 	height?: number;
 	langLevelLabel?: string;
@@ -33,6 +34,7 @@ export function SkillMeter({
 	skills,
 	skillCategory,
 	categoryColor,
+	categorySubLabel,
 	graphType = "vertical",
 	sortType = "original",
 	width = 800,
