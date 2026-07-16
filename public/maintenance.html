@@ -8,6 +8,14 @@
 			name="description"
 			content="Deze website is tijdelijk offline voor onderhoud."
 		/>
+		<!-- Google Fonts: Inter -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
 		<style>
 			:root {
 				color-scheme: dark;
@@ -45,7 +53,12 @@
 				padding: 2.5rem;
 				border: 1px solid rgba(148, 163, 184, 0.25);
 				border-radius: 1.5rem;
-				background: rgba(15, 23, 42, 0.95);
+				background: rgba(
+					15,
+					23,
+					42,
+					0.98
+				); /* Fallback voor browsers zonder backdrop-filter */
 				box-shadow: 0 24px 80px rgba(2, 8, 23, 0.45);
 				backdrop-filter: blur(12px);
 				text-align: center;
@@ -115,13 +128,26 @@
 				transform: translateY(-1px);
 			}
 
+			/* Mobiele optimalisaties */
 			@media (max-width: 640px) {
 				.maintenance-card {
 					padding: 2rem 1.25rem;
 				}
 
+				.maintenance-gif {
+					width: min(100%, 250px);
+				}
+
 				.subtitle {
-					font-size: 0.96rem;
+					font-size: 1.1rem;
+				}
+
+				.info {
+					font-size: 1rem;
+				}
+
+				.button {
+					padding: 1rem 1.75rem;
 				}
 			}
 		</style>
@@ -132,8 +158,8 @@
 				<p class="eyebrow">Onderhoud</p>
 				<h1 id="maintenance-title">Website in onderhoud</h1>
 				<p class="subtitle">
-					Deze website is tijdelijk offline. We zijn bezig met onderhoud en zijn
-					snel terug.
+					Deze website is tijdelijk offline wegens onderhoud en zal snel weer
+					terug zijn.
 				</p>
 				<p class="info">
 					Probeer het later opnieuw of neem contact op als je vragen hebt.
