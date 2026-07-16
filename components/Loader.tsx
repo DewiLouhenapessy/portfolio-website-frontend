@@ -122,15 +122,3 @@ export default function Loader({
 
 	return content;
 }
-
-/* --- Voorbeeldgebruik ---
-
-import Loader from "./Loader";
-
-<Loader variant="spinner" />
-<Loader variant="dots" size="lg" color="text-emerald-500" label="Laden..." />
-<Loader variant="bars" color="text-purple-500" />
-<Loader variant="ring" size="sm" />
-<Loader variant="pulse" fullScreen label="Bezig met opslaan..." />
-
-*/
