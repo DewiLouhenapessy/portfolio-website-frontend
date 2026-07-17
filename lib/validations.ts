@@ -16,4 +16,18 @@ export const contactFormSchema = z.object({
 		.max(5000, { message: "Bericht mag niet langer dan 5000 karakters zijn" }),
 });
 
+export const adminLoginSchema = z.object({
+	username: z
+		.string()
+		.min(3, { message: "Gebruikersnaam moet minstens 3 karakters bevatten" })
+		.max(50, {
+			message: "Gebruikersnaam mag niet langer dan 50 karakters zijn",
+		}),
+	password: z
+		.string()
+		.min(4, { message: "Wachtwoord moet minstens 4 karakters bevatten" })
+		.max(100, { message: "Wachtwoord mag niet langer dan 100 karakters zijn" }),
+});
+
 export type ContactFormData = z.infer<typeof contactFormSchema>;
+export type AdminLoginData = z.infer<typeof adminLoginSchema>;
