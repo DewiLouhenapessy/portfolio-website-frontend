@@ -41,7 +41,7 @@ export default function Skills() {
 				return (
 					<section key={vis.category} className="space-y-4">
 						<div>
-							<h2 className="text-2xl font-bold">{categoryLabel}</h2>
+							<h2>{categoryLabel}</h2>
 						</div>
 						{isVisible ? (
 							<SkillMeter
