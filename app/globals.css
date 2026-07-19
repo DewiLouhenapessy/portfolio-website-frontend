@@ -184,6 +184,10 @@
 		font-family: var(--heading-font), system-ui, sans-serif;
 	}
 
+	h1 {
+		font-size: xx-large;
+	}
+
 	.loader {
 		position: relative;
 		width: 350px;

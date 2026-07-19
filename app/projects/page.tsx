@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/components/LanguageProvider";
+import Loader from "@/components/Loader";
 import { pageContent } from "@/lib/i18n";
 
 export default function Projects() {
@@ -9,8 +10,14 @@ export default function Projects() {
 
 	return (
 		<div>
-			<h1>{content.heading[locale]}</h1>
-			<p>{content.description[locale]}</p>
+			<div>
+				<h1>{content.heading[locale]}</h1>
+				<h2>{content.description[locale]}</h2>
+			</div>
+			<div className="pt-8 flex content-end">
+				<p>{content.project[locale]}</p>
+				<Loader size="sm" variant="dots" />
+			</div>
 		</div>
 	);
 }

@@ -52,6 +52,7 @@ export const pageContent = {
 			nl: "Een overzicht van mijn werk en projecten.",
 			en: "An overview of my work and projects.",
 		},
+		project: { nl: "Binnenkort beschikbaar", en: "Coming soon" },
 	},
 	skills: {
 		heading: { nl: "Vaardigheden", en: "Skills" },
