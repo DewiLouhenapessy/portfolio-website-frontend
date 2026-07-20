@@ -6,17 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, type ContactFormData } from "@/lib/validations";
 import { useLanguage } from "@/components/LanguageProvider";
 import { Button } from "@/components/ui/button";
+import { pageContent } from "@/lib/i18n";
 
-const formLabels = {
-	name: { nl: "Naam", en: "Name" },
-	email: { nl: "E-mail", en: "Email" },
-	subject: { nl: "Onderwerp", en: "Subject" },
-	message: { nl: "Bericht", en: "Message" },
-	submit: { nl: "Verstuur", en: "Send" },
-	sending: { nl: "Verzendt...", en: "Sending..." },
-	success: { nl: "Bericht verzonden!", en: "Message sent!" },
-	error: { nl: "Er is een fout opgetreden.", en: "An error occurred." },
-};
+const formLabels = pageContent.contact.formLabels;
 
 export default function ContactForm() {
 	const { locale } = useLanguage();
@@ -39,9 +31,16 @@ export default function ContactForm() {
 		setSubmitStatus("idle");
 
 		try {
-			// TODO: Implementeer hier de API call om het formulier in te dienen
-			// Bijvoorbeeld: await fetch('/api/contact', { method: 'POST', body: JSON.stringify(data) })
-			console.log("Form data:", data);
+			const res = await fetch("/api/contact", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(data),
+			});
+
+			if (!res.ok) {
+				console.error("Failed to send contact form", await res.text());
+				throw new Error("Failed to send contact form");
+			}
 
 			setSubmitStatus("success");
 			reset();
