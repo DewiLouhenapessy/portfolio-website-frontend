@@ -74,5 +74,15 @@ export const pageContent = {
 			nl: "Stuur me gerust een bericht als je wilt samenwerken of vragen hebt.",
 			en: "Feel free to send me a message if you'd like to collaborate or have questions.",
 		},
+		formLabels: {
+			name: { nl: "Naam", en: "Name" },
+			email: { nl: "E-mail", en: "Email" },
+			subject: { nl: "Onderwerp", en: "Subject" },
+			message: { nl: "Bericht", en: "Message" },
+			submit: { nl: "Verstuur", en: "Send" },
+			sending: { nl: "Verzendt...", en: "Sending..." },
+			success: { nl: "Bericht verzonden!", en: "Message sent!" },
+			error: { nl: "Er is een fout opgetreden.", en: "An error occurred." },
+		},
 	},
 };
