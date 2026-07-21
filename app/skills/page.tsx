@@ -10,6 +10,7 @@ import {
 	langLevelLabels,
 	interestsLabels,
 	getSkillsByCategory,
+	getCategorySubLabels,
 } from "@/lib/skills";
 
 export default function Skills() {
@@ -34,6 +35,7 @@ export default function Skills() {
 				const skills = getSkillsByCategory(vis.category);
 				const categoryLabel = categoryLabels[vis.category][locale];
 				const categoryColor = categoryColors[vis.category];
+				const categorySubLabel = getCategorySubLabels(vis.category);
 				// const langLevelLabel = langLevelLabels[vis.name][locale]
 				const graphType = vis.graphType;
 				const isVisible = index <= visibleSection;
@@ -49,6 +51,7 @@ export default function Skills() {
 								skillCategory={skills[0].category}
 								graphType={graphType}
 								categoryColor={categoryColor}
+								categorySubLabel={categorySubLabel}
 								width={900}
 								height={Math.max(300, skills.length * 35 + 100)}
 								onReady={() => {

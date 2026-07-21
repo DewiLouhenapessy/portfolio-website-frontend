@@ -5,7 +5,8 @@ import { Group } from "@visx/group";
 import { AxisLeft } from "@visx/axis";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { useTheme } from "@/components/ThemeProvider";
-import type { Skill } from "@/lib/skills";
+import { useLanguage } from "@/components/LanguageProvider";
+import type { Skill, CategorySubLabels } from "@/lib/skills";
 import Loader from "./Loader";
 
 type SkillGraphType = "vertical" | "radar" | "radial-bar";
@@ -16,7 +17,7 @@ interface SkillMeterProps {
 	graphType?: SkillGraphType;
 	sortType?: "original" | "alphabetical";
 	categoryColor: string;
-	categorySubLabel?: string;
+	categorySubLabels?: CategorySubLabels;
 	width?: number;
 	height?: number;
 	langLevelLabel?: string;
@@ -34,7 +35,7 @@ export function SkillMeter({
 	skills,
 	skillCategory,
 	categoryColor,
-	categorySubLabel,
+	categorySubLabels,
 	graphType = "vertical",
 	sortType = "original",
 	width = 800,
@@ -42,6 +43,7 @@ export function SkillMeter({
 	onReady,
 }: SkillMeterProps) {
 	const { theme } = useTheme();
+	const { locale } = useLanguage();
 	const [isMounted, setIsMounted] = useState(false);
 	const [hasSignaledReady, setHasSignaledReady] = useState(false);
 	const margin = { top: 30, right: 30, bottom: 30, left: 60 };
@@ -306,7 +308,9 @@ export function SkillMeter({
 											}
 											alignmentBaseline="middle"
 										>
-											{skill.name}
+											{categorySubLabels.find(
+												(label) => skill.name === label[locale],
+											) || skill.name}
 										</text>
 										{/* <button
 											onClick={() =>
