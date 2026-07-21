@@ -6,7 +6,11 @@ import { AxisLeft } from "@visx/axis";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { useTheme } from "@/components/ThemeProvider";
 import { useLanguage } from "@/components/LanguageProvider";
-import type { Skill, CategorySubLabels } from "@/lib/skills";
+import {
+	type Skill,
+	getLocalizedSubLabel,
+	interestsLabels,
+} from "@/lib/skills";
 import Loader from "./Loader";
 
 type SkillGraphType = "vertical" | "radar" | "radial-bar";
@@ -17,7 +21,6 @@ interface SkillMeterProps {
 	graphType?: SkillGraphType;
 	sortType?: "original" | "alphabetical";
 	categoryColor: string;
-	categorySubLabels?: CategorySubLabels;
 	width?: number;
 	height?: number;
 	langLevelLabel?: string;
@@ -35,7 +38,6 @@ export function SkillMeter({
 	skills,
 	skillCategory,
 	categoryColor,
-	categorySubLabels,
 	graphType = "vertical",
 	sortType = "original",
 	width = 800,
@@ -308,8 +310,10 @@ export function SkillMeter({
 											}
 											alignmentBaseline="middle"
 										>
-											{categorySubLabels.find(
-												(label) => skill.name === label[locale],
+											{getLocalizedSubLabel(
+												skill.name,
+												interestsLabels,
+												locale,
 											) || skill.name}
 										</text>
 										{/* <button
