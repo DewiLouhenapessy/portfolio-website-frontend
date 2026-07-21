@@ -1,3 +1,5 @@
+import { Locale } from "./i18n";
+
 export interface Skill {
 	name: string;
 	level: number; // 0-100
@@ -60,10 +62,6 @@ export const categoryColors = {
 	interests: "var(--skill-interests)",
 };
 
-export interface CategorySubLabels {
-	[key: string]: { nl: string; en: string }[];
-}
-
 export const langLevelLabels = {
 	fluent: { nl: "Vloeiend", en: "Fluent" },
 	good: { nl: "Goed", en: "Good" },
@@ -91,13 +89,15 @@ export const interestsLabels = {
 export function getSkillsByCategory(category: Skill["category"]): Skill[] {
 	return skillsData.filter((skill) => skill.category === category);
 }
-// get skills by cat geeft array van skills
-// get interestsLabels if skill.category === interests
-// map skills.name + find interestlabel[index] === skill.name
-export function getCategorySubLabels(
-	unlabeledSubCategory: Skill["category"],
-): CategorySubLabels {
-	return skillsData
-		.filter((skill) => skill.category === unlabeledSubCategory)
-		.map((label) => label.name);
+
+export function getLangLevelLabels() {
+	return "";
+}
+
+export function getLocalizedSubLabel(
+	name: string,
+	labels: Record<string, { nl: string; en: string }>,
+	locale: Locale,
+): string {
+	return labels[name]?.[locale] ?? name;
 }
