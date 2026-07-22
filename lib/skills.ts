@@ -66,7 +66,7 @@ export const langLevelLabels = {
 	fluent: { nl: "Vloeiend", en: "Fluent" },
 	good: { nl: "Goed", en: "Good" },
 	sufficient: { nl: "Voldoende", en: "Sufficient" },
-	Basic: { nl: "Basis", en: "Basic" },
+	basic: { nl: "Basis", en: "Basic" },
 };
 
 export const interestsLabels = {
