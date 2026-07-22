@@ -10,6 +10,7 @@ import {
 	type Skill,
 	getLocalizedSubLabel,
 	interestsLabels,
+	langLevelLabels,
 } from "@/lib/skills";
 import Loader from "./Loader";
 
@@ -78,15 +79,17 @@ export function SkillMeter({
 		[yMax],
 	);
 
+	const langLevelKeys = ["fluent", "good", "sufficient", "basic"];
+
 	const langScale = useMemo(
 		() =>
 			scaleBand<string>({
-				domain: ["Fluent", "Good", "Sufficient", "Basic"],
+				domain: langLevelKeys,
 				range: [0, yMax],
 				round: true,
 				padding: 0.2,
 			}),
-		[["Fluent", "Good", "Sufficient", "Basic"], yMax],
+		[yMax],
 	);
 
 	// delay rendering of chart to show off loader
@@ -236,6 +239,9 @@ export function SkillMeter({
 							<AxisLeft
 								top={0}
 								scale={langScale}
+								tickFormat={(key) =>
+									getLocalizedSubLabel(key, langLevelLabels, locale)
+								}
 								hideAxisLine={true}
 								hideTicks={true}
 								tickLabelProps={() => ({
