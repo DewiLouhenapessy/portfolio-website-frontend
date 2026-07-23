@@ -10,9 +10,11 @@ export default function About() {
 	return (
 		<div>
 			<h1>{content.heading[locale]}</h1>
-			<br />
+			<h2>{content.subheading[locale]}</h2>
 			{content.paragraphs[locale].map((paragraph, index) => (
-				<p key={index}>{paragraph}</p>
+				<p className="mb-4" key={index}>
+					{paragraph}
+				</p>
 			))}
 		</div>
 	);

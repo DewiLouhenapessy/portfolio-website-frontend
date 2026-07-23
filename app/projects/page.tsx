@@ -12,7 +12,7 @@ export default function Projects() {
 		<div>
 			<div>
 				<h1>{content.heading[locale]}</h1>
-				<h2>{content.description[locale]}</h2>
+				<p>{content.description[locale]}</p>
 			</div>
 			<div className="pt-8 flex content-end">
 				<p>{content.project[locale]}</p>

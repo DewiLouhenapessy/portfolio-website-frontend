@@ -34,7 +34,7 @@ const Footer = () => {
 			label: "linkedin",
 		},
 		{ href: "https://github.com/DewiLouhenapessy", label: "github" },
-		{ href: "mailto:dewilouhenapessy@gmail.com", label: "email" },
+		{ href: "mailto:info@dewilouhenapessy.nl", label: "email" },
 	];
 
 	return (
