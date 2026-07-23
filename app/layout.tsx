@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { headers } from "next/headers";
 import { Silkscreen, Fira_Code, Raleway } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -36,13 +35,8 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const headersList = await headers();
-	const host = headersList.get("host") ?? "";
-	const htmlLang = host.endsWith(".com") ? "en" : "nl";
-
 	return (
 		<html
-			lang={htmlLang}
 			className={cn(
 				"h-full",
 				"antialiased",
