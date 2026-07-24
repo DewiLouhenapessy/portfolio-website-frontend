@@ -1,6 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/components/LanguageProvider";
+import { RevealCard } from "@/components/RevealCard";
 import { pageContent } from "@/lib/i18n";
 
 export default function About() {
@@ -12,9 +13,12 @@ export default function About() {
 			<h1>{content.heading[locale]}</h1>
 			<h2>{content.subheading[locale]}</h2>
 			{content.paragraphs[locale].map((paragraph, index) => (
-				<p className="mb-4" key={index}>
-					{paragraph}
-				</p>
+				<RevealCard
+					text={paragraph}
+					direction={
+						index === 0 || Number.isInteger(index / 2) ? "left" : "right"
+					}
+				/>
 			))}
 		</div>
 	);
