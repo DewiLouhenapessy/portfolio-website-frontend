@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type ElementType } from "react";
 
 interface TypewriterTextProps {
 	text: string;
 	className?: string;
 	delay?: number;
 	speed?: number;
+	as?: ElementType;
 }
 
 export function TypewriterText({
@@ -15,6 +16,7 @@ export function TypewriterText({
 	className = "",
 	delay = 0,
 	speed = 0.05,
+	as: Component = "p",
 }: TypewriterTextProps) {
 	const [mounted, setMounted] = useState(false);
 
@@ -48,12 +50,12 @@ export function TypewriterText({
 	};
 
 	if (!mounted) {
-		return <p className={className}>{text}</p>;
+		return <Component className={className}>{text}</Component>;
 	}
 
 	return (
 		<motion.div initial="hidden" animate="visible" variants={containerVariants}>
-			<p className={className}>
+			<Component className={className}>
 				{letters.map((letter, index) => (
 					<motion.span
 						key={`${letter}-${index}`}
@@ -63,7 +65,7 @@ export function TypewriterText({
 						{letter === " " ? "\u00A0" : letter}
 					</motion.span>
 				))}
-			</p>
+			</Component>
 		</motion.div>
 	);
 }

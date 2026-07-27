@@ -19,8 +19,9 @@ export default function Home() {
 				duration={0.3}
 			/>
 			<TypewriterText
+				as="h2"
 				text={content.subtitle[locale]}
-				className="ml-2 md:ml-4 text-base"
+				className="ml-2 md:ml-4 text-md"
 				delay={2.4}
 				speed={0.05}
 			/>

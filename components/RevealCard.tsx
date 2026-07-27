@@ -16,7 +16,6 @@ interface UseInViewOptions {
  * (or the viewport, by default). Used to drive scroll-triggered reveal
  * animations without needing a heavier animation library.
  */
-
 function useInView<T extends HTMLElement = HTMLDivElement>(
 	options: UseInViewOptions = {},
 ) {
@@ -54,7 +53,6 @@ interface RevealCardProps {
 
 export function RevealCard({ text, direction }: RevealCardProps) {
 	const { ref, isInView } = useInView<HTMLDivElement>({ threshold: 0.3 });
-
 	const isLeft = direction === "left";
 
 	return (
@@ -78,7 +76,7 @@ export function RevealCard({ text, direction }: RevealCardProps) {
 						: "bg-indigo-50 dark:bg-indigo-950",
 				].join(" ")}
 			>
-				<p className="m-0 text-[15px] leading-relaxed text-zinc-900 dark:text-zinc-100">
+				<p className="m-0 leading-relaxed text-zinc-900 dark:text-zinc-100 text-justify">
 					{text}
 				</p>
 			</div>
