@@ -1,7 +1,6 @@
 "use client";
 
 import { useLanguage } from "@/components/LanguageProvider";
-import Loader from "@/components/Loader";
 import { pageContent } from "@/lib/i18n";
 
 export default function Projects() {
@@ -12,11 +11,26 @@ export default function Projects() {
 		<div>
 			<div>
 				<h1>{content.heading[locale]}</h1>
-				<p>{content.description[locale]}</p>
+				<h2>{content.description[locale]}</h2>
 			</div>
-			<div className="pt-8 flex content-end">
-				<p>{content.project[locale]}</p>
-				<Loader size="sm" variant="dots" />
+			<div className="md:flex md:gap-16">
+				<div className="pt-8">
+					<p className="italic mb-6">{content.project[locale]}</p>
+					<ul className="list-decimal list-inside pl-4">
+						{content.items[locale].map((item) => (
+							<li key={item} className="flex gap-4 mb-4">
+								<span aria-hidden="true">→</span>
+								<span>{item}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+				<div className="p-8 flex justify-center md:block">
+					<img
+						src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif"
+						alt="Under construction GIF"
+					/>
+				</div>
 			</div>
 		</div>
 	);
