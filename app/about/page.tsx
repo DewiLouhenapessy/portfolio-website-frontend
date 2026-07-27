@@ -13,12 +13,12 @@ export default function About() {
 			<h1>{content.heading[locale]}</h1>
 			<h2>{content.subheading[locale]}</h2>
 			{content.paragraphs[locale].map((paragraph, index) => (
-				<RevealCard
-					text={paragraph}
-					direction={
-						index === 0 || Number.isInteger(index / 2) ? "left" : "right"
-					}
-				/>
+				<div key={index}>
+					<RevealCard
+						text={paragraph}
+						direction={index % 2 === 0 ? "left" : "right"}
+					/>
+				</div>
 			))}
 		</div>
 	);

@@ -22,7 +22,7 @@ export const pageContent = {
 		title: { nl: "Welkom", en: "Welcome" },
 		subtitle: {
 			nl: "Dit is de portfolio website van Dewi Louhenapessy.",
-			en: "This is Dewi Louhenapessy's portfolio website.",
+			en: "This is the portfolio website of Dewi Louhenapessy.",
 		},
 	},
 	about: {

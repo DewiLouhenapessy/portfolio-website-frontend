@@ -179,12 +179,7 @@
 
 	nav,
 	footer,
-	h1,
-	h2,
-	h3,
-	h4,
-	h5,
-	h6 {
+	h1 {
 		font-family: var(--heading-font), system-ui, sans-serif;
 	}
 
@@ -196,6 +191,10 @@
 	h2 {
 		font-size: 1.25rem;
 		padding-bottom: 1.5rem;
+	}
+
+	.dark h2 {
+		font-size: 1.125rem;
 	}
 
 	.loader {

@@ -7,7 +7,6 @@ import { SkillMeter } from "@/components/SkillMeter";
 import {
 	categoryLabels,
 	categoryColors,
-	langLevelLabels,
 	getSkillsByCategory,
 } from "@/lib/skills";
 
@@ -26,7 +25,7 @@ export default function Skills() {
 		<div className="space-y-12">
 			<div>
 				<h1>{content.heading[locale]}</h1>
-				<p className="text-muted-foreground">{content.description[locale]}</p>
+				<h2>{content.description[locale]}</h2>
 			</div>
 
 			{visualisations.map((vis, index) => {
@@ -39,7 +38,7 @@ export default function Skills() {
 				return (
 					<section key={vis.category} className="space-y-4">
 						<div>
-							<h2>{categoryLabel}</h2>
+							<h3 className="italic">{categoryLabel}</h3>
 						</div>
 						{isVisible ? (
 							<SkillMeter
