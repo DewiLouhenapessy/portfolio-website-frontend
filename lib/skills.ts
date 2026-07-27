@@ -8,20 +8,21 @@ export interface Skill {
 
 export const skillsData: Skill[] = [
 	// Technologies --> huidige bar graph
-	{ name: "JavaScript", level: 70, category: "technology" },
+	{ name: "React", level: 80, category: "technology" },
+	{ name: "Vue", level: 80, category: "technology" },
 	{ name: "TypeScript", level: 80, category: "technology" },
-	{ name: "React", level: 90, category: "technology" },
-	{ name: "Vue", level: 75, category: "technology" },
-	{ name: "HTML", level: 95, category: "technology" },
-	{ name: "CSS", level: 65, category: "technology" },
-	{ name: "Tailwind", level: 75, category: "technology" },
+	{ name: "JavaScript", level: 80, category: "technology" },
+	{ name: "HTML", level: 80, category: "technology" },
+	{ name: "CSS", level: 80, category: "technology" },
+	{ name: "Tailwind", level: 80, category: "technology" },
 	{ name: "Next.js", level: 60, category: "technology" },
-	{ name: "PHP", level: 90, category: "technology" },
-	{ name: "Node.js", level: 55, category: "technology" },
-	{ name: "SQL", level: 90, category: "technology" },
-	{ name: "Git", level: 50, category: "technology" },
-	{ name: "GitHub", level: 50, category: "technology" },
-	{ name: "GitLab", level: 50, category: "technology" },
+	{ name: "Node.js", level: 60, category: "technology" },
+	{ name: "PHP", level: 80, category: "technology" },
+	{ name: "Linux", level: 60, category: "technology" },
+	{ name: "SQL", level: 80, category: "technology" },
+	{ name: "Git", level: 70, category: "technology" },
+	{ name: "GitHub", level: 70, category: "technology" },
+	{ name: "GitLab", level: 70, category: "technology" },
 
 	// Languages --> bar graph met op de y as fluent (100), good (75), sufficient (50), basic (25)
 	{ name: "NL", level: 100, category: "language" },
@@ -34,20 +35,20 @@ export const skillsData: Skill[] = [
 	{ name: "ID", level: 35, category: "language" },
 
 	// Interests --> radial bar with zoom
-	{ name: "yoga", level: 13, category: "interests" },
-	{ name: "pilates", level: 7, category: "interests" },
-	{ name: "walk", level: 11, category: "interests" },
-	{ name: "cycle", level: 6, category: "interests" },
-	{ name: "boulder", level: 1, category: "interests" },
-	{ name: "run", level: 3, category: "interests" },
-	{ name: "listenMusic", level: 14, category: "interests" },
-	{ name: "makeMusic", level: 5, category: "interests" },
-	{ name: "sing", level: 10, category: "interests" },
-	{ name: "program", level: 12, category: "interests" },
-	{ name: "sew", level: 2, category: "interests" },
-	{ name: "read", level: 4, category: "interests" },
-	{ name: "travel", level: 9, category: "interests" },
-	{ name: "humor", level: 8, category: "interests" },
+	{ name: "yoga", level: 100, category: "interests" },
+	{ name: "pilates", level: 95, category: "interests" },
+	{ name: "walk", level: 75, category: "interests" },
+	{ name: "cycle", level: 75, category: "interests" },
+	{ name: "boulder", level: 60, category: "interests" },
+	{ name: "run", level: 55, category: "interests" },
+	{ name: "listenMusic", level: 100, category: "interests" },
+	{ name: "makeMusic", level: 85, category: "interests" },
+	{ name: "sing", level: 90, category: "interests" },
+	{ name: "program", level: 95, category: "interests" },
+	{ name: "sew", level: 60, category: "interests" },
+	{ name: "read", level: 70, category: "interests" },
+	{ name: "travel", level: 90, category: "interests" },
+	{ name: "humor", level: 80, category: "interests" },
 ];
 
 export const categoryLabels = {
@@ -86,12 +87,13 @@ export const interestsLabels = {
 	humor: { nl: "Comedy/humor", en: "Comedy/humor" },
 };
 
+export const sortButtonLabels = {
+	numerical: { nl: "Sorteer op frequentie", en: "Sort by frequency" },
+	alphabetical: { nl: "Sorteer alfabetisch", en: "Sort alphabetically" },
+};
+
 export function getSkillsByCategory(category: Skill["category"]): Skill[] {
 	return skillsData.filter((skill) => skill.category === category);
-}
-
-export function getLangLevelLabels() {
-	return "";
 }
 
 export function getLocalizedSubLabel(
