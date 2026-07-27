@@ -80,9 +80,8 @@
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
 
-	--font-corbel:
-		Corbel, "Corbel New", "URW Gothic", "Gill Sans Nova", sans-serif;
-	--body-font: var(--font-corbel);
+	--font-lato: "Lato", sans-serif;
+	--body-font: var(--font-lato);
 	--heading-font: var(--font-raleway);
 
 	/* Light mode - accent colors */
@@ -171,10 +170,11 @@
 	body {
 		@apply bg-background text-foreground;
 		font-family: var(--body-font), system-ui, sans-serif;
+		font-size: 1.125rem;
 	}
 
 	.dark body {
-		font-size: 0.875rem;
+		font-size: 1rem;
 	}
 
 	nav,
@@ -189,12 +189,12 @@
 	}
 
 	h1 {
-		font-size: xx-large;
+		font-size: 2rem;
 		padding-bottom: 2.5rem;
 	}
 
 	h2 {
-		font-size: large;
+		font-size: 1.25rem;
 		padding-bottom: 1.5rem;
 	}
 

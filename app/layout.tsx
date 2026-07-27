@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Silkscreen, Fira_Code, Raleway } from "next/font/google";
+import { Silkscreen, Fira_Code, Raleway, Lato } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+
+const lato = Lato({
+	subsets: ["latin"],
+	weight: ["300", "700"],
+	variable: "--font-lato",
+});
 
 const raleway = Raleway({
 	subsets: ["latin"],
@@ -21,7 +27,7 @@ const silkscreen = Silkscreen({
 
 const firaCode = Fira_Code({
 	subsets: ["latin"],
-	weight: ["400", "700"],
+	weight: ["300", "700"],
 	variable: "--font-fira-code",
 });
 
@@ -40,7 +46,8 @@ export default async function RootLayout({
 			className={cn(
 				"h-full",
 				"antialiased",
-				"font-corbel",
+				"font-lato",
+				lato.variable,
 				silkscreen.variable,
 				firaCode.variable,
 				raleway.variable,
