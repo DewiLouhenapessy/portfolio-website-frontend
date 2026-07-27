@@ -11,9 +11,7 @@ export default function Contact() {
 	return (
 		<div className="space-y-8">
 			<h1 className="mb-0">{content.heading[locale]}</h1>
-			<p className="text-gray-600 dark:text-gray-300">
-				{content.details[locale]}
-			</p>
+			<p>{content.details[locale]}</p>
 			<ContactForm />
 		</div>
 	);
