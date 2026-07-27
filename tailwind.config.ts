@@ -6,7 +6,7 @@ const config: Config = {
 	theme: {
 		extend: {
 			fontFamily: {
-				corbel: "'Corbel', 'Corbel New', 'URW Gothic', 'Gill Sans Nova', sans-serif",
+				lato: "'Lato', sans-serif",
 			},
 		},
 	},
