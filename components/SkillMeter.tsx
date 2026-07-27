@@ -11,6 +11,7 @@ import {
 	getLocalizedSubLabel,
 	interestsLabels,
 	langLevelLabels,
+	sortButtonLabels,
 } from "@/lib/skills";
 import Loader from "./Loader";
 
@@ -20,7 +21,7 @@ interface SkillMeterProps {
 	skills: Skill[];
 	skillCategory: Skill["category"];
 	graphType?: SkillGraphType;
-	sortType?: "original" | "alphabetical";
+	initialSortType?: "numerical" | "alphabetical";
 	categoryColor: string;
 	width?: number;
 	height?: number;
@@ -40,7 +41,7 @@ export function SkillMeter({
 	skillCategory,
 	categoryColor,
 	graphType = "vertical",
-	sortType = "original",
+	initialSortType = "alphabetical",
 	width = 800,
 	height = 400,
 	onReady,
@@ -49,13 +50,24 @@ export function SkillMeter({
 	const { locale } = useLanguage();
 	const [isMounted, setIsMounted] = useState(false);
 	const [hasSignaledReady, setHasSignaledReady] = useState(false);
+	const [hoveredSkillName, setHoveredSkillName] = useState<string | null>(null);
+	const [sortType, setSortType] = useState<"numerical" | "alphabetical">(
+		initialSortType,
+	);
 	const margin = { top: 30, right: 30, bottom: 30, left: 60 };
 	const innerWidth = width - margin.left - margin.right;
 	const innerHeight = height - margin.top - margin.bottom;
 
 	const xMax = innerWidth;
 	const yMax = innerHeight;
+	const fontSize = 14; // Change this value to adjust the font size of labels and ticks
 	const fillOpacity = theme === "dark" ? 0.6 : 1;
+
+	const toggleSkillHighlight = (skillName: string) => {
+		setHoveredSkillName((current) =>
+			current === skillName ? null : skillName,
+		);
+	};
 
 	// Scales
 	const xScale = useMemo(
@@ -134,13 +146,18 @@ export function SkillMeter({
 
 	// Sort skills based on sortType and graphType
 	const sortedSkills = useMemo(() => {
-		const shouldSort =
-			graphType === "radial-bar" && sortType === "alphabetical";
-		if (shouldSort) {
-			return [...skills].sort((a, b) => a.name.localeCompare(b.name));
+		if (graphType !== "radial-bar") return skills;
+
+		if (sortType === "alphabetical") {
+			return [...skills].sort((a, b) => {
+				const labelA = getLocalizedSubLabel(a.name, interestsLabels, locale);
+				const labelB = getLocalizedSubLabel(b.name, interestsLabels, locale);
+				return labelA.localeCompare(labelB, locale);
+			});
 		}
-		return skills;
-	}, [skills, graphType, sortType]);
+
+		return [...skills].sort((a, b) => b.level - a.level); // "numerical"
+	}, [skills, graphType, sortType, locale]);
 
 	if (!isMounted) {
 		return (
@@ -158,6 +175,23 @@ export function SkillMeter({
 
 	return (
 		<div className="w-full overflow-x-auto rounded-lg border border-border bg-card p-4">
+			{graphType === "radial-bar" && (
+				<div className="mb-3 flex justify-end">
+					<button
+						type="button"
+						onClick={() =>
+							setSortType((current) =>
+								current === "numerical" ? "alphabetical" : "numerical",
+							)
+						}
+						className="rounded-md border border-border px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+					>
+						{sortType === "numerical"
+							? sortButtonLabels.alphabetical[locale]
+							: sortButtonLabels.numerical[locale]}
+					</button>
+				</div>
+			)}
 			<svg
 				width={width} // kijken of ik de linker marge kleiner kan maken in schermen kleiner dan md
 				height={height}
@@ -225,7 +259,7 @@ export function SkillMeter({
 									y={yMax + 25}
 									dx="0.5em"
 									textAnchor="start"
-									fontSize={13}
+									fontSize={fontSize}
 									fill="currentColor"
 									className="font-medium"
 								>
@@ -245,7 +279,7 @@ export function SkillMeter({
 								hideAxisLine={true}
 								hideTicks={true}
 								tickLabelProps={() => ({
-									fontSize: 12,
+									fontSize: fontSize,
 									textAnchor: "end",
 									fill: "currentColor",
 									dy: "-3em",
@@ -259,7 +293,7 @@ export function SkillMeter({
 								stroke="currentColor"
 								tickStroke="currentColor"
 								tickLabelProps={() => ({
-									fontSize: 12,
+									fontSize: fontSize,
 									textAnchor: "middle",
 									fill: "currentColor",
 								})}
@@ -286,27 +320,33 @@ export function SkillMeter({
 								const angle = (2 * Math.PI * index) / totalSkills;
 								const end = polarToCartesian(angle, radius);
 								const labelPoint = polarToCartesian(angle, radius + 18);
-								// const [sortType, setSortType()] = useState<
-								// 	"original" | "alphabetical"
-								// >("original");
+								const isHovered = hoveredSkillName === skill.name;
 
 								return (
-									<g key={`axis-${skill.name}`}>
+									<g
+										key={`axis-${skill.name}`}
+										onMouseEnter={() => setHoveredSkillName(skill.name)}
+										onMouseLeave={() => setHoveredSkillName(null)}
+										onClick={() => toggleSkillHighlight(skill.name)}
+										onTouchStart={() => toggleSkillHighlight(skill.name)}
+										cursor="pointer"
+									>
 										<line
 											x1={0}
 											y1={0}
 											x2={end.x}
 											y2={end.y}
-											stroke="currentColor"
-											strokeOpacity={0.15}
-											strokeWidth={1}
+											stroke={isHovered ? categoryColor : "currentColor"}
+											strokeOpacity={isHovered ? 0.45 : 0.15}
+											strokeWidth={isHovered ? 2 : 1}
 											strokeDasharray="3"
 										/>
 										<text
 											x={labelPoint.x}
 											y={labelPoint.y}
-											fontSize={12}
-											fill="currentColor"
+											fontSize={fontSize}
+											fontWeight={isHovered ? 700 : 400}
+											fill={isHovered ? categoryColor : "currentColor"}
 											textAnchor={
 												Math.abs(labelPoint.x) < 5
 													? "middle"
@@ -322,18 +362,6 @@ export function SkillMeter({
 												locale,
 											) || skill.name}
 										</text>
-										{/* <button
-											onClick={() =>
-												setSortType(
-													sortType === "original" ? "alphabetical" : "original",
-												)
-											}
-											className="mt-4 px-4 py-2 rounded-md border border-border bg-card hover:bg-muted transition-colors"
-										>
-											{sortType === "original"
-												? "Sorteren: Origineel"
-												: "Sorteren: Alfabetisch"}
-										</button> */}
 									</g>
 								);
 							},
@@ -362,24 +390,26 @@ export function SkillMeter({
 									const labelRadius = radius * 0.6;
 									const labelPoint = polarToCartesian(midAngle, labelRadius);
 
+									const isHovered = hoveredSkillName === skill.name;
+
 									return (
-										<g key={`radial-bar-${skill.name}`}>
+										<g
+											key={`radial-bar-${skill.name}`}
+											onMouseEnter={() => setHoveredSkillName(skill.name)}
+											onMouseLeave={() => setHoveredSkillName(null)}
+											onClick={() => toggleSkillHighlight(skill.name)}
+											onTouchStart={() => toggleSkillHighlight(skill.name)}
+											cursor="pointer"
+										>
 											<path
 												d={`M 0 0 L ${start.x} ${start.y} A ${outerRadius} ${outerRadius} 0 0 1 ${end.x} ${end.y} Z`}
 												fill={categoryColor}
-												fillOpacity={fillOpacity}
+												fillOpacity={
+													isHovered ? fillOpacity * 1.1 : fillOpacity * 0.85
+												}
+												stroke={isHovered ? "currentColor" : "none"}
+												strokeWidth={isHovered ? 1.5 : 0}
 											/>
-											<text
-												x={labelPoint.x}
-												y={labelPoint.y}
-												fontSize={11}
-												fill="currentColor"
-												fontWeight="bold"
-												textAnchor="middle"
-												alignmentBaseline="middle"
-											>
-												{index + 1}
-											</text>
 										</g>
 									);
 								})}
