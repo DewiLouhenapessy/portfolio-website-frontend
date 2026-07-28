@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, type ContactFormData } from "@/lib/validations";
@@ -22,23 +22,41 @@ export default function ContactForm() {
 		handleSubmit,
 		formState: { errors },
 		reset,
+		setError,
+		setValue,
 	} = useForm<ContactFormData>({
 		resolver: zodResolver(contactFormSchema),
 	});
+
+	// Remember time of loading when component mounts
+	useEffect(() => {
+		setValue("formLoadedAt", Date.now());
+	}, [setValue]);
 
 	const onSubmit = async (data: ContactFormData) => {
 		setIsSubmitting(true);
 		setSubmitStatus("idle");
 
 		try {
-			const res = await fetch("/api/contact", {
+			const res = await fetch("/contact.php", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(data),
 			});
 
+			const result = await res.json();
+
 			if (!res.ok) {
-				console.error("Failed to send contact form", await res.text());
+				if (result.details) {
+					Object.entries(result.details).forEach(([field, message]) => {
+						setError(field as keyof ContactFormData, {
+							type: "server",
+							message: message as string,
+						});
+					});
+				}
+
+				console.error("Failed to send contact form", result);
 				throw new Error("Failed to send contact form");
 			}
 
@@ -126,6 +144,21 @@ export default function ContactForm() {
 					<p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
 				)}
 			</div>
+
+			{/* Honeypot field — invisible for humans, bait for bots*/}
+			<div style={{ position: "absolute", left: "-9999px" }} aria-hidden="true">
+				<label htmlFor="website">Website</label>
+				<input
+					{...register("website")}
+					id="website"
+					type="text"
+					tabIndex={-1}
+					autoComplete="off"
+				/>
+			</div>
+
+			{/* Hidden timing field */}
+			<input type="hidden" {...register("formLoadedAt")} />
 
 			{/* Status Messages */}
 			{submitStatus === "success" && (

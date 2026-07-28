@@ -14,6 +14,8 @@ export const contactFormSchema = z.object({
 		.string()
 		.min(10, { message: "Bericht moet minstens 10 karakters bevatten" })
 		.max(5000, { message: "Bericht mag niet langer dan 5000 karakters zijn" }),
+	website: z.string().max(0).optional(), // honeypot — moet altijd leeg zijn
+	formLoadedAt: z.number().optional(), // tijdstip van laden, voor timing-check
 });
 
 // export const adminLoginSchema = z.object({
