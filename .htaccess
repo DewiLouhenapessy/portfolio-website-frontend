@@ -7,4 +7,8 @@
   # RewriteCond %{REMOTE_ADDR} !^87\.210\.106\.126$
   # RewriteCond %{REQUEST_URI} !^/maintenance\.html$
   # RewriteRule ^(.*)$ /maintenance.html [R=302,L]
+
+  # Nette URL's zonder .html extensie
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ $1.html [L]
 </IfModule>
