@@ -52,7 +52,22 @@ export const pageContent = {
 			nl: "Een overzicht van mijn werk en projecten.",
 			en: "An overview of my work and projects.",
 		},
-		project: { nl: "Binnenkort beschikbaar", en: "Coming soon" },
+		project: {
+			nl: "Hier wordt aan gewerkt:",
+			en: "These projects are in progress:",
+		},
+		items: {
+			nl: [
+				"Adminpagina / Kanbanbord (PHP/Laravel, MySQL, React)",
+				"Unittest oefenproject (Jest, Vitest)",
+				"Awesome Three.js landingspagina",
+			],
+			en: [
+				"Admin page / Kanban board (PHP/Laravel, MySQL, React)",
+				"Unit test practice project (Jest, Vitest)",
+				"Awesome Three.js landing page",
+			],
+		},
 	},
 	skills: {
 		heading: { nl: "Vaardigheden", en: "Skills" },
