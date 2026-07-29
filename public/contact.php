@@ -4,6 +4,13 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(["error" => "Method not allowed"]);
@@ -67,8 +74,8 @@ if (!empty($errors)) {
     exit;
 }
 
-$to = "jouw@email.nl";
-$from = "noreply@jouwdomein.nl";
+$to = "your@email.nl";
+$from = "noreply@yourdomain.nl";
 
 $mailSubject = "[Contact] " . $subject;
 
@@ -92,9 +99,31 @@ $body .= "Content-Type: text/html; charset=UTF-8\r\n\r\n";
 $body .= "$htmlBody\r\n";
 $body .= "--$boundary--";
 
-if (mail($to, $mailSubject, $body, $headers)) {
+$mail = new PHPMailer(true);
+
+try {
+    $mail->isSMTP();
+    $mail->Host       = 'smtp.yourprovider.nl';
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'noreply@yourdomain.nl';
+    $mail->Password   = 'your-mailbox-password';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = 587;
+    $mail->CharSet    = 'UTF-8';
+
+    $mail->setFrom('noreply@jouwdomein.nl', 'Contactformulier');
+    $mail->addAddress($to);
+    $mail->addReplyTo($email, $name);
+
+    $mail->isHTML(true);
+    $mail->Subject = $mailSubject;
+    $mail->Body    = $htmlBody;
+    $mail->AltBody = $textBody;
+
+    $mail->send();
     echo json_encode(["ok" => true]);
-} else {
+} catch (Exception $e) {
+    error_log("Mailer Error: " . $mail->ErrorInfo);
     http_response_code(500);
     echo json_encode(["error" => "Failed to send email"]);
 }
