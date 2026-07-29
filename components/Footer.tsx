@@ -10,15 +10,17 @@ const Footer = () => {
 	interface FooterItemProps {
 		text: string;
 		href: string;
+		target?: string;
 		onClick?: () => void;
 	}
 
-	const FooterItem = ({ text, href, onClick }: FooterItemProps) => {
+	const FooterItem = ({ text, href, target, onClick }: FooterItemProps) => {
 		return (
 			<Link
 				className="text-l text-foreground transition hover:-translate-x-0.5"
 				href={href}
 				onClick={onClick}
+				target={target}
 			>
 				{text}
 			</Link>
@@ -27,13 +29,19 @@ const Footer = () => {
 
 	const footerItems: Array<{
 		href: string;
+		target?: string;
 		label: keyof typeof footerLabels;
 	}> = [
 		{
 			href: "https://www.linkedin.com/in/dewi-louhenapessy-8b0894146/",
+			target: "_blank",
 			label: "linkedin",
 		},
-		{ href: "https://github.com/DewiLouhenapessy", label: "github" },
+		{
+			href: "https://github.com/DewiLouhenapessy",
+			target: "_blank",
+			label: "github",
+		},
 		{ href: "mailto:info@dewilouhenapessy.nl", label: "email" },
 	];
 
@@ -43,6 +51,7 @@ const Footer = () => {
 				<FooterItem
 					key={item.href}
 					href={item.href}
+					target={item.target}
 					text={footerLabels[item.label][locale]}
 				/>
 			))}
