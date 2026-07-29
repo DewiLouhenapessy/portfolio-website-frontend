@@ -13,40 +13,47 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const [theme, setTheme] = useState<"light" | "dark">("light");
 	const [mounted, setMounted] = useState(false);
 
-	// Initialize theme from localStorage and system preference
+	// Effect 1: Check what the blocking script has applied
+	// no computation, no DOM modification, only synchronises React's state.
 	useEffect(() => {
-		const stored = localStorage.getItem("theme") as "light" | "dark" | null;
-		const prefersDark = window.matchMedia(
-			"(prefers-color-scheme: dark)",
-		).matches;
-
-		let initialTheme: "light" | "dark" = "light";
-		if (stored) {
-			initialTheme = stored;
-		} else if (prefersDark) {
-			initialTheme = "dark";
-		}
-
-		setTheme(initialTheme);
-		applyTheme(initialTheme);
+		const isDark = document.documentElement.classList.contains("dark");
+		setTheme(isDark ? "dark" : "light");
 		setMounted(true);
 	}, []);
 
-	const applyTheme = (newTheme: "light" | "dark") => {
-		const root = document.documentElement;
-		if (newTheme === "dark") {
-			root.classList.add("dark");
-		} else {
-			root.classList.remove("dark");
-		}
-	};
+	// Effect 2: watch live for system preference changes
+	// only if the user has not made an explicit choice yet
+	useEffect(() => {
+		if (localStorage.getItem("theme")) return;
+
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+		const handleChange = (e: MediaQueryListEvent) => {
+			const newTheme = e.matches ? "dark" : "light";
+			document.documentElement.classList.toggle("dark", newTheme === "dark");
+			setTheme(newTheme);
+		};
+
+		mediaQuery.addEventListener("change", handleChange);
+		return () => mediaQuery.removeEventListener("change", handleChange);
+	}, []);
 
 	const toggleTheme = () => {
-		const newTheme = theme === "light" ? "dark" : "light";
-		setTheme(newTheme);
-		applyTheme(newTheme);
-		localStorage.setItem("theme", newTheme);
+		setTheme((prev) => {
+			const next = prev === "light" ? "dark" : "light";
+
+			document.documentElement.classList.toggle("dark", next === "dark");
+			localStorage.setItem("theme", next);
+
+			return next;
+		});
 	};
+
+	// Prevent flashing of incorrect content in the UI during the very first
+	// render before hydration is complete
+	if (!mounted) {
+		return null; // of een skeleton/placeholder, afhankelijk van je UX-voorkeur
+	}
 
 	return (
 		<ThemeContext.Provider value={{ theme, toggleTheme }}>
