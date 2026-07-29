@@ -19,11 +19,11 @@ interface NavLink {
 }
 const navItems: NavLink[] = [
 	{ href: "/", label: "home" },
-	{ href: "/about", label: "about" },
-	{ href: "/skills", label: "skills" },
-	{ href: "/projects", label: "projects" },
-	// { href: "/quiz", label: "quiz" },
-	{ href: "/contact", label: "contact" },
+	{ href: "/about.html", label: "about" },
+	{ href: "/skills.html", label: "skills" },
+	{ href: "/projects.html", label: "projects" },
+	// { href: "/quiz.html", label: "quiz" },
+	{ href: "/contact.html", label: "contact" },
 ];
 
 const NavItem = ({ text, href, onClick }: NavItemProps) => {

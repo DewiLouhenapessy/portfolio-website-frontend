@@ -36,6 +36,8 @@ function polarToCartesian(angle: number, radius: number) {
 	};
 }
 
+const langLevelKeys = ["fluent", "good", "sufficient", "basic"];
+
 export function SkillMeter({
 	skills,
 	skillCategory,
@@ -90,8 +92,6 @@ export function SkillMeter({
 			}),
 		[yMax],
 	);
-
-	const langLevelKeys = ["fluent", "good", "sufficient", "basic"];
 
 	const langScale = useMemo(
 		() =>
@@ -386,9 +386,9 @@ export function SkillMeter({
 									const outerRadius = radiusScale(skill.level);
 									const start = polarToCartesian(startAngle, outerRadius);
 									const end = polarToCartesian(endAngle, outerRadius);
-									const midAngle = (startAngle + endAngle) / 2;
-									const labelRadius = radius * 0.6;
-									const labelPoint = polarToCartesian(midAngle, labelRadius);
+									// const midAngle = (startAngle + endAngle) / 2;
+									// const labelRadius = radius * 0.6;
+									// const labelPoint = polarToCartesian(midAngle, labelRadius);
 
 									const isHovered = hoveredSkillName === skill.name;
 

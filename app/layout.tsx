@@ -43,6 +43,8 @@ export default async function RootLayout({
 }>) {
 	return (
 		<html
+			lang="nl"
+			suppressHydrationWarning
 			className={cn(
 				"h-full",
 				"antialiased",
@@ -53,6 +55,24 @@ export default async function RootLayout({
 				raleway.variable,
 			)}
 		>
+			<head>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+							(function() {
+								try {
+									var stored = localStorage.getItem('theme');
+									var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+									var theme = stored === 'light' || stored === 'dark' ? stored : (prefersDark ? 'dark' : 'light');
+									if (theme === 'dark') {
+										document.documentElement.classList.add('dark');
+									}
+								} catch (e) {}
+							})();
+						`,
+					}}
+				/>
+			</head>
 			<body className="min-h-screen flex flex-col">
 				<LanguageProvider>
 					<ThemeProvider>
