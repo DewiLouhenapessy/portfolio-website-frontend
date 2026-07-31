@@ -176,7 +176,7 @@ export default function ContactForm() {
 			<Button
 				type="submit"
 				disabled={isSubmitting}
-				className="bg-gradient-theme w-full"
+				className="bg-gradient-theme not-dark:text-black w-full"
 			>
 				{isSubmitting ? formLabels.sending[locale] : formLabels.submit[locale]}
 			</Button>
