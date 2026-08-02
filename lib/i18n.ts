@@ -58,12 +58,12 @@ export const pageContent = {
 		},
 		items: {
 			nl: [
-				"Adminpagina / Kanbanbord (PHP/Laravel, MySQL, React)",
+				"Adminpagina / Kanbanbord (PHP/Laravel, MySQL, TypeScript/React)",
 				"Unittest oefenproject (Jest, Vitest)",
 				"Awesome Three.js landingspagina",
 			],
 			en: [
-				"Admin page / Kanban board (PHP/Laravel, MySQL, React)",
+				"Admin page / Kanban board (PHP/Laravel, MySQL, TypeScript/React)",
 				"Unit test practice project (Jest, Vitest)",
 				"Awesome Three.js landing page",
 			],
@@ -94,6 +94,7 @@ export const pageContent = {
 			email: { nl: "E-mail", en: "Email" },
 			subject: { nl: "Onderwerp", en: "Subject" },
 			message: { nl: "Bericht", en: "Message" },
+			password: { nl: "Wachtwoord", en: "Password" },
 			submit: { nl: "Verstuur", en: "Send" },
 			sending: { nl: "Aan het verzenden...", en: "Sending..." },
 			success: { nl: "Bericht verzonden!", en: "Message sent!" },

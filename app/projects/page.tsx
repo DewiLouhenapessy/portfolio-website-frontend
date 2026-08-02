@@ -13,8 +13,8 @@ export default function Projects() {
 				<h1>{content.heading[locale]}</h1>
 				<h2>{content.description[locale]}</h2>
 			</div>
-			<div className="md:flex md:gap-16">
-				<div className="pt-8">
+			<div className="md:flex md:gap-8 ">
+				<div className="pt-8 md:w-full">
 					<p className="italic mb-6">{content.project[locale]}</p>
 					<ul className="list-decimal list-inside pl-4">
 						{content.items[locale].map((item) => (
@@ -25,7 +25,7 @@ export default function Projects() {
 						))}
 					</ul>
 				</div>
-				<div className="p-8 flex justify-center md:block">
+				<div className="p-4 flex justify-center md:block">
 					<img
 						src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif"
 						alt="Under construction GIF"
