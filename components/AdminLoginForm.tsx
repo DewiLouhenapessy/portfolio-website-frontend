@@ -17,6 +17,8 @@ export default function AdminLoginForm() {
 		formState: { errors },
 	} = useForm<AdminLoginData>({
 		resolver: zodResolver(adminLoginSchema),
+		mode: "onBlur",
+		reValidateMode: "onChange",
 	});
 
 	const onSubmit = async (data: AdminLoginData) => {
@@ -60,6 +62,7 @@ export default function AdminLoginForm() {
 					{...register("username")}
 					type="text"
 					autoComplete="username"
+					placeholder="Bijv. admin"
 					className="rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none ring-0 focus:border-ring"
 				/>
 				{errors.username && (
@@ -73,6 +76,7 @@ export default function AdminLoginForm() {
 					{...register("password")}
 					type="password"
 					autoComplete="current-password"
+					placeholder="Minimaal 4 tekens"
 					className="rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none ring-0 focus:border-ring"
 				/>
 				{errors.password && (
