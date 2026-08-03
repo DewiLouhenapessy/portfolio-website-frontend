@@ -1,75 +1,79 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/context/AuthContext";
+const columns = [
+	{ id: "todo", title: "Te doen", accent: "border-slate-300" },
+	{ id: "progress", title: "In uitvoering", accent: "border-amber-300" },
+	{ id: "done", title: "Afgerond", accent: "border-emerald-300" },
+] as const;
 
-export default function LoginPage() {
-	const { login } = useAuth();
-	const router = useRouter();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [error, setError] = useState<string | null>(null);
-	const [isSubmitting, setIsSubmitting] = useState(false);
+const cards = [
+	{
+		id: 1,
+		title: "Nieuwe portfolio-content",
+		description: "Projectbeschrijvingen voor de hoofdpagina bijwerken.",
+		column: "todo",
+	},
+	{
+		id: 2,
+		title: "Contactformulier testen",
+		description: "Controleer of de verzending in productie werkt.",
+		column: "progress",
+	},
+	{
+		id: 3,
+		title: "Adminomgeving opleveren",
+		description: "Beheerscherm en kanbanbord zijn beschikbaar.",
+		column: "done",
+	},
+] as const;
 
-	const handleSubmit = async (e: { preventDefault: () => void }) => {
-		e.preventDefault();
-		setError(null);
-		setIsSubmitting(true);
-		try {
-			await login(email, password);
-			router.push("/admin");
-		} catch {
-			setError("Inloggen mislukt. Controleer je e-mailadres en wachtwoord.");
-		} finally {
-			setIsSubmitting(false);
-		}
-	};
-
+export default function KanbanPage() {
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
-			<form
-				onSubmit={handleSubmit}
-				className="w-full max-w-sm rounded-lg border border-slate-200 bg-white p-8 shadow-sm"
-			>
-				<h1 className="mb-6 text-xl font-semibold text-slate-900">Inloggen</h1>
-
-				{error && (
-					<p className="mb-4 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
-						{error}
+		<main className="min-h-screen bg-background px-6 py-8 text-foreground">
+			<div className="mx-auto flex max-w-6xl flex-col gap-6">
+				<div className="space-y-2">
+					<p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
+						Admin / Kanban
 					</p>
-				)}
+					<h1 className="text-3xl font-semibold sm:text-4xl">Kanbanbord</h1>
+					<p className="max-w-2xl text-base leading-7 text-muted-foreground">
+						Deze pagina is rechtstreeks toegankelijk vanaf /admin/kanban zonder
+						een tweede inlogscherm.
+					</p>
+				</div>
 
-				<label className="mb-1 block text-sm font-medium text-slate-700">
-					E-mailadres
-				</label>
-				<input
-					type="email"
-					required
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					className="mb-4 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none"
-				/>
+				<div className="grid gap-4 lg:grid-cols-3">
+					{columns.map((column) => (
+						<section
+							key={column.id}
+							className={`rounded-2xl border border-border/70 bg-card/70 p-4 shadow-sm ${column.accent}`}
+						>
+							<div className="flex items-center justify-between">
+								<h2 className="text-lg font-semibold">{column.title}</h2>
+								<span className="rounded-full border border-border/70 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+									{cards.filter((card) => card.column === column.id).length}
+								</span>
+							</div>
 
-				<label className="mb-1 block text-sm font-medium text-slate-700">
-					Wachtwoord
-				</label>
-				<input
-					type="password"
-					required
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					className="mb-6 w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none"
-				/>
-
-				<button
-					type="submit"
-					disabled={isSubmitting}
-					className="w-full rounded-md bg-slate-900 py-2 text-sm font-medium text-white transition hover:bg-slate-800 disabled:opacity-50"
-				>
-					{isSubmitting ? "Bezig..." : "Inloggen"}
-				</button>
-			</form>
-		</div>
+							<div className="mt-4 space-y-3">
+								{cards
+									.filter((card) => card.column === column.id)
+									.map((card) => (
+										<article
+											key={card.id}
+											className="rounded-xl border border-border/70 bg-background/80 p-3"
+										>
+											<h3 className="font-medium">{card.title}</h3>
+											<p className="mt-1 text-sm leading-6 text-muted-foreground">
+												{card.description}
+											</p>
+										</article>
+									))}
+							</div>
+						</section>
+					))}
+				</div>
+			</div>
+		</main>
 	);
 }
