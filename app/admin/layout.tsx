@@ -17,9 +17,9 @@ function AdminLayoutContent({ children }: { children: ReactNode }) {
 	}
 
 	return (
-		<div className="min-h-screen bg-slate-50">
+		<div className="min-h-screen">
 			{user ? (
-				<header className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-3">
+				<header className="flex items-center justify-between border-b px-6 py-3">
 					<span className="text-sm text-slate-600">
 						Ingelogd als {user.email}
 					</span>
