@@ -76,7 +76,7 @@ export function RevealCard({ text, direction }: RevealCardProps) {
 						: "bg-indigo-50 dark:bg-indigo-950",
 				].join(" ")}
 			>
-				<p className="m-0 leading-relaxed text-zinc-900 dark:text-zinc-100 text-justify">
+				<p className="m-0 leading-relaxed text-zinc-900 dark:text-zinc-100 text-justify hyphens-auto">
 					{text}
 				</p>
 			</div>
