@@ -18,9 +18,13 @@ function FloatingLabel({
 	const isFilled = value.trim().length > 0;
 
 	return (
-		<div className="relative">
-			<div className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground transition-all duration-200">
-				<span className={isFilled ? "text-xs -top-2" : "text-sm top-1/2"}>
+		<div className="">
+			<div className="relative pointer-events-none  left-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground transition-all duration-200">
+				<span
+					className={
+						isFilled ? "absolute text-xs -top-4" : "absolute text-sm top-4"
+					}
+				>
 					{label}
 				</span>
 			</div>
