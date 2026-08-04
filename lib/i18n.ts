@@ -9,6 +9,8 @@ export const navLabels = {
 	skills: { nl: "Vaardigheden", en: "Skills" },
 	quiz: { nl: "Quiz", en: "Quiz" },
 	contact: { nl: "Contact", en: "Contact" },
+	admin: { nl: "Adminpagina", en: "Admin page" },
+	kanban: { nl: "Kanbanbord", en: "Kanban Board" },
 };
 
 export const footerLabels = {

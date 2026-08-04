@@ -8,12 +8,12 @@ import { LanguageToggle } from "./LanguageToggle";
 import { useLanguage } from "./LanguageProvider";
 import { navLabels } from "@/lib/i18n";
 
-interface NavItemProps {
+export interface NavItemProps {
 	text: string;
 	href: string;
 	onClick?: () => void;
 }
-interface NavLink {
+export interface NavLink {
 	href: string;
 	label: keyof typeof navLabels;
 }
