@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import AdminLoginForm from "@/components/AdminLoginForm";
 
@@ -67,31 +66,10 @@ export default function AdminPage() {
 			<div className="mx-auto flex max-w-3xl flex-col gap-6 rounded-2xl border border-border/70 bg-card/70 p-8 shadow-sm backdrop-blur-sm">
 				<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 					<div>
-						<h1 className="text-3xl font-semibold sm:text-4xl">
-							Welkom in het beheergedeelte
-						</h1>
+						<h1 className="text-2xl font-semibold md:text-4xl">Welkom admin</h1>
 						<p className="mt-2 text-sm leading-6 text-muted-foreground">
-							Gebruik de knop hieronder om het kanbanbord te openen.
+							Navigeer links naar de gewenste pagina.
 						</p>
-					</div>
-
-					<div className="flex flex-wrap gap-3">
-						<Link
-							href="/admin/kanban"
-							className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition hover:opacity-90"
-						>
-							Open kanbanbord
-						</Link>
-						<button
-							type="button"
-							onClick={() => {
-								clearAdminAuthCookie();
-								window.location.reload();
-							}}
-							className="rounded-lg border border-border px-4 py-2 text-sm font-medium transition hover:bg-muted"
-						>
-							Uitloggen
-						</button>
 					</div>
 				</div>
 			</div>
