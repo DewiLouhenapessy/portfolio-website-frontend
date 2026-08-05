@@ -123,7 +123,11 @@ export default function AdminLoginForm() {
 				</div>
 			)}
 
-			<Button type="submit" disabled={isSubmitting} className="w-full">
+			<Button
+				type="submit"
+				disabled={isSubmitting}
+				className="w-full bg-gradient-theme not-dark:text-black transition hover:-translate-x-1"
+			>
 				{isSubmitting ? "Inlogt..." : "Inloggen"}
 			</Button>
 		</form>
