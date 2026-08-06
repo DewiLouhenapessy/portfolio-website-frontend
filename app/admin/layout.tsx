@@ -4,15 +4,19 @@ import { type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import AdminNavBar from "@/components/AdminNavBar";
+import { useLanguage } from "@/components/LanguageProvider";
+import { pageContent } from "@/lib/i18n";
 
 function AdminLayoutContent({ children }: { children: ReactNode }) {
 	const { user, isLoading, logout } = useAuth();
 	const router = useRouter();
+	const { locale } = useLanguage();
+	const content = pageContent.admin.layout;
 
 	if (isLoading) {
 		return (
 			<div className="flex min-h-screen items-center justify-center text-sm text-slate-400">
-				Bezig met laden...
+				{content.loading[locale]}
 			</div>
 		);
 	}
@@ -37,7 +41,7 @@ function AdminLayoutContent({ children }: { children: ReactNode }) {
 									}}
 									className="text-sm text-slate-500 underline hover:text-slate-900"
 								>
-									Uitloggen
+									{content.logout[locale]}
 								</button>
 							</header>
 						</div>
