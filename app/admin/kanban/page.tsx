@@ -1,44 +1,43 @@
 "use client";
 
-const columns = [
-	{ id: "todo", title: "Te doen", accent: "border-slate-300" },
-	{ id: "progress", title: "In uitvoering", accent: "border-amber-300" },
-	{ id: "done", title: "Afgerond", accent: "border-emerald-300" },
-] as const;
-
-const cards = [
-	{
-		id: 1,
-		title: "Nieuwe portfolio-content",
-		description: "Projectbeschrijvingen voor de hoofdpagina bijwerken.",
-		column: "todo",
-	},
-	{
-		id: 2,
-		title: "Contactformulier testen",
-		description: "Controleer of de verzending in productie werkt.",
-		column: "progress",
-	},
-	{
-		id: 3,
-		title: "Adminomgeving opleveren",
-		description: "Beheerscherm en kanbanbord zijn beschikbaar.",
-		column: "done",
-	},
-] as const;
+import { useLanguage } from "@/components/LanguageProvider";
+import { pageContent } from "@/lib/i18n";
 
 export default function KanbanPage() {
+	const { locale } = useLanguage();
+	const content = pageContent.admin.kanban;
+
+	const columns = [
+		{
+			id: "todo",
+			title: content.columns.todo[locale],
+			accent: "border-slate-300",
+		},
+		{
+			id: "progress",
+			title: content.columns.progress[locale],
+			accent: "border-amber-300",
+		},
+		{
+			id: "done",
+			title: content.columns.done[locale],
+			accent: "border-emerald-300",
+		},
+	] as const;
+
+	const cards = content.cards[locale];
 	return (
 		<main className="min-h-screen bg-background px-6 py-8 text-foreground">
 			<div className="mx-auto flex max-w-6xl flex-col gap-6">
 				<div className="space-y-2">
 					<p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-						Admin / Kanban
+						{content.heading[locale]}
 					</p>
-					<h1 className="text-3xl font-semibold sm:text-4xl">Kanbanbord</h1>
+					<h1 className="text-3xl font-semibold sm:text-4xl">
+						{content.title[locale]}
+					</h1>
 					<p className="max-w-2xl text-base leading-7 text-muted-foreground">
-						Deze pagina is rechtstreeks toegankelijk vanaf /admin/kanban zonder
-						een tweede inlogscherm.
+						{content.description[locale]}
 					</p>
 				</div>
 

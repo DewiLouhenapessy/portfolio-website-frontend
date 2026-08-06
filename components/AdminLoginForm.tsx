@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/components/LanguageProvider";
+import { pageContent } from "@/lib/i18n";
 import { adminLoginSchema, type AdminLoginData } from "@/lib/validations";
 
 function FloatingLabel({
@@ -19,12 +21,14 @@ function FloatingLabel({
 
 	return (
 		<div className="">
-			<div className="relative pointer-events-none  left-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground transition-all duration-200">
-				<span
-					className={
-						isFilled ? "absolute text-xs -top-4" : "absolute text-sm top-4"
-					}
-				>
+			<div
+				className={
+					isFilled
+						? "flex items-center pointer-events-none  left-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground transition-all duration-200"
+						: "relative pointer-events-none  left-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground transition-all duration-200"
+				}
+			>
+				<span className={isFilled ? "text-xs top-4" : "absolute text-sm top-4"}>
 					{label}
 				</span>
 			</div>
@@ -34,6 +38,8 @@ function FloatingLabel({
 }
 
 export default function AdminLoginForm() {
+	const { locale } = useLanguage();
+	const loginContent = pageContent.admin.login;
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitStatus, setSubmitStatus] = useState<"idle" | "error">("idle");
 	const [errorMessage, setErrorMessage] = useState("");
@@ -67,17 +73,17 @@ export default function AdminLoginForm() {
 			if (!response.ok) {
 				const result = await response.json().catch(() => ({}));
 				throw new Error(
-					result?.error || "Gebruikersnaam of wachtwoord is onjuist.",
+					result?.error || loginContent.invalidCredentials[locale],
 				);
 			}
 
 			window.location.assign("/admin");
 		} catch (error) {
-			console.error("Admin login failed", error);
+			console.error(loginContent.loginFailed[locale], error);
 			setErrorMessage(
 				error instanceof Error
 					? error.message
-					: "Er is een fout opgetreden tijdens het inloggen.",
+					: loginContent.genericError[locale],
 			);
 			setSubmitStatus("error");
 		} finally {
@@ -88,7 +94,10 @@ export default function AdminLoginForm() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
 			<label className="flex flex-col gap-2 text-sm font-medium text-foreground">
-				<FloatingLabel label="Gebruikersnaam" value={usernameValue}>
+				<FloatingLabel
+					label={loginContent.username[locale]}
+					value={usernameValue}
+				>
 					<input
 						{...register("username")}
 						type="text"
@@ -103,7 +112,10 @@ export default function AdminLoginForm() {
 			</label>
 
 			<label className="flex flex-col gap-2 text-sm font-medium text-foreground">
-				<FloatingLabel label="Wachtwoord" value={passwordValue}>
+				<FloatingLabel
+					label={loginContent.password[locale]}
+					value={passwordValue}
+				>
 					<input
 						{...register("password")}
 						type="password"
@@ -128,7 +140,9 @@ export default function AdminLoginForm() {
 				disabled={isSubmitting}
 				className="w-full bg-gradient-theme not-dark:text-black transition hover:-translate-x-1"
 			>
-				{isSubmitting ? "Inlogt..." : "Inloggen"}
+				{isSubmitting
+					? loginContent.submitting[locale]
+					: loginContent.submit[locale]}
 			</Button>
 		</form>
 	);
