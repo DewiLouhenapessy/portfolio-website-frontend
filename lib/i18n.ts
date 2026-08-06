@@ -103,4 +103,91 @@ export const pageContent = {
 			error: { nl: "Er is een fout opgetreden.", en: "An error occurred." },
 		},
 	},
+	admin: {
+		login: {
+			username: { nl: "Gebruikersnaam", en: "Username" },
+			password: { nl: "Wachtwoord", en: "Password" },
+			submit: { nl: "Inloggen", en: "Log in" },
+			submitting: { nl: "Inlogt...", en: "Logging in..." },
+			invalidCredentials: {
+				nl: "Gebruikersnaam of wachtwoord is onjuist.",
+				en: "Username or password is incorrect.",
+			},
+			genericError: {
+				nl: "Er is een fout opgetreden tijdens het inloggen.",
+				en: "An error occurred while logging in.",
+			},
+			loginFailed: { nl: "Admin login mislukt", en: "Admin login failed" },
+		},
+		layout: {
+			loading: { nl: "Bezig met laden...", en: "Loading..." },
+			loggedInAs: { nl: "Ingelogd als {email}", en: "Logged in as {email}" },
+			logout: { nl: "Uitloggen", en: "Log out" },
+		},
+		page: {
+			loading: { nl: "Bezig met laden...", en: "Loading..." },
+			heading: { nl: "Adminpagina", en: "Admin page" },
+			loginTitle: { nl: "Inloggen", en: "Log in" },
+			welcomeTitle: { nl: "Welkom admin", en: "Welcome admin" },
+			welcomeDescription: {
+				nl: "Navigeer links naar de gewenste pagina.",
+				en: "Navigate to the page you want.",
+			},
+		},
+		kanban: {
+			heading: { nl: "Admin / Kanban", en: "Admin / Kanban" },
+			title: { nl: "Kanbanbord", en: "Kanban board" },
+			description: {
+				nl: "Deze pagina is rechtstreeks toegankelijk vanaf /admin/kanban zonder een tweede inlogscherm.",
+				en: "This page is directly accessible from /admin/kanban without a second login screen.",
+			},
+			columns: {
+				todo: { nl: "Te doen", en: "To do" },
+				progress: { nl: "In uitvoering", en: "In progress" },
+				done: { nl: "Afgerond", en: "Done" },
+			},
+			cards: {
+				nl: [
+					{
+						id: 1,
+						title: "Nieuwe portfolio-content",
+						description: "Projectbeschrijvingen voor de hoofdpagina bijwerken.",
+						column: "todo",
+					},
+					{
+						id: 2,
+						title: "Contactformulier testen",
+						description: "Controleer of de verzending in productie werkt.",
+						column: "progress",
+					},
+					{
+						id: 3,
+						title: "Adminomgeving opleveren",
+						description: "Beheerscherm en kanbanbord zijn beschikbaar.",
+						column: "done",
+					},
+				],
+				en: [
+					{
+						id: 1,
+						title: "New portfolio content",
+						description: "Update project descriptions for the homepage.",
+						column: "todo",
+					},
+					{
+						id: 2,
+						title: "Test contact form",
+						description: "Check that delivery works in production.",
+						column: "progress",
+					},
+					{
+						id: 3,
+						title: "Deliver admin environment",
+						description: "Admin panel and kanban board are available.",
+						column: "done",
+					},
+				],
+			},
+		},
+	},
 };
