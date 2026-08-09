@@ -29,7 +29,7 @@ function AdminLayoutContent({ children }: { children: ReactNode }) {
 						<aside className="border-b border-border/40 bg-background/80 backdrop-blur md:w-20 md:border-b-0 md:border-r">
 							<AdminNavBar />
 						</aside>
-						<div className="flex-1">
+						<div className="flex-1 flex flex-col">
 							<header className="flex items-center justify-between border-b border-border/40 px-6 py-3">
 								<span className="text-sm text-slate-600">
 									Ingelogd als {user.email}
@@ -44,11 +44,11 @@ function AdminLayoutContent({ children }: { children: ReactNode }) {
 									{content.logout[locale]}
 								</button>
 							</header>
+							<main className="flex-1 p-6">{children}</main>
 						</div>
 					</div>
 				</div>
 			) : null}
-			<main className="p-6">{children}</main>
 		</div>
 	);
 }
