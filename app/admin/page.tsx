@@ -40,19 +40,19 @@ export default function AdminPage() {
 
 	if (!isReady) {
 		return (
-			<main className="min-h-screen bg-background px-6 py-24 text-foreground">
+			<div className="bg-background px-6 py-24 text-foreground">
 				<div className="mx-auto flex max-w-2xl items-center justify-center rounded-2xl border border-border/70 bg-card/70 p-8 shadow-sm backdrop-blur-sm">
 					<p className="text-sm text-muted-foreground">
 						{content.loading[locale]}
 					</p>
 				</div>
-			</main>
+			</div>
 		);
 	}
 
 	if (!isAuthenticated) {
 		return (
-			<main className="min-h-screen bg-background px-6 py-24 text-foreground">
+			<div className="bg-background px-6 py-24 text-foreground">
 				<div className="mx-auto flex max-w-2xl flex-col gap-6 rounded-2xl border border-border/70 bg-card/70 p-8 shadow-sm backdrop-blur-sm">
 					<div className="space-y-2">
 						<p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
@@ -65,12 +65,12 @@ export default function AdminPage() {
 
 					<AdminLoginForm />
 				</div>
-			</main>
+			</div>
 		);
 	}
 
 	return (
-		<main className="min-h-screen bg-background px-6 py-24 text-foreground">
+		<div className="bg-background px-6 py-24 text-foreground">
 			<div className="mx-auto flex max-w-3xl flex-col gap-6 rounded-2xl border border-border/70 bg-card/70 p-8 shadow-sm backdrop-blur-sm">
 				<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 					<div>
@@ -83,6 +83,6 @@ export default function AdminPage() {
 					</div>
 				</div>
 			</div>
-		</main>
+		</div>
 	);
 }

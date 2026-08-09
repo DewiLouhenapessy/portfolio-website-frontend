@@ -27,7 +27,6 @@ export default function KanbanPage() {
 
 	const cards = content.cards[locale];
 	return (
-		<main className="min-h-screen bg-background px-6 py-8 text-foreground">
 			<div className="mx-auto flex max-w-6xl flex-col gap-6">
 				<div className="space-y-2">
 					<p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
@@ -73,6 +72,5 @@ export default function KanbanPage() {
 					))}
 				</div>
 			</div>
-		</main>
 	);
 }
