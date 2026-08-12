@@ -30,7 +30,7 @@ const AdminNavItem = ({
 		<Link
 			className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 ${
 				active
-					? "bg-primary/10 text-primary shadow-sm"
+					? "bg-primary/60 text-primary shadow-sm"
 					: "text-foreground/80 hover:bg-background/70 hover:text-foreground"
 			}`}
 			href={href}
@@ -73,7 +73,7 @@ const AdminNavBar = () => {
 			</div>
 
 			<div className="hidden md:block">
-				<div className="group flex h-full min-h-[calc(100vh-4rem)] w-20 flex-col gap-3 rounded-r-2xl border-r border-border/40 bg-background/70 px-3 py-4 shadow-sm backdrop-blur transition-all duration-300 hover:w-48">
+				<div className="group flex h-full min-h-[calc(100vh-4rem)] w-20 flex-col gap-3 rounded-r-2xl border-r border-border/40 bg-background/70 px-2 py-4 shadow-sm backdrop-blur transition-all duration-300 hover:w-48">
 					{adminNavItems.map((item) => {
 						const isActive = pathname === item.href;
 
