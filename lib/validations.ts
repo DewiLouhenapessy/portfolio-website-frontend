@@ -19,11 +19,11 @@ export const contactFormSchema = z.object({
 });
 
 export const adminLoginSchema = z.object({
-	username: z
+	email: z
 		.string()
-		.min(3, { message: "Gebruikersnaam moet minstens 3 karakters bevatten" })
+		.min(3, { message: "E-mailadres moet minstens 3 karakters bevatten" })
 		.max(50, {
-			message: "Gebruikersnaam mag niet langer dan 50 karakters zijn",
+			message: "E-mailadres mag niet langer dan 50 karakters zijn",
 		}),
 	password: z
 		.string()

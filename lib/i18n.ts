@@ -105,13 +105,13 @@ export const pageContent = {
 	},
 	admin: {
 		login: {
-			username: { nl: "Gebruikersnaam", en: "Username" },
+			email: { nl: "E-mail", en: "Email" },
 			password: { nl: "Wachtwoord", en: "Password" },
 			submit: { nl: "Inloggen", en: "Log in" },
 			submitting: { nl: "Inlogt...", en: "Logging in..." },
 			invalidCredentials: {
-				nl: "Gebruikersnaam of wachtwoord is onjuist.",
-				en: "Username or password is incorrect.",
+				nl: "E-mailadres of wachtwoord is onjuist.",
+				en: "Email or password is incorrect.",
 			},
 			genericError: {
 				nl: "Er is een fout opgetreden tijdens het inloggen.",

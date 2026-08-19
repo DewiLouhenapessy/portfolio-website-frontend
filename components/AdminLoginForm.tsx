@@ -55,7 +55,7 @@ export default function AdminLoginForm() {
 		reValidateMode: "onChange",
 	});
 
-	const usernameValue = watch("username") ?? "";
+	const emailValue = watch("email") ?? "";
 	const passwordValue = watch("password") ?? "";
 
 	const onSubmit = async (data: AdminLoginData) => {
@@ -94,20 +94,17 @@ export default function AdminLoginForm() {
 	return (
 		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
 			<label className="flex flex-col gap-2 text-sm font-medium text-foreground">
-				<FloatingLabel
-					label={loginContent.username[locale]}
-					value={usernameValue}
-				>
+				<FloatingLabel label={loginContent.email[locale]} value={emailValue}>
 					<input
-						{...register("username")}
-						type="text"
-						autoComplete="username"
+						{...register("email")}
+						type="email"
+						autoComplete="email	"
 						placeholder=""
 						className="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm outline-none ring-0 focus:border-ring"
 					/>
 				</FloatingLabel>
-				{errors.username && (
-					<p className="text-sm text-red-600">{errors.username.message}</p>
+				{errors.email && (
+					<p className="text-sm text-red-600">{errors.email.message}</p>
 				)}
 			</label>
 
