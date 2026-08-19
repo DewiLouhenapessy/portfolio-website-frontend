@@ -64,9 +64,26 @@ export default function AdminLoginForm() {
 		setErrorMessage("");
 
 		try {
-			const response = await fetch("/api/admin/login", {
+			const base = process.env.NEXT_PUBLIC_API_URL ?? "";
+
+			// Ensure CSRF cookie is present (Sanctum)
+			if (typeof window !== "undefined") {
+				await fetch(`${base}/sanctum/csrf-cookie`, { credentials: "include" });
+			}
+
+			// Read XSRF token from cookie if present
+			const xsrfMatch =
+				typeof document !== "undefined" &&
+				document.cookie.match(new RegExp(`(^| )XSRF-TOKEN=([^;]+)`));
+			const xsrfToken = xsrfMatch ? decodeURIComponent(xsrfMatch[2]) : null;
+
+			const response = await fetch(`${base}/api/login`, {
 				method: "POST",
-				headers: { "Content-Type": "application/json" },
+				headers: {
+					"Content-Type": "application/json",
+					...(xsrfToken ? { "X-XSRF-TOKEN": xsrfToken } : {}),
+				},
+				credentials: "include",
 				body: JSON.stringify(data),
 			});
 
@@ -78,6 +95,11 @@ export default function AdminLoginForm() {
 			}
 
 			window.location.assign("/admin");
+
+			// Mark admin as authenticated for client-side check
+			if (typeof document !== "undefined") {
+				document.cookie = "admin-auth=true; path=/; SameSite=Lax";
+			}
 		} catch (error) {
 			console.error(loginContent.loginFailed[locale], error);
 			setErrorMessage(

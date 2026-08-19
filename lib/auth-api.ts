@@ -1,72 +1,81 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL; // bv. https://api.jouwdomein.nl
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_URL) {
+	console.warn(
+		"NEXT_PUBLIC_API_URL is not set — requests will be relative to the current origin.",
+	);
+}
 
 function readCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-  return match ? decodeURIComponent(match[2]) : null;
+	const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+	return match ? decodeURIComponent(match[2]) : null;
 }
 
 async function ensureCsrfCookie(): Promise<void> {
-  await fetch(`${API_URL}/sanctum/csrf-cookie`, {
-    credentials: "include",
-  });
+	await fetch(`${API_URL ?? ""}/sanctum/csrf-cookie`, {
+		credentials: "include",
+	});
 }
 
 async function apiRequest<T>(path: string, options?: RequestInit): Promise<T> {
-  const xsrfToken = readCookie("XSRF-TOKEN");
+	const xsrfToken = readCookie("XSRF-TOKEN");
 
-  const res = await fetch(`${API_URL}${path}`, {
-    ...options,
-    credentials: "include", // stuurt en accepteert cookies cross-subdomain
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      ...(xsrfToken ? { "X-XSRF-TOKEN": xsrfToken } : {}),
-      ...options?.headers,
-    },
-  });
+	const url = `${API_URL ?? ""}${path}`;
 
-  if (res.status === 401) {
-    throw new AuthError("Niet ingelogd");
-  }
+	const res = await fetch(url, {
+		...options,
+		credentials: "include", // stuurt en accepteert cookies cross-subdomain
+		headers: {
+			"Content-Type": "application/json",
+			Accept: "application/json",
+			...(xsrfToken ? { "X-XSRF-TOKEN": xsrfToken } : {}),
+			...options?.headers,
+		},
+	});
 
-  if (!res.ok) {
-    const body = await res.json().catch(() => null);
-    throw new Error(body?.message ?? `API-fout (${res.status})`);
-  }
+	if (res.status === 401) {
+		throw new AuthError("Niet ingelogd");
+	}
 
-  if (res.status === 204) return undefined as T;
-  return res.json();
+	if (!res.ok) {
+		const body = await res.json().catch(() => null);
+		console.error("API request failed", { url, status: res.status, body });
+		throw new Error(body?.message ?? `API-fout (${res.status}) ${url}`);
+	}
+
+	if (res.status === 204) return undefined as T;
+	return res.json();
 }
 
 export class AuthError extends Error {}
 
 export interface AuthUser {
-  id: number;
-  name: string;
-  email: string;
+	id: number;
+	name: string;
+	email: string;
 }
 
 export const authApi = {
-  async login(email: string, password: string): Promise<AuthUser> {
-    await ensureCsrfCookie(); // moet vóór elke login/logout call
-    const data = await apiRequest<{ user: AuthUser }>("/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
-    return data.user;
-  },
+	async login(email: string, password: string): Promise<AuthUser> {
+		await ensureCsrfCookie(); // moet vóór elke login/logout call
+		const data = await apiRequest<{ user: AuthUser }>("/login", {
+			method: "POST",
+			body: JSON.stringify({ email, password }),
+		});
+		return data.user;
+	},
 
-  async logout(): Promise<void> {
-    await apiRequest<void>("/logout", { method: "POST" });
-  },
+	async logout(): Promise<void> {
+		await apiRequest<void>("/logout", { method: "POST" });
+	},
 
-  async getCurrentUser(): Promise<AuthUser | null> {
-    try {
-      const data = await apiRequest<{ user: AuthUser }>("/api/user");
-      return data.user;
-    } catch (err) {
-      if (err instanceof AuthError) return null;
-      throw err;
-    }
-  },
+	async getCurrentUser(): Promise<AuthUser | null> {
+		try {
+			const data = await apiRequest<{ user: AuthUser }>("/api/user");
+			return data.user;
+		} catch (err) {
+			if (err instanceof AuthError) return null;
+			throw err;
+		}
+	},
 };
