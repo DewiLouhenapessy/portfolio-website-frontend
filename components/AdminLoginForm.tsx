@@ -1,12 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/LanguageProvider";
 import { pageContent } from "@/lib/i18n";
 import { adminLoginSchema, type AdminLoginData } from "@/lib/validations";
+
+function setAdminAuthCookie(value: "true" | "") {
+	if (typeof document === "undefined") return;
+	document.cookie = `admin-auth=${value}; path=/; SameSite=Lax${
+		value ? "" : "; max-age=0"
+	}`;
+}
 
 function FloatingLabel({
 	label,
@@ -47,7 +54,7 @@ export default function AdminLoginForm() {
 	const {
 		register,
 		handleSubmit,
-		watch,
+		control,
 		formState: { errors },
 	} = useForm<AdminLoginData>({
 		resolver: zodResolver(adminLoginSchema),
@@ -55,8 +62,8 @@ export default function AdminLoginForm() {
 		reValidateMode: "onChange",
 	});
 
-	const emailValue = watch("email") ?? "";
-	const passwordValue = watch("password") ?? "";
+	const emailValue = useWatch({ control, name: "email" }) ?? "";
+	const passwordValue = useWatch({ control, name: "password" }) ?? "";
 
 	const onSubmit = async (data: AdminLoginData) => {
 		setIsSubmitting(true);
@@ -97,9 +104,7 @@ export default function AdminLoginForm() {
 			window.location.assign("/admin");
 
 			// Mark admin as authenticated for client-side check
-			if (typeof document !== "undefined") {
-				document.cookie = "admin-auth=true; path=/; SameSite=Lax";
-			}
+			setAdminAuthCookie("true");
 		} catch (error) {
 			console.error(loginContent.loginFailed[locale], error);
 			setErrorMessage(
