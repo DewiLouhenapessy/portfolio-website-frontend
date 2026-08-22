@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLanguage } from "@/components/LanguageProvider";
 import { pageContent } from "@/lib/i18n";
 
@@ -26,9 +27,12 @@ export default function Projects() {
 					</ul>
 				</div>
 				<div className="p-4 flex justify-center md:block">
-					<img
+					<Image
 						src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif"
 						alt="Under construction GIF"
+						width={480}
+						height={360}
+						unoptimized
 					/>
 				</div>
 			</div>
