@@ -29,6 +29,7 @@ const navItems: NavLink[] = [
 const NavItem = ({ text, href, onClick }: NavItemProps) => {
 	return (
 		<Link
+			prefetch={false}
 			className="text-xl text-foreground transition hover:-translate-x-1"
 			href={href}
 			onClick={onClick}
@@ -49,7 +50,11 @@ const NavBar = () => {
 		<nav className="bg-gradient-theme rounded-b-xl dark:rounded-b-s mb-8 px-4 py-3">
 			<div className="flex items-center justify-between gap-4">
 				<div className="gap-4">
-					<Link className="text-2xl font-semibold md:text-3xl" href="/">
+					<Link
+						prefetch={false}
+						className="text-2xl font-semibold md:text-3xl"
+						href="/"
+					>
 						DL
 					</Link>
 				</div>

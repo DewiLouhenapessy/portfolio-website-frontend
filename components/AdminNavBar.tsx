@@ -28,6 +28,7 @@ const AdminNavItem = ({
 }: AdminNavItemProps) => {
 	return (
 		<Link
+			prefetch={false}
 			className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 ${
 				active
 					? "bg-primary/60 text-primary shadow-sm"

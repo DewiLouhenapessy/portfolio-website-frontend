@@ -17,6 +17,7 @@ const Footer = () => {
 	const FooterItem = ({ text, href, target, onClick }: FooterItemProps) => {
 		return (
 			<Link
+				prefetch={false}
 				className="text-l text-foreground transition hover:-translate-x-0.5"
 				href={href}
 				onClick={onClick}
