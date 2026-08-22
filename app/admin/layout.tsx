@@ -48,7 +48,12 @@ function AdminLayoutContent({ children }: { children: ReactNode }) {
 						</div>
 					</div>
 				</div>
-			) : null}
+			) : (
+				// Not authenticated: render children (login form) so AdminPage can show it
+				<div className="min-h-screen bg-background">
+					<main className="flex-1 p-6">{children}</main>
+				</div>
+			)}
 		</div>
 	);
 }
