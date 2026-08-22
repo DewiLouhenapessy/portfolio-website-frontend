@@ -51,10 +51,13 @@ export const AnimatedText = forwardRef<HTMLElement, AnimatedTextProps>(
 		};
 
 		const isHeading = ["h1", "h2", "h3", "h4", "h5", "h6"].includes(Component);
-		const finalClassName =
-			isHeading && isDark ? `font-silkscreen ${className}` : className;
+		const finalClassName = isHeading
+			? `font-silkscreen ${className}`
+			: className;
 
-		const MotionComponent = motion[Component as keyof typeof motion] as any;
+		const MotionComponent = motion[
+			Component as keyof typeof motion
+		] as React.ElementType;
 
 		return (
 			<MotionComponent
