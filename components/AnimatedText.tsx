@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef } from "react";
 
 interface AnimatedTextProps {
 	text: string;
@@ -22,26 +22,6 @@ export const AnimatedText = forwardRef<HTMLElement, AnimatedTextProps>(
 		}: AnimatedTextProps,
 		ref,
 	) {
-		const [isDark, setIsDark] = useState(false);
-
-		useEffect(() => {
-			// Check initial dark mode state
-			const isDarkMode = document.documentElement.classList.contains("dark");
-			setIsDark(isDarkMode);
-
-			// Listen for changes
-			const observer = new MutationObserver(() => {
-				setIsDark(document.documentElement.classList.contains("dark"));
-			});
-
-			observer.observe(document.documentElement, {
-				attributes: true,
-				attributeFilter: ["class"],
-			});
-
-			return () => observer.disconnect();
-		}, []);
-
 		const letters = Array.from(text);
 
 		const containerVariants = {

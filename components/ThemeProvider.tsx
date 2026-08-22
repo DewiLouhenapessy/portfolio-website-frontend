@@ -9,20 +9,22 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+function getInitialTheme(): "light" | "dark" {
+	if (typeof document === "undefined") return "light";
+	return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	const [theme, setTheme] = useState<"light" | "dark">("light");
-	const [mounted, setMounted] = useState(false);
 
-	// Effect 1: Check what the blocking script has applied
-	// no computation, no DOM modification, only synchronises React's state.
 	useEffect(() => {
-		const isDark = document.documentElement.classList.contains("dark");
-		setTheme(isDark ? "dark" : "light");
-		setMounted(true);
+		const nextTheme = getInitialTheme();
+		// Hydration-safe: keep the initial server/client render identical and sync the real
+		// theme after mount when the browser has final DOM state.
+		// eslint-disable-next-line react-hooks/set-state-in-effect
+		setTheme(nextTheme);
 	}, []);
 
-	// Effect 2: watch live for system preference changes
-	// only if the user has not made an explicit choice yet
 	useEffect(() => {
 		if (localStorage.getItem("theme")) return;
 
@@ -48,12 +50,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 			return next;
 		});
 	};
-
-	// Prevent flashing of incorrect content in the UI during the very first
-	// render before hydration is complete
-	if (!mounted) {
-		return null; // of een skeleton/placeholder, afhankelijk van je UX-voorkeur
-	}
 
 	return (
 		<ThemeContext.Provider value={{ theme, toggleTheme }}>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import AdminLoginForm from "@/components/AdminLoginForm";
 import { useLanguage } from "@/components/LanguageProvider";
 import { pageContent } from "@/lib/i18n";
@@ -23,32 +22,10 @@ function hasValidAdminAuthCookie() {
 	return value === "true";
 }
 
-function clearAdminAuthCookie() {
-	document.cookie = "admin-auth=; path=/; max-age=0; SameSite=Lax";
-}
-
 export default function AdminPage() {
 	const { locale } = useLanguage();
 	const content = pageContent.admin.page;
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-	const [isReady, setIsReady] = useState(false);
-
-	useEffect(() => {
-		setIsAuthenticated(hasValidAdminAuthCookie());
-		setIsReady(true);
-	}, []);
-
-	if (!isReady) {
-		return (
-			<div className="bg-background px-6 py-24 text-foreground">
-				<div className="mx-auto flex max-w-2xl items-center justify-center rounded-2xl border border-border/70 bg-card/70 p-8 shadow-sm backdrop-blur-sm">
-					<p className="text-sm text-muted-foreground">
-						{content.loading[locale]}
-					</p>
-				</div>
-			</div>
-		);
-	}
+	const isAuthenticated = hasValidAdminAuthCookie();
 
 	if (!isAuthenticated) {
 		return (

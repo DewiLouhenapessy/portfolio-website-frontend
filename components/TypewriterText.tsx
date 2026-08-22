@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState, type ElementType } from "react";
+import { type ElementType } from "react";
 
 interface TypewriterTextProps {
 	text: string;
@@ -18,12 +18,6 @@ export function TypewriterText({
 	speed = 0.05,
 	as: Component = "p",
 }: TypewriterTextProps) {
-	const [mounted, setMounted] = useState(false);
-
-	useEffect(() => {
-		setMounted(true);
-	}, []);
-
 	const letters = Array.from(text);
 
 	const containerVariants = {
@@ -48,10 +42,6 @@ export function TypewriterText({
 			},
 		},
 	};
-
-	if (!mounted) {
-		return <Component className={className}>{text}</Component>;
-	}
 
 	return (
 		<motion.div initial="hidden" animate="visible" variants={containerVariants}>
