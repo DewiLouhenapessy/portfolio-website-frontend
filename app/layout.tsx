@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Silkscreen, Fira_Code, Raleway, Lato } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -56,7 +57,9 @@ export default async function RootLayout({
 			)}
 		>
 			<head>
-				<script
+				<Script
+					id="theme-init"
+					strategy="beforeInteractive"
 					dangerouslySetInnerHTML={{
 						__html: `
 							(function() {
