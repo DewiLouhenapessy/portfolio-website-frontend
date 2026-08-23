@@ -49,6 +49,7 @@ export const skillsData: Skill[] = [
 	{ name: "read", level: 70, category: "interests" },
 	{ name: "travel", level: 90, category: "interests" },
 	{ name: "humor", level: 80, category: "interests" },
+	{ name: "game", level: 80, category: "interests" },
 ];
 
 export const categoryLabels = {
@@ -85,6 +86,7 @@ export const interestsLabels = {
 	read: { nl: "Lezen", en: "Reading" },
 	travel: { nl: "Reizen", en: "Traveling" },
 	humor: { nl: "Comedy/humor", en: "Comedy/humor" },
+	game: { nl: "Gamen", en: "Gaming" },
 };
 
 export const sortButtonLabels = {
