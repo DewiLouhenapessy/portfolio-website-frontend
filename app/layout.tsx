@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
+import ConsoleGreeting from "@/components/ConsoleGreeting";
 
 const lato = Lato({
 	subsets: ["latin"],
@@ -77,6 +78,7 @@ export default async function RootLayout({
 				/>
 			</head>
 			<body className="min-h-screen flex flex-col">
+				<ConsoleGreeting />
 				<LanguageProvider>
 					<ThemeProvider>
 						<NavBar />
