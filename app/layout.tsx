@@ -78,8 +78,8 @@ export default async function RootLayout({
 				/>
 			</head>
 			<body className="min-h-screen flex flex-col">
-				<ConsoleGreeting />
 				<LanguageProvider>
+					<ConsoleGreeting />
 					<ThemeProvider>
 						<NavBar />
 						<main className="flex-1 px-8 py-4">
