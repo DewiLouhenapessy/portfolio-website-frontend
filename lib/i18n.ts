@@ -23,11 +23,11 @@ export const consoleGreeting = {
 	title: { nl: "Hey hallo! 👋", en: "Hi there! 👋" },
 	message: {
 		nl: "Wat leuk dat je nieuwsgierig bent naar mijn website!",
-		en: "How nice that you are curious about my website!",
+		en: "Great that you are curious about my website!",
 	},
 	callToAction: {
-		nl: "Als je meer wilt weten over de code die ik schrijf, neem dan een kijkje op:",
-		en: "If you would like to learn more about the code I write, take a look at:",
+		nl: "Als je meer wilt weten over de code die ik schrijf, neem hier dan gerust een kijkje:",
+		en: "If you would like to know more about the code I write, feel free to have a look around here:",
 	},
 };
 
