@@ -1,18 +1,18 @@
 "use client";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 import { consoleGreeting } from "@/lib/i18n";
 
 export default function ConsoleGreeting() {
 	const { locale } = useLanguage();
 
-	const showGreeting = () => {
+	const showGreeting = useCallback(() => {
 		console.log(
 			`\n\n%c${consoleGreeting.title[locale]}\n\n%c${consoleGreeting.message[locale]}\n\n${consoleGreeting.callToAction[locale]}\n\nhttps://github.com/DewiLouhenapessy\n\n`,
 			"color: #0e7490; font-family: 'Courier New', Courier, 'Lucida Console', Monaco, monospace; font-size: 20px;",
 			"color: #71717a; font-family: 'Courier New', Courier, 'Lucida Console', Monaco, monospace; font-size: 14px;",
 		);
-	};
+	}, [locale]);
 
 	useEffect(() => {
 		const DURATION_MS = 6000; // hoelang de regenanimatie draait
@@ -94,7 +94,7 @@ export default function ConsoleGreeting() {
 			clearInterval(intervalId);
 			clearTimeout(timeoutId);
 		};
-	}, [locale]);
+	}, [locale, showGreeting]);
 
 	return null;
 }
