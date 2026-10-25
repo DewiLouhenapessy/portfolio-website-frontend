@@ -66,6 +66,18 @@ This portfolio is built as a responsive multi-page application with a polished v
 - server-side mail sending through a PHP-based endpoint
 - structured sections for personal information, skills, and projects
 
+The PHP contact endpoint loads its SMTP settings from
+`private/contact-config.php`, outside the public `public/` directory. Start by
+copying `private/contact-config.example.php` to `private/contact-config.php`,
+then fill in the recipient address, permitted sender address, SMTP hostname,
+username, and password. The real configuration file is excluded from Git.
+
+Deploy that private file outside the web root and keep the relative layout
+expected by `public/contact.php` (the `private/` and `public/` directories are
+siblings). If your hosting uses a different layout, update the config path in
+`public/contact.php`. Never put the real SMTP password in the public directory
+or commit it to the repository.
+
 ### Admin functionality
 
 - login flow for admin access
