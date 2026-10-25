@@ -60,21 +60,8 @@ export default async function RootLayout({
 			<head>
 				<Script
 					id="theme-init"
+					src="/theme-init.js"
 					strategy="beforeInteractive"
-					dangerouslySetInnerHTML={{
-						__html: `
-							(function() {
-								try {
-									var stored = localStorage.getItem('theme');
-									var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-									var theme = stored === 'light' || stored === 'dark' ? stored : (prefersDark ? 'dark' : 'light');
-									if (theme === 'dark') {
-										document.documentElement.classList.add('dark');
-									}
-								} catch (e) {}
-							})();
-						`,
-					}}
 				/>
 			</head>
 			<body className="min-h-screen flex flex-col">
