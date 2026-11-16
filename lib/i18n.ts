@@ -66,19 +66,157 @@ export const pageContent = {
 			nl: "Een overzicht van mijn werk en projecten.",
 			en: "An overview of my work and projects.",
 		},
+		featuredHeading: {
+			nl: "Uitgelichte projecten",
+			en: "Featured projects",
+		},
+		featured: {
+			nl: [
+				{
+					name: "Control Room Search",
+					subtitle: "Datapipeline in C#",
+					status: "In ontwikkeling",
+					description:
+						"Oefenproject om C# te leren en te ontdekken hoe een datapipeline in elkaar zit. De pipeline leest open politiedata over geregistreerde overlast uit CBS StatLine in en zet de brede tabel om naar één record per regio, soort overlast en periode, met een eigen domeinmodel.",
+					highlights: [
+						"Elk record blijft herleidbaar tot het bronbestand en de bronregel.",
+						"Volgende stappen: validatie met een foutrapport, opslag in PostgreSQL, indexering in Elasticsearch en een Docker Compose-opzet.",
+					],
+					technologies: ["C#", ".NET", "CsvHelper"],
+					links: [
+						{
+							label: "Bekijk code",
+							url: "https://github.com/DewiLouhenapessy/control-room-search",
+						},
+					],
+				},
+				{
+					name: "VacAnalyser",
+					subtitle: "RAG-tool voor vacature-matching",
+					status: "In doorontwikkeling",
+					description:
+						"Python-tool die je cv en een vacaturetekst vergelijkt en een match-score geeft, gebouwd met de Mistral API, Pydantic en embeddings. Je ziet direct hoe goed en waarom een vacature bij je profiel past.",
+					highlights: [
+						"Uitgebreid met de mogelijkheid om bij een goede match aanvullend een motivatiebrief te uploaden. Die wordt dan meegenomen in de vergelijking, waarna de tool aanvullende tips geeft om de brief te verbeteren.",
+					],
+					technologies: ["Python", "Mistral API", "Pydantic", "Embeddings"],
+					links: [
+						{
+							label: "Bekijk code",
+							url: "https://github.com/DewiLouhenapessy/vacanalyser",
+						},
+					],
+				},
+				{
+					name: "Portfolio Admin & Kanbanbord",
+					subtitle: "Beheeromgeving met een interactief Kanbanbord",
+					status: "In ontwikkeling",
+					description:
+						"Een beveiligde adminomgeving voor het beheren van een Kanbanbord. Maak kolommen en kaarten aan, verwijder ze of verplaats kaarten via drag-and-drop of de keuzelijst. De Next.js-frontend communiceert met een Laravel-API; wijzigingen worden opgeslagen in de database.",
+					highlights: [
+						"Inloggen met sessie-authenticatie via Laravel Sanctum en httpOnly-cookies.",
+						"De frontend en API zijn afzonderlijke projecten.",
+					],
+					technologies: [
+						"PHP",
+						"Laravel",
+						"Sanctum",
+						"MySQL",
+						"Next.js",
+						"React",
+						"TypeScript",
+					],
+					links: [
+						{
+							label: "Bekijk frontend",
+							url: "https://github.com/DewiLouhenapessy/portfolio-website-frontend",
+						},
+						{
+							label: "Bekijk backend",
+							url: "https://github.com/DewiLouhenapessy/portfolio-website-backend",
+						},
+					],
+				},
+			],
+			en: [
+				{
+					name: "Control Room Search",
+					subtitle: "Data pipeline in C#",
+					status: "In development",
+					description:
+						"A practice project for learning C# and exploring how a data pipeline works. It reads open police data on registered nuisance from CBS StatLine and transforms the wide table into one record per region, type of nuisance, and period, using a custom domain model.",
+					highlights: [
+						"Each record remains traceable to its source file and source row.",
+						"Next steps: validation with an error report, PostgreSQL storage, Elasticsearch indexing, and a Docker Compose setup.",
+					],
+					technologies: ["C#", ".NET", "CsvHelper"],
+					links: [
+						{
+							label: "View code",
+							url: "https://github.com/DewiLouhenapessy/control-room-search",
+						},
+					],
+				},
+				{
+					name: "VacAnalyser",
+					subtitle: "RAG tool for job matching",
+					status: "In further development",
+					description:
+						"A Python tool that compares your CV with a job description and provides a match score, built with the Mistral API, Pydantic, and embeddings. It immediately shows how well—and why—a role matches your profile.",
+					highlights: [
+						"When there is a good match, you can also upload your cover letter. The tool includes it in the comparison and then offers additional suggestions for improving it.",
+					],
+					technologies: ["Python", "Mistral API", "Pydantic", "Embeddings"],
+					links: [
+						{
+							label: "View code",
+							url: "https://github.com/DewiLouhenapessy/vacanalyser",
+						},
+					],
+				},
+				{
+					name: "Portfolio Admin & Kanban Board",
+					subtitle: "Admin area with an interactive kanban board",
+					status: "In development",
+					description:
+						"A protected admin area for managing a kanban board. Create and delete columns and cards, or move cards with drag-and-drop or the selector. The Next.js frontend communicates with a Laravel API, and changes are stored in the database.",
+					highlights: [
+						"Sign-in uses Laravel Sanctum session authentication with httpOnly cookies.",
+						"The frontend and API are separate projects.",
+					],
+					technologies: [
+						"PHP",
+						"Laravel",
+						"Sanctum",
+						"MySQL",
+						"Next.js",
+						"React",
+						"TypeScript",
+					],
+					links: [
+						{
+							label: "View frontend",
+							url: "https://github.com/DewiLouhenapessy/portfolio-website-frontend",
+						},
+						{
+							label: "View backend",
+							url: "https://github.com/DewiLouhenapessy/portfolio-website-backend",
+						},
+					],
+				},
+			],
+		},
 		project: {
-			nl: "Hier wordt aan gewerkt:",
-			en: "These projects are in progress:",
+			nl: "Nog te ontwikkelen:",
+			en: "To be developed:",
 		},
 		items: {
 			nl: [
-				"Adminpagina / Kanbanbord (PHP/Laravel, MySQL, TypeScript/React)",
-				"Unittest oefenproject (Jest, Vitest)",
+				"Implementatie van Canvas UI componenten in portfolio website",
 				"Awesome Three.js landingspagina",
 			],
 			en: [
-				"Admin page / Kanban board (PHP/Laravel, MySQL, TypeScript/React)",
-				"Unit test practice project (Jest, Vitest)",
+				"Implementation of Canvas UI components in portfolio website",
 				"Awesome Three.js landing page",
 			],
 		},

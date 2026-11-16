@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/components/LanguageProvider";
+import { ProjectCard } from "@/components/ProjectCard";
 import { pageContent } from "@/lib/i18n";
 
 export default function Projects() {
@@ -14,28 +15,40 @@ export default function Projects() {
 				<h1>{content.heading[locale]}</h1>
 				<h2>{content.description[locale]}</h2>
 			</div>
-			<div className="md:flex md:gap-8 ">
-				<div className="pt-8 md:w-full">
-					<p className="italic mb-6">{content.project[locale]}</p>
-					<ul className="list-decimal list-inside pl-4">
-						{content.items[locale].map((item) => (
-							<li key={item} className="flex gap-4 mb-4">
-								<span aria-hidden="true">→</span>
-								<span>{item}</span>
-							</li>
-						))}
-					</ul>
+			<section aria-labelledby="featured-projects-heading">
+				<h2 id="featured-projects-heading">
+					{content.featuredHeading[locale]}
+				</h2>
+				<div className="grid gap-4">
+					{content.featured[locale].map((project) => (
+						<ProjectCard key={project.name} project={project} locale={locale} />
+					))}
 				</div>
-				<div className="p-4 flex justify-center md:block">
-					<Image
-						src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif"
-						alt="Under construction GIF"
-						width={480}
-						height={360}
-						unoptimized
-					/>
+			</section>
+			<section className="mt-24" aria-labelledby="other-projects-heading">
+				<h2 id="other-projects-heading">{content.project[locale]}</h2>
+				<div className="md:flex md:gap-8">
+					<div className="md:w-full">
+						<ul className="list-decimal list-inside pl-4">
+							{content.items[locale].map((item) => (
+								<li key={item} className="flex gap-4 mb-4">
+									<span aria-hidden="true">→</span>
+									<span>{item}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+					<div className="p-4 flex justify-center md:block">
+						<Image
+							src="https://media.tenor.com/MRCIli40TYoAAAAi/under-construction90s-90s.gif"
+							alt="Under construction GIF"
+							width={480}
+							height={360}
+							unoptimized
+						/>
+					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	);
 }
