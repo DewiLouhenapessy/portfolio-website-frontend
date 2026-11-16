@@ -57,20 +57,18 @@ export default async function RootLayout({
 				raleway.variable,
 			)}
 		>
-			<head>
+			<body className="min-h-screen flex flex-col">
 				<Script
 					id="theme-init"
 					src="/theme-init.js"
 					strategy="beforeInteractive"
 				/>
-			</head>
-			<body className="min-h-screen flex flex-col">
 				<LanguageProvider>
 					<ConsoleGreeting />
 					<ThemeProvider>
 						<NavBar />
 						<main className="flex-1 px-8 py-4">
-							<div className="px-4">{children}</div>
+							<div className="px-4 md:px-32">{children}</div>
 						</main>
 						<Footer />
 					</ThemeProvider>
