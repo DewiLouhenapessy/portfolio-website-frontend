@@ -37,11 +37,11 @@ function AdminLayoutContent({ children }: { children: ReactNode }) {
 	}
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen -mx-12 md:-mx-40">
 			{user ? (
 				<div className="min-h-screen bg-background">
 					<div className="flex min-h-screen flex-col md:flex-row">
-						<aside className="border-b border-border/40 bg-background/80 backdrop-blur md:w-20 md:border-b-0 md:border-r">
+						<aside className="border-b border-border/40 bg-background/80 backdrop-blur md:w-20 md:border-b-0 md:border-r md:mr-20">
 							<AdminNavBar />
 						</aside>
 						<div className="flex-1 flex flex-col">

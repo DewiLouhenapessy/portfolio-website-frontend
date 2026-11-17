@@ -3,10 +3,27 @@ import { Locale } from "./i18n";
 export interface Skill {
 	name: string;
 	level: number; // 0-100
-	category: "technology" | "language" | "interests";
+	category: "interests" | "technology" | "language";
 }
 
 export const skillsData: Skill[] = [
+	// Interests --> radial bar with zoom
+	{ name: "yoga", level: 100, category: "interests" },
+	{ name: "pilates", level: 95, category: "interests" },
+	{ name: "walk", level: 75, category: "interests" },
+	{ name: "cycle", level: 75, category: "interests" },
+	{ name: "boulder", level: 60, category: "interests" },
+	{ name: "run", level: 55, category: "interests" },
+	{ name: "listenMusic", level: 100, category: "interests" },
+	{ name: "makeMusic", level: 85, category: "interests" },
+	{ name: "sing", level: 90, category: "interests" },
+	{ name: "program", level: 95, category: "interests" },
+	{ name: "sew", level: 60, category: "interests" },
+	{ name: "read", level: 70, category: "interests" },
+	{ name: "travel", level: 90, category: "interests" },
+	{ name: "humor", level: 80, category: "interests" },
+	{ name: "game", level: 80, category: "interests" },
+
 	// Technologies --> huidige bar graph
 	{ name: "React", level: 80, category: "technology" },
 	{ name: "Vue", level: 80, category: "technology" },
@@ -33,35 +50,18 @@ export const skillsData: Skill[] = [
 	{ name: "ES", level: 35, category: "language" },
 	{ name: "PO", level: 35, category: "language" },
 	{ name: "ID", level: 35, category: "language" },
-
-	// Interests --> radial bar with zoom
-	{ name: "yoga", level: 100, category: "interests" },
-	{ name: "pilates", level: 95, category: "interests" },
-	{ name: "walk", level: 75, category: "interests" },
-	{ name: "cycle", level: 75, category: "interests" },
-	{ name: "boulder", level: 60, category: "interests" },
-	{ name: "run", level: 55, category: "interests" },
-	{ name: "listenMusic", level: 100, category: "interests" },
-	{ name: "makeMusic", level: 85, category: "interests" },
-	{ name: "sing", level: 90, category: "interests" },
-	{ name: "program", level: 95, category: "interests" },
-	{ name: "sew", level: 60, category: "interests" },
-	{ name: "read", level: 70, category: "interests" },
-	{ name: "travel", level: 90, category: "interests" },
-	{ name: "humor", level: 80, category: "interests" },
-	{ name: "game", level: 80, category: "interests" },
 ];
 
 export const categoryLabels = {
+	interests: { nl: "Interesses", en: "Interests" },
 	technology: { nl: "Technologieën", en: "Technologies" },
 	language: { nl: "Talen", en: "Languages" },
-	interests: { nl: "Interesses", en: "Interests" },
 };
 
 export const categoryColors = {
+	interests: "var(--skill-interests)",
 	technology: "var(--skill-technology)",
 	language: "var(--skill-language)",
-	interests: "var(--skill-interests)",
 };
 
 export const langLevelLabels = {

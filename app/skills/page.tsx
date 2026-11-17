@@ -16,9 +16,9 @@ export default function Skills() {
 	const content = pageContent.skills;
 
 	const visualisations = [
+		{ category: "interests", graphType: "radial-bar" },
 		{ category: "technology", graphType: "radar" },
 		{ category: "language", graphType: "vertical" },
-		{ category: "interests", graphType: "radial-bar" },
 	] as const;
 
 	return (

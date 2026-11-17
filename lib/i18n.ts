@@ -63,8 +63,8 @@ export const pageContent = {
 	projects: {
 		heading: { nl: "Projecten", en: "Projects" },
 		description: {
-			nl: "Een overzicht van mijn werk en projecten.",
-			en: "An overview of my work and projects.",
+			nl: "Een overzicht van mijn projecten.",
+			en: "An overview of my projects.",
 		},
 		featuredHeading: {
 			nl: "Uitgelichte projecten",
