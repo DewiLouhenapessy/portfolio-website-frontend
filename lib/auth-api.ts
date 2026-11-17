@@ -1,26 +1,26 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-if (!API_URL) {
-	console.warn(
-		"NEXT_PUBLIC_API_URL is not set — requests will be relative to the current origin.",
-	);
-}
+import { getApiUrl } from "@/lib/api-url";
 
 function readCookie(name: string): string | null {
-	const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-	return match ? decodeURIComponent(match[2]) : null;
+	const match = document.cookie.match(
+		new RegExp(`(?:^|;\\s*)${name}=([^;]+)`),
+	);
+	return match ? decodeURIComponent(match[1]) : null;
 }
 
 async function ensureCsrfCookie(): Promise<void> {
-	await fetch(`${API_URL ?? ""}/sanctum/csrf-cookie`, {
+	const response = await fetch(getApiUrl("/sanctum/csrf-cookie"), {
 		credentials: "include",
 	});
+
+	if (!response.ok) {
+		throw new Error(`Could not initialize the CSRF cookie (${response.status}).`);
+	}
 }
 
 async function apiRequest<T>(path: string, options?: RequestInit): Promise<T> {
 	const xsrfToken = readCookie("XSRF-TOKEN");
 
-	const url = `${API_URL ?? ""}${path}`;
+	const url = getApiUrl(path);
 
 	const res = await fetch(url, {
 		...options,
@@ -58,7 +58,7 @@ export interface AuthUser {
 export const authApi = {
 	async login(email: string, password: string): Promise<AuthUser> {
 		await ensureCsrfCookie(); // moet vóór elke login/logout call
-		const data = await apiRequest<{ user: AuthUser }>("/login", {
+		const data = await apiRequest<{ user: AuthUser }>("/api/login", {
 			method: "POST",
 			body: JSON.stringify({ email, password }),
 		});
@@ -66,7 +66,8 @@ export const authApi = {
 	},
 
 	async logout(): Promise<void> {
-		await apiRequest<void>("/logout", { method: "POST" });
+		await ensureCsrfCookie();
+		await apiRequest<void>("/api/logout", { method: "POST" });
 	},
 
 	async getCurrentUser(): Promise<AuthUser | null> {

@@ -1,7 +1,7 @@
 "use client";
 
-import { type ReactNode } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, type ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import AdminNavBar from "@/components/AdminNavBar";
 import { useLanguage } from "@/components/LanguageProvider";
@@ -10,10 +10,25 @@ import { pageContent } from "@/lib/i18n";
 function AdminLayoutContent({ children }: { children: ReactNode }) {
 	const { user, isLoading, logout } = useAuth();
 	const router = useRouter();
+	const pathname = usePathname();
 	const { locale } = useLanguage();
 	const content = pageContent.admin.layout;
 
+	useEffect(() => {
+		if (!isLoading && !user && pathname !== "/admin") {
+			router.replace("/admin");
+		}
+	}, [isLoading, pathname, router, user]);
+
 	if (isLoading) {
+		return (
+			<div className="flex min-h-screen items-center justify-center text-sm text-slate-400">
+				{content.loading[locale]}
+			</div>
+		);
+	}
+
+	if (!user && pathname !== "/admin") {
 		return (
 			<div className="flex min-h-screen items-center justify-center text-sm text-slate-400">
 				{content.loading[locale]}

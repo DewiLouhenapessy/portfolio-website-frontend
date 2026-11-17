@@ -97,15 +97,21 @@ This project is still evolving, and some parts are intentionally prototype-level
 
 ### Kanban board
 
-- The kanban page exists as a front-end structure and is visible in the app.
-- It currently uses static, localized mock data instead of a real persisted data source.
-- Drag-and-drop behavior, task persistence, and full board state management are not yet implemented.
+- The admin Kanban board loads its columns and cards from the Laravel backend.
+- Authenticated administrators can create and delete columns and cards.
+- Drag cards between columns with a mouse, or use the move selector on a touch device.
+- Board changes persist in the backend and are shared across browsers.
+- Deleting a column requires confirmation and permanently deletes its cards.
 
 ### Backend integration
 
 - Some backend-coupled features are present, including admin login routes and contact form handling.
-- The admin authentication flow is partially implemented and relies on frontend cookie checks.
-- Full API integration, session management, and production-ready backend syncing still need to be completed and validated.
+- Admin login and Kanban access use Laravel Sanctum session cookies.
+- Set `NEXT_PUBLIC_API_URL=http://localhost:8000` in `.env.local` for local Laravel development.
+- Configure the backend database and frontend CORS origin, then run `php artisan migrate` in `../portfolio-website-backend`. The migrations create and seed the initial Kanban board.
+- Start the Laravel backend with `php artisan serve --port=8000`, then run `npm run dev` in this project.
+- Backend Kanban integration tests can be run with `php artisan test tests/Feature/KanbanApiTest.php`.
+- Make sure Laravel's `FRONTEND_URL` matches the frontend's origin and that the frontend hostname appears in `SANCTUM_STATEFUL_DOMAINS`.
 
 ### Quiz feature
 

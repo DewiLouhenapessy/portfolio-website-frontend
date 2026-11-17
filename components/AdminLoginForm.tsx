@@ -5,15 +5,9 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/LanguageProvider";
+import { useAuth } from "@/context/AuthContext";
 import { pageContent } from "@/lib/i18n";
 import { adminLoginSchema, type AdminLoginData } from "@/lib/validations";
-
-function setAdminAuthCookie(value: "true" | "") {
-	if (typeof document === "undefined") return;
-	document.cookie = `admin-auth=${value}; path=/; SameSite=Lax${
-		value ? "" : "; max-age=0"
-	}`;
-}
 
 function FloatingLabel({
 	label,
@@ -46,6 +40,7 @@ function FloatingLabel({
 
 export default function AdminLoginForm() {
 	const { locale } = useLanguage();
+	const { login } = useAuth();
 	const loginContent = pageContent.admin.login;
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [submitStatus, setSubmitStatus] = useState<"idle" | "error">("idle");
@@ -71,40 +66,7 @@ export default function AdminLoginForm() {
 		setErrorMessage("");
 
 		try {
-			const base = process.env.NEXT_PUBLIC_API_URL ?? "";
-
-			// Ensure CSRF cookie is present (Sanctum)
-			if (typeof window !== "undefined") {
-				await fetch(`${base}/sanctum/csrf-cookie`, { credentials: "include" });
-			}
-
-			// Read XSRF token from cookie if present
-			const xsrfMatch =
-				typeof document !== "undefined" &&
-				document.cookie.match(new RegExp(`(^| )XSRF-TOKEN=([^;]+)`));
-			const xsrfToken = xsrfMatch ? decodeURIComponent(xsrfMatch[2]) : null;
-
-			const response = await fetch(`${base}/api/login`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					...(xsrfToken ? { "X-XSRF-TOKEN": xsrfToken } : {}),
-				},
-				credentials: "include",
-				body: JSON.stringify(data),
-			});
-
-			if (!response.ok) {
-				const result = await response.json().catch(() => ({}));
-				throw new Error(
-					result?.error || loginContent.invalidCredentials[locale],
-				);
-			}
-
-			window.location.assign("/admin");
-
-			// Mark admin as authenticated for client-side check
-			setAdminAuthCookie("true");
+			await login(data.email, data.password);
 		} catch (error) {
 			console.error(loginContent.loginFailed[locale], error);
 			setErrorMessage(

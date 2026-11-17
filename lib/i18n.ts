@@ -288,55 +288,70 @@ export const pageContent = {
 			heading: { nl: "Admin / Kanban", en: "Admin / Kanban" },
 			title: { nl: "Kanbanbord", en: "Kanban board" },
 			description: {
-				nl: "Deze pagina is rechtstreeks toegankelijk vanaf /admin/kanban zonder een tweede inlogscherm.",
-				en: "This page is directly accessible from /admin/kanban without a second login screen.",
+				nl: "Beheer je kolommen en kaarten en sleep kaarten naar een andere kolom.",
+				en: "Manage your columns and cards, and drag cards into another column.",
 			},
-			columns: {
-				todo: { nl: "Te doen", en: "To do" },
-				progress: { nl: "In uitvoering", en: "In progress" },
-				done: { nl: "Afgerond", en: "Done" },
+			loading: { nl: "Kanbanbord laden...", en: "Loading kanban board..." },
+			loadingError: {
+				nl: "Het Kanbanbord kon niet worden geladen.",
+				en: "Could not load the kanban board.",
 			},
-			cards: {
-				nl: [
-					{
-						id: 1,
-						title: "Nieuwe portfolio-content",
-						description: "Projectbeschrijvingen voor de hoofdpagina bijwerken.",
-						column: "todo",
-					},
-					{
-						id: 2,
-						title: "Contactformulier testen",
-						description: "Controleer of de verzending in productie werkt.",
-						column: "progress",
-					},
-					{
-						id: 3,
-						title: "Adminomgeving opleveren",
-						description: "Beheerscherm en kanbanbord zijn beschikbaar.",
-						column: "done",
-					},
-				],
-				en: [
-					{
-						id: 1,
-						title: "New portfolio content",
-						description: "Update project descriptions for the homepage.",
-						column: "todo",
-					},
-					{
-						id: 2,
-						title: "Test contact form",
-						description: "Check that delivery works in production.",
-						column: "progress",
-					},
-					{
-						id: 3,
-						title: "Deliver admin environment",
-						description: "Admin panel and kanban board are available.",
-						column: "done",
-					},
-				],
+			refreshFailed: {
+				nl: "Je wijzigingen zijn opgeslagen, maar het bord kon niet opnieuw worden geladen.",
+				en: "Your changes were saved, but the board could not be refreshed.",
+			},
+			retry: { nl: "Opnieuw proberen", en: "Try again" },
+			addColumn: { nl: "Kolom toevoegen", en: "Add column" },
+			columnPlaceholder: {
+				nl: "Nieuwe kolom",
+				en: "New column",
+			},
+			addCard: { nl: "Kaart toevoegen", en: "Add card" },
+			cardTitlePlaceholder: {
+				nl: "Titel van de kaart",
+				en: "Card title",
+			},
+			cardDescriptionPlaceholder: {
+				nl: "Omschrijving (optioneel)",
+				en: "Description (optional)",
+			},
+			deleteColumn: { nl: "Kolom verwijderen", en: "Delete column" },
+			deleteCard: { nl: "Kaart verwijderen", en: "Delete card" },
+			confirmDeleteColumn: {
+				nl: 'Weet je zeker dat je de kolom "{column}" en alle kaarten erin wilt verwijderen? Dit kan niet ongedaan worden gemaakt.',
+				en: 'Are you sure you want to delete the "{column}" column and all of its cards? This cannot be undone.',
+			},
+			confirmDeleteCard: {
+				nl: 'Weet je zeker dat je de kaart "{card}" wilt verwijderen?',
+				en: 'Are you sure you want to delete the "{card}" card?',
+			},
+			emptyColumn: {
+				nl: "Sleep hier een kaart naartoe of maak een nieuwe kaart.",
+				en: "Drop a card here or create a new card.",
+			},
+			emptyBoard: {
+				nl: "Maak een kolom aan om met je Kanbanbord te beginnen.",
+				en: "Create a column to get started with your kanban board.",
+			},
+			moveCard: {
+				nl: "Verplaats kaart naar een andere kolom",
+				en: "Move card to another column",
+			},
+			columnFormLabel: {
+				nl: "Naam nieuwe kolom",
+				en: "New column name",
+			},
+			cardTitleLabel: {
+				nl: "Kaarttitel",
+				en: "Card title",
+			},
+			cardDescriptionLabel: {
+				nl: "Kaartomschrijving",
+				en: "Card description",
+			},
+			changesFailed: {
+				nl: "Je wijzigingen konden niet worden opgeslagen.",
+				en: "Your changes could not be saved.",
 			},
 		},
 	},

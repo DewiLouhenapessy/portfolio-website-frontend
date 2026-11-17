@@ -3,6 +3,7 @@
 import {
 	createContext,
 	useContext,
+	useEffect,
 	useState,
 	useCallback,
 	type ReactNode,
@@ -20,7 +21,27 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
 	const [user, setUser] = useState<AuthUser | null>(null);
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
+
+	useEffect(() => {
+		let isActive = true;
+
+		authApi
+			.getCurrentUser()
+			.then((currentUser) => {
+				if (isActive) setUser(currentUser);
+			})
+			.catch((error: unknown) => {
+				console.error("Failed to restore the admin session", error);
+			})
+			.finally(() => {
+				if (isActive) setIsLoading(false);
+			});
+
+		return () => {
+			isActive = false;
+		};
+	}, []);
 
 	const login = useCallback(async (email: string, password: string) => {
 		setIsLoading(true);

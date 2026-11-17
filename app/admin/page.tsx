@@ -2,32 +2,26 @@
 
 import AdminLoginForm from "@/components/AdminLoginForm";
 import { useLanguage } from "@/components/LanguageProvider";
+import { useAuth } from "@/context/AuthContext";
 import { pageContent } from "@/lib/i18n";
-
-function getAdminAuthCookieValue() {
-	if (typeof document === "undefined") return null;
-
-	const cookies = document.cookie.split(";");
-	const authCookie = cookies.find((cookie) =>
-		cookie.trim().startsWith("admin-auth="),
-	);
-
-	if (!authCookie) return null;
-
-	return authCookie.split("=")[1]?.trim() ?? null;
-}
-
-function hasValidAdminAuthCookie() {
-	const value = getAdminAuthCookieValue();
-	return value === "true";
-}
 
 export default function AdminPage() {
 	const { locale } = useLanguage();
+	const { user, isLoading } = useAuth();
 	const content = pageContent.admin.page;
-	const isAuthenticated = hasValidAdminAuthCookie();
 
-	if (!isAuthenticated) {
+	if (isLoading) {
+		return (
+			<div
+				className="flex min-h-[50vh] items-center justify-center text-sm text-slate-400"
+				role="status"
+			>
+				{content.loading[locale]}
+			</div>
+		);
+	}
+
+	if (!user) {
 		return (
 			<div className="bg-background px-6 py-24 text-foreground">
 				<div className="mx-auto flex max-w-2xl flex-col gap-6 rounded-2xl border border-border/70 bg-card/70 p-8 shadow-sm backdrop-blur-sm">
