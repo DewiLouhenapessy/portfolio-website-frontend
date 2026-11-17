@@ -16,9 +16,9 @@ export default function Projects() {
 				<h2>{content.description[locale]}</h2>
 			</div>
 			<section aria-labelledby="featured-projects-heading">
-				<h2 id="featured-projects-heading">
+				<h3 id="featured-projects-heading" className="italic my-4">
 					{content.featuredHeading[locale]}
-				</h2>
+				</h3>
 				<div className="grid gap-4">
 					{content.featured[locale].map((project) => (
 						<ProjectCard key={project.name} project={project} locale={locale} />
@@ -26,7 +26,9 @@ export default function Projects() {
 				</div>
 			</section>
 			<section className="mt-24" aria-labelledby="other-projects-heading">
-				<h2 id="other-projects-heading">{content.project[locale]}</h2>
+				<h3 id="other-projects-heading" className="italic my-4">
+					{content.project[locale]}
+				</h3>
 				<div className="md:flex md:gap-8">
 					<div className="md:w-full">
 						<ul className="list-decimal list-inside pl-4">

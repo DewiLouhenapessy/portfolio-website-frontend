@@ -93,7 +93,6 @@ export const pageContent = {
 				{
 					name: "VacAnalyser",
 					subtitle: "RAG-tool voor vacature-matching",
-					status: "In doorontwikkeling",
 					description:
 						"Python-tool die je cv en een vacaturetekst vergelijkt en een match-score geeft, gebouwd met de Mistral API, Pydantic en embeddings. Je ziet direct hoe goed en waarom een vacature bij je profiel past.",
 					highlights: [
@@ -160,7 +159,6 @@ export const pageContent = {
 				{
 					name: "VacAnalyser",
 					subtitle: "RAG tool for job matching",
-					status: "In further development",
 					description:
 						"A Python tool that compares your CV with a job description and provides a match score, built with the Mistral API, Pydantic, and embeddings. It immediately shows how well—and why—a role matches your profile.",
 					highlights: [
